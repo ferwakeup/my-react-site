@@ -21,30 +21,24 @@ import { motion, AnimatePresence } from 'framer-motion';
  * Includes: 
  * - Multi-stage PreLoader (Perfectly Balanced Timing)
  * - Animated Word Icons (Spinning Gears for Builder)
- * - Restored Corporate Heritage (Intel, Motorola, Nokia)
- * - State-based Routing (Home, Privacy, Terms)
- * - Mobile Safari Optimized Response
+ * - Official Corporate Logos (Intel, Motorola, Nokia)
+ * - Overlapping Circle Heritage Design
+ * - Mobile Safari Optimized Typography
  * - Updated Hero Image Path to /hero.png
  */
 
-// --- BRAND LOGOS (SVG) ---
+// --- BRAND LOGOS (IMAGE BASED) ---
 
 const IntelLogo = () => (
-  <svg className="w-10 md:w-12 h-auto fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.112 18.002H2.888L0 20.352h24l-2.888-2.35zm-2.434-12.82c-.848 0-1.53.682-1.53 1.53 0 .847.682 1.53 1.53 1.53.847 0 1.53-.683 1.53-1.53a1.532 1.532 0 00-1.53-1.53zm-.08 3.515h-.452c-1.28 0-2.32 1.04-2.32 2.321v5.043h1.071v-5.043c0-.69.56-1.25 1.25-1.25h.451V8.697zm-3.324 2.321c0-1.28-1.041-2.32-2.32-2.32-1.28 0-2.32 1.04-2.32 2.32v5.043h1.071v-5.043c0-.69.56-1.25 1.25-1.25s1.25.56 1.25 1.25v5.043h1.071l-.002-5.043zm-5.715-4.642V8.697h.804v1.272H8.755v5.093h1.071v-5.043h.804v6.315H8.755v-1.272h-.804V8.697h-.804V7.425h.804V6.376h1.071v1.049h.537zm-3.044 2.321c-1.28 0-2.32 1.04-2.32 2.32v5.043h1.071v-5.043c0-.69.56-1.25 1.25-1.25.69 0 1.25.56 1.25 1.25v5.043h1.071v-5.043c0-1.28-1.04-2.321-2.321-2.321zM3.463 8.697V7.425h1.071v1.272H3.463zm0 6.365V10.02h1.071v5.043H3.463z"/>
-  </svg>
+  <img src="/Intel_logo_(2006-2020).svg" alt="Intel" className="w-full h-auto grayscale invert brightness-200" />
 );
 
 const MotorolaLogo = () => (
-  <svg className="w-6 h-6 md:w-8 md:h-8 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 21.6c-5.302 0-9.6-4.298-9.6-9.6S6.698 2.4 12 2.4s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6zm1.905-13.43c-.477-.042-1.393.125-1.894.614l-2.016 3.024-2.016-3.024c-.5-.49-1.417-.656-1.894-.614-.72.062-1.3.643-1.3 1.37v6.626h1.636V9.16l2.164 3.246c.3.451.92.451 1.22 0l2.164-3.246v7.006h1.636V9.54c0-.727-.58-1.308-1.3-1.37z"/>
-  </svg>
+  <img src="/motorola-6-logo-png-transparent.png" alt="Motorola" className="w-full h-auto grayscale invert brightness-200" />
 );
 
 const NokiaLogo = () => (
-  <svg className="w-12 md:w-16 h-auto fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17.848 15.548l-5.836-7.854v7.854H9.554V8.452h2.24l5.836 7.854V8.452h2.458v7.096h-2.24zm-11.41 0H4v-7.096h2.458l5.837 7.854V8.452h2.24v7.096h-2.24l-5.837-7.854v7.854zM24 15.548h-2.61l-3.256-4.38-3.256 4.38H12.27l4.893-6.586-4.893-6.586h2.608l3.257 4.38 3.256-4.38H24l-4.893 6.586L24 15.548z"/>
-  </svg>
+  <img src="/Nokia_2023.png" alt="Nokia" className="w-full h-auto grayscale invert brightness-200" />
 );
 
 const XLogo = ({ size = 20, className = "" }) => (
@@ -91,7 +85,6 @@ const PreLoader = ({ finishLoading }) => {
   ];
 
   useEffect(() => {
-    // Total duration for the count: 4.5 seconds
     const totalDuration = 4500; 
     const interval = totalDuration / 100;
     
@@ -103,7 +96,6 @@ const PreLoader = ({ finishLoading }) => {
       });
     }, interval);
 
-    // Precise Timing: 1.5 seconds per word
     const t1 = setTimeout(() => setWordIndex(1), 1500);
     const t2 = setTimeout(() => setWordIndex(2), 3000);
     const tFinish = setTimeout(() => finishLoading(), 4800);
@@ -150,7 +142,6 @@ const PreLoader = ({ finishLoading }) => {
             </motion.div>
           </AnimatePresence>
         </div>
-        
         <div className="flex items-end justify-between w-full border-t border-zinc-800 pt-8">
            <span className="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.3em]">System Initialization</span>
            <span className="text-6xl sm:text-8xl md:text-9xl font-light text-white tracking-tighter tabular-nums leading-none">
@@ -287,7 +278,7 @@ const App = () => {
       default:
         return (
           <>
-            {/* HERO SECTION - Safely padded for header overlap fix */}
+            {/* HERO SECTION - Optimized for smallest screens and shrunken width */}
             <section className="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-44 md:pt-40">
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <div 
@@ -302,7 +293,7 @@ const App = () => {
                 />
               </div>
 
-              <div className="relative z-10 max-w-7xl mx-auto w-full">
+              <div className="relative z-10 max-w-5xl mx-auto w-full">
                 <div className="max-w-4xl">
                   <motion.div 
                     initial={{ y: 20, opacity: 0 }}
@@ -321,7 +312,7 @@ const App = () => {
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 1, delay: 0.9 }}
-                    className="text-4xl sm:text-6xl md:text-8xl lg:text-[9.5rem] font-light text-white leading-[1.1] md:leading-[0.9] tracking-tighter mb-6 md:mb-10 drop-shadow-2xl"
+                    className="text-3xl sm:text-6xl md:text-8xl lg:text-[9.5rem] font-light text-white leading-[1.1] md:leading-[0.9] tracking-tighter mb-6 md:mb-10 drop-shadow-2xl"
                   >
                     Building <br />
                     <span className="text-zinc-600 italic block mt-1 md:mt-2">new ventures.</span>
@@ -334,7 +325,7 @@ const App = () => {
                       transition={{ duration: 1, delay: 1.3 }}
                       className="max-w-md"
                     >
-                      <p className="text-[15px] md:text-xl text-zinc-400 font-light leading-relaxed mb-6 md:mb-10">
+                      <p className="text-[14px] md:text-xl text-zinc-400 font-light leading-relaxed mb-6 md:mb-10">
                         I bridge the gap between corporate infrastructure and founder grit. Scaling technology with the discipline of Big Tech and the hunger of a startup.
                       </p>
                       <div className="flex flex-wrap gap-4 md:gap-6 items-center">
@@ -352,17 +343,24 @@ const App = () => {
                       </div>
                     </motion.div>
                     
+                    {/* CORPORATE HERITAGE SECTION - RESTORED CIRCLE DESIGN WITH PROVIDED LOGOS */}
                     <motion.div 
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 1, delay: 1.6 }}
-                      className="flex flex-col items-start md:items-end mt-8 md:mt-0"
+                      className="flex flex-col items-start md:items-end mt-12 md:mt-0"
                     >
-                       <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-4 md:mb-6">Corporate Heritage</div>
-                       <div className="flex items-center gap-6 md:gap-8 text-white grayscale brightness-125 opacity-40 hover:opacity-100 transition-all duration-500">
-                          <div title="Intel Corporation"><IntelLogo /></div>
-                          <div title="Motorola"><MotorolaLogo /></div>
-                          <div title="Nokia"><NokiaLogo /></div>
+                       <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-6">Corporate Heritage</div>
+                       <div className="flex -space-x-4 grayscale brightness-125 opacity-50 hover:opacity-100 transition-all duration-700">
+                          <div title="Intel Corporation" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl">
+                             <IntelLogo />
+                          </div>
+                          <div title="Motorola" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-4 shadow-2xl">
+                             <MotorolaLogo />
+                          </div>
+                          <div title="Nokia" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl">
+                             <NokiaLogo />
+                          </div>
                        </div>
                     </motion.div>
                   </div>
@@ -371,29 +369,29 @@ const App = () => {
             </section>
 
             {/* PHILOSOPHY SECTION */}
-            <section id="about" className="py-12 md:py-20 px-6 md:px-12 max-w-7xl mx-auto border-t border-zinc-900">
-              <SectionHeading number="01" title="The Bridge Between Two Worlds" subtitle="Corporations often fail at ventures because they struggle to balance structure with survival." />
+            <section id="about" className="py-12 md:py-20 px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900">
+              <SectionHeading number="01" title="The Bridge Between Two Worlds" subtitle="Corporations often fail at ventures because they struggle to balance structure with existential survival." />
               <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 mt-8 md:mt-16">
                 <div className="space-y-3 group">
                   <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Cpu className="text-white" size={18} /></div>
                   <h4 className="text-lg md:text-xl font-medium text-white">Big Tech Precision</h4>
-                  <p className="text-[15px] md:text-base text-zinc-500 font-light leading-relaxed">Having navigated Intel, Motorola, and Nokia, I understand high-weight governance, P&L reporting, and global R&D cadences.</p>
+                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">Having navigated Intel, Motorola, and Nokia, I understand high-weight governance, P&L reporting, and global R&D cadences.</p>
                 </div>
                 <div className="space-y-3 group">
                   <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Zap className="text-white" size={18} /></div>
                   <h4 className="text-lg md:text-xl font-medium text-white">Founder Grit</h4>
-                  <p className="text-[15px] md:text-base text-zinc-500 font-light leading-relaxed">I've ground from seed to scale, "eating glass" to prove UVPs in markets that didn't yet understand the solution.</p>
+                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I've ground from seed to scale, "eating glass" to prove UVPs in markets that didn't yet understand the solution.</p>
                 </div>
                 <div className="space-y-3 group sm:col-span-2 md:col-span-1">
                   <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Shield className="text-white" size={18} /></div>
                   <h4 className="text-lg md:text-xl font-medium text-white">Strategic Autonomy</h4>
-                  <p className="text-[15px] md:text-base text-zinc-500 font-light leading-relaxed">I help companies launch startups with independence in strategy and operations, while leveraging parent-company assets.</p>
+                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I help companies launch startups with independence in strategy and operations, while leveraging parent-company assets.</p>
                 </div>
               </div>
             </section>
 
             {/* ACTIVE VENTURES SECTION */}
-            <section id="ventures" className="py-12 md:py-20 px-6 md:px-12 max-w-7xl mx-auto">
+            <section id="ventures" className="py-12 md:py-20 px-6 md:px-12 max-w-5xl mx-auto">
               <SectionHeading number="02" title="Active Leadership" subtitle="Spearheading strategic data hub deployment and agentifying the modern venture process." />
               <div className="grid md:grid-cols-2 gap-4 md:gap-8">
                 <VentureCard LogoComponent={NexmoLogo} role="Managing Director" desc="Strategic data infrastructure venture backed by UC3M." link="https://www.nexmo-datahub.eu/" isCurrent={true} />
@@ -402,7 +400,7 @@ const App = () => {
             </section>
 
             {/* TRACK RECORD SECTION */}
-            <section className="py-12 md:py-20 border-t border-zinc-900 px-6 md:px-12 max-w-7xl mx-auto">
+            <section className="py-12 md:py-20 border-t border-zinc-900 px-6 md:px-12 max-w-5xl mx-auto">
               <SectionHeading number="03" title="Track Record" subtitle="Ventures built, products scaled, and strategic ecosystems developed." />
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4 items-center justify-center">
                 {[
@@ -420,7 +418,7 @@ const App = () => {
             </section>
 
             {/* CONTACT SECTION */}
-            <section id="contact" className="py-12 md:py-20 mb-6 md:mb-12 px-6 md:px-12 max-w-7xl mx-auto">
+            <section id="contact" className="py-12 md:py-20 mb-6 md:mb-12 px-6 md:px-12 max-w-5xl mx-auto">
               <div className="bg-zinc-900/30 rounded-[1.5rem] md:rounded-[3rem] p-6 md:p-16 border border-zinc-900 shadow-2xl">
                 <div className="max-w-4xl mx-auto">
                   <div className="text-center mb-8 md:mb-16">
@@ -430,17 +428,17 @@ const App = () => {
                   <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
                     <div className="space-y-8 md:space-y-12">
                       <div className="space-y-4 md:space-y-6">
-                        <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-[15px] md:text-xl text-white hover:text-zinc-400 transition-colors">
+                        <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-[14px] md:text-xl text-white hover:text-zinc-400 transition-colors">
                           <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Mail size={16} className="text-zinc-400" /></div>
                           info@fernando-martin.eu
                         </a>
-                        <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-[15px] md:text-xl text-white hover:text-zinc-400 transition-colors text-left">
+                        <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-[14px] md:text-xl text-white hover:text-zinc-400 transition-colors text-left">
                           <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Calendar size={16} className="text-zinc-400" /></div>
                           Book a call directly
                         </button>
                       </div>
                       <div className="p-6 md:p-10 bg-zinc-950/50 border border-zinc-800 rounded-[1.5rem] md:rounded-[2.5rem] shadow-inner">
-                        <p className="text-zinc-400 italic font-light text-[15px] md:text-lg">"Build an operating system that survives the corporate immune system."</p>
+                        <p className="text-zinc-400 italic font-light text-[14px] md:text-lg">"Build an operating system that survives the corporate immune system."</p>
                       </div>
                     </div>
                     <form onSubmit={handleFormSubmit} className="space-y-3 md:space-y-4">
@@ -500,10 +498,10 @@ const App = () => {
           </main>
 
           {/* FOOTER */}
-          <footer className="max-w-7xl mx-auto px-6 md:px-12 py-8 md:py-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-600 text-center">
-            <div className="flex flex-col md:items-start gap-2">
+          <footer className="max-w-5xl mx-auto px-6 md:px-12 py-8 md:py-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-600 text-center">
+            <div className="flex flex-col md:items-start gap-2 text-left">
               <p>© 2025 Fernando Martín. Madrid • Munich • International</p>
-              <div className="flex gap-4 justify-center">
+              <div className="flex gap-4">
                 <button onClick={() => setView('privacy')} className="hover:text-white transition-colors underline underline-offset-4 decoration-zinc-800">Privacy Policy</button>
                 <button onClick={() => setView('terms')} className="hover:text-white transition-colors underline underline-offset-4 decoration-zinc-800">Terms of Service</button>
               </div>
