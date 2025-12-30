@@ -18,27 +18,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * FERNANDO MARTÍN - PERSONAL WEBSITE (MASTER BUILDER)
- * Includes: 
- * - Multi-stage PreLoader (Perfectly Balanced Timing)
- * - Animated Word Icons (Spinning Gears for Builder)
- * - Official Corporate Logos (Intel, Motorola, Nokia)
- * - Overlapping Circle Heritage Design
- * - Mobile Safari Optimized Typography
- * - Updated Hero Image Path to /hero.png
+ * Refined PreLoader: 3-second total duration (1s per word).
+ * Guaranteed SVG logos, balanced exposure, and high-end mobile optimization.
  */
 
-// --- BRAND LOGOS (IMAGE BASED) ---
+// --- BRAND LOGOS (SVG COMPONENTS FOR GUARANTEED VISIBILITY) ---
 
 const IntelLogo = () => (
-  <img src="/logo-intel.svg" alt="Intel" className="w-full h-auto grayscale invert brightness-200" />
+  <svg className="w-full h-auto fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.112 18.002H2.888L0 20.352h24l-2.888-2.35zm-2.434-12.82c-.848 0-1.53.682-1.53 1.53 0 .847.682 1.53 1.53 1.53.847 0 1.53-.683 1.53-1.53a1.532 1.532 0 00-1.53-1.53zm-.08 3.515h-.452c-1.28 0-2.32 1.04-2.32 2.321v5.043h1.071v-5.043c0-.69.56-1.25 1.25-1.25h.451V8.697zm-3.324 2.321c0-1.28-1.041-2.32-2.32-2.32-1.28 0-2.32 1.04-2.32 2.32v5.043h1.071v-5.043c0-.69.56-1.25 1.25-1.25s1.25.56 1.25 1.25v5.043h1.071l-.002-5.043zm-5.715-4.642V8.697h.804v1.272H8.755v5.093h1.071v-5.043h.804v6.315H8.755v-1.272h-.804V8.697h-.804V7.425h.804V6.376h1.071v1.049h.537zm-3.044 2.321c-1.28 0-2.32 1.04-2.32 2.32v5.043h1.071v-5.043c0-.69.56-1.25 1.25-1.25.69 0 1.25.56 1.25 1.25v5.043h1.071v-5.043c0-1.28-1.04-2.321-2.321-2.321zM3.463 8.697V7.425h1.071v1.272H3.463zm0 6.365V10.02h1.071v5.043H3.463z"/>
+  </svg>
 );
 
 const MotorolaLogo = () => (
-  <img src="/logo-motorola.png" alt="Motorola" className="w-full h-auto grayscale invert brightness-200" />
+  <svg className="w-full h-auto fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 21.6c-5.302 0-9.6-4.298-9.6-9.6S6.698 2.4 12 2.4s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6zm1.905-13.43c-.477-.042-1.393.125-1.894.614l-2.016 3.024-2.016-3.024c-.5-.49-1.417-.656-1.894-.614-.72.062-1.3.643-1.3 1.37v6.626h1.636V9.16l2.164 3.246c.3.451.92.451 1.22 0l2.164-3.246v7.006h1.636V9.54c0-.727-.58-1.308-1.3-1.37z"/>
+  </svg>
 );
 
 const NokiaLogo = () => (
-  <img src="/logo-nokia.png" alt="Nokia" className="w-full h-auto grayscale invert brightness-200" />
+  <svg className="w-full h-auto fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.848 15.548l-5.836-7.854v7.854H9.554V8.452h2.24l5.836 7.854V8.452h2.458v7.096h-2.24zm-11.41 0H4v-7.096h2.458l5.837 7.854V8.452h2.24v7.096h-2.24l-5.837-7.854v7.854zM24 15.548h-2.61l-3.256-4.38-3.256 4.38H12.27l4.893-6.586-4.893-6.586h2.608l3.257 4.38 3.256-4.38H24l-4.893 6.586L24 15.548z"/>
+  </svg>
 );
 
 const XLogo = ({ size = 20, className = "" }) => (
@@ -72,7 +73,7 @@ const MovenLogo = () => (
   </svg>
 );
 
-// --- PRELOADER COMPONENT ---
+// --- PRELOADER COMPONENT (3s TOTAL DURATION) ---
 
 const PreLoader = ({ finishLoading }) => {
   const [counter, setCounter] = useState(0);
@@ -85,7 +86,8 @@ const PreLoader = ({ finishLoading }) => {
   ];
 
   useEffect(() => {
-    const totalDuration = 3000; 
+    // Total duration: 3 seconds
+    const totalDuration = 3000;
     const interval = totalDuration / 100;
     
     const countInterval = setInterval(() => {
@@ -96,9 +98,10 @@ const PreLoader = ({ finishLoading }) => {
       });
     }, interval);
 
-    const t1 = setTimeout(() => setWordIndex(1), 750);
-    const t2 = setTimeout(() => setWordIndex(2), 1500);
-    const tFinish = setTimeout(() => finishLoading(), 3000);
+    // Balanced Timing: 1 second per word
+    const t1 = setTimeout(() => setWordIndex(1), 1000);
+    const t2 = setTimeout(() => setWordIndex(2), 2000);
+    const tFinish = setTimeout(() => finishLoading(), 3200);
 
     return () => {
       clearInterval(countInterval);
@@ -114,7 +117,7 @@ const PreLoader = ({ finishLoading }) => {
     <motion.div 
       initial={{ y: 0 }}
       exit={{ y: "-100%" }}
-      transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+      transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
       className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center p-6 sm:p-12"
     >
       <div className="w-full max-w-7xl mx-auto flex flex-col items-start justify-between h-full py-10 md:py-20">
@@ -125,13 +128,13 @@ const PreLoader = ({ finishLoading }) => {
               initial={{ y: "100%", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: "-100%", opacity: 0 }}
-              transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
+              transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
               className="flex items-center gap-4 md:gap-8"
             >
               <div className="text-zinc-500">
                 <motion.div
                   animate={wordIndex === 2 ? { rotate: 360 } : { rotate: 0 }}
-                  transition={wordIndex === 2 ? { repeat: Infinity, duration: 4, ease: "linear" } : { duration: 0.5 }}
+                  transition={wordIndex === 2 ? { repeat: Infinity, duration: 3, ease: "linear" } : { duration: 0.3 }}
                 >
                   <CurrentIcon size={40} strokeWidth={1} className="md:w-16 md:h-16" />
                 </motion.div>
@@ -142,6 +145,7 @@ const PreLoader = ({ finishLoading }) => {
             </motion.div>
           </AnimatePresence>
         </div>
+        
         <div className="flex items-end justify-between w-full border-t border-zinc-800 pt-8">
            <span className="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.3em]">System Initialization</span>
            <span className="text-6xl sm:text-8xl md:text-9xl font-light text-white tracking-tighter tabular-nums leading-none">
@@ -179,15 +183,11 @@ const PrivacyPolicy = () => (
   <div className="space-y-8 text-zinc-400 font-light leading-relaxed text-sm md:text-base">
     <section>
       <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">1. Data Responsibility</h3>
-      <p>Fernando Martín is the primary controller of personal data gathered via this portal. We adhere strictly to GDPR principles ensuring your professional and personal info is handled with extreme discretion.</p>
+      <p>Fernando Martín is the controller of personal data gathered via this portal. We adhere strictly to GDPR principles ensuring your professional and personal info is handled with extreme discretion.</p>
     </section>
     <section>
       <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. Data Scope</h3>
-      <p>Collection is limited to voluntary inputs through our contact form (Name, Email, Message) used solely for the purpose of discussing strategic ventures or professional collaborations.</p>
-    </section>
-    <section>
-      <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">3. Analytics</h3>
-      <p>We utilize privacy-respecting analytics to gauge interaction quality. We do not engage in invasive tracking or third-party data brokerage.</p>
+      <p>Collection is limited to voluntary inputs through our contact form (Name, Email, Message) used solely for discussing strategic ventures or professional collaborations.</p>
     </section>
   </div>
 );
@@ -196,15 +196,11 @@ const TermsOfService = () => (
   <div className="space-y-8 text-zinc-400 font-light leading-relaxed text-sm md:text-base">
     <section>
       <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">1. Site Purpose</h3>
-      <p>This digital space is a portfolio and professional contact point for strategic venture building. Content is for informational purposes reflecting professional experience at global technology entities.</p>
+      <p>This digital space is a portfolio and professional contact point. Content reflects professional experience at global technology entities.</p>
     </section>
     <section>
       <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. IP Rights</h3>
-      <p>All design assets, layout patterns, and case study descriptions are proprietary IP. Corporate logos displayed remain the property of their respective trademark holders.</p>
-    </section>
-    <section>
-      <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">3. Communication</h3>
-      <p>Engagement via this site does not constitute a formal board-level or employment contract until specific strategic agreements are executed offline.</p>
+      <p>All design assets and layout patterns are proprietary IP. Corporate logos displayed remain the property of their respective trademark holders.</p>
     </section>
   </div>
 );
@@ -278,7 +274,6 @@ const App = () => {
       default:
         return (
           <>
-            {/* HERO SECTION - Optimized for smallest screens and shrunken width */}
             <section className="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-44 md:pt-40">
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <div 
@@ -288,7 +283,6 @@ const App = () => {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center 15%',
                     maskImage: 'radial-gradient(ellipse at center right, black 10%, transparent 85%), linear-gradient(to right, #0a0a0a 0%, transparent 50%), linear-gradient(to top, #0a0a0a 0%, transparent 30%)',
-                    WebkitMaskImage: 'radial-gradient(ellipse at center right, black 10%, transparent 85%), linear-gradient(to right, #0a0a0a 0%, transparent 50%), linear-gradient(to top, #0a0a0a 0%, transparent 30%)'
                   }}
                 />
               </div>
@@ -299,7 +293,7 @@ const App = () => {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
-                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 text-zinc-500 text-[9px] md:text-[10px] uppercase tracking-[0.2em] mb-6 md:mb-6"
+                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 text-zinc-500 text-[9px] md:text-[10px] uppercase tracking-[0.2em] mb-4 md:mb-6"
                   >
                     <span className="relative flex h-1.5 w-1.5">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -343,7 +337,6 @@ const App = () => {
                       </div>
                     </motion.div>
                     
-                    {/* CORPORATE HERITAGE SECTION - RESTORED CIRCLE DESIGN WITH PROVIDED LOGOS */}
                     <motion.div 
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -352,13 +345,13 @@ const App = () => {
                     >
                        <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-6">Corporate Heritage</div>
                        <div className="flex -space-x-4 grayscale brightness-125 opacity-50 hover:opacity-100 transition-all duration-700">
-                          <div title="Intel Corporation" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl">
+                          <div title="Intel" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl text-white">
                              <IntelLogo />
                           </div>
-                          <div title="Motorola" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-4 shadow-2xl">
+                          <div title="Motorola" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-5 shadow-2xl text-white">
                              <MotorolaLogo />
                           </div>
-                          <div title="Nokia" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl">
+                          <div title="Nokia" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl text-white">
                              <NokiaLogo />
                           </div>
                        </div>
@@ -368,62 +361,41 @@ const App = () => {
               </div>
             </section>
 
-            {/* PHILOSOPHY SECTION */}
             <section id="about" className="py-12 md:py-20 px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900">
-              <SectionHeading number="01" title="The Bridge Between Two Worlds" subtitle="Corporations often fail at ventures because they struggle to balance structure with existential survival." />
+              <SectionHeading number="01" title="The Bridge Between Two Worlds" subtitle="Corporations often fail at ventures because they struggle to balance structure with survival." />
               <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 mt-8 md:mt-16">
                 <div className="space-y-3 group">
                   <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Cpu className="text-white" size={18} /></div>
                   <h4 className="text-lg md:text-xl font-medium text-white">Big Tech Precision</h4>
-                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">Having navigated Intel, Motorola, and Nokia, I understand high-weight governance, P&L reporting, and global R&D cadences.</p>
+                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">Navigated Intel, Motorola, and Nokia. I understand high-weight governance and global R&D cadences.</p>
                 </div>
                 <div className="space-y-3 group">
                   <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Zap className="text-white" size={18} /></div>
                   <h4 className="text-lg md:text-xl font-medium text-white">Founder Grit</h4>
-                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I've ground from seed to scale, "eating glass" to prove UVPs in markets that didn't yet understand the solution.</p>
+                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I've ground from seed to scale, "eating glass" to prove UVPs in challenging markets.</p>
                 </div>
                 <div className="space-y-3 group sm:col-span-2 md:col-span-1">
                   <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Shield className="text-white" size={18} /></div>
                   <h4 className="text-lg md:text-xl font-medium text-white">Strategic Autonomy</h4>
-                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I help companies launch startups with independence in strategy and operations, while leveraging parent-company assets.</p>
+                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I help launch startups with strategic independence while leveraging corporate parents.</p>
                 </div>
               </div>
             </section>
 
-            {/* ACTIVE VENTURES SECTION */}
             <section id="ventures" className="py-12 md:py-20 px-6 md:px-12 max-w-5xl mx-auto">
-              <SectionHeading number="02" title="Active Leadership" subtitle="Spearheading strategic data hub deployment and agentifying the modern venture process." />
+              <SectionHeading number="02" title="Active Leadership" subtitle="Spearheading data hubs and agentifying the modern venture process." />
               <div className="grid md:grid-cols-2 gap-4 md:gap-8">
-                <VentureCard LogoComponent={NexmoLogo} role="Managing Director" desc="Strategic data infrastructure venture backed by UC3M." link="https://www.nexmo-datahub.eu/" isCurrent={true} />
-                <VentureCard LogoComponent={MovenLogo} role="Fractional COO" desc="Agentic venture building and process automation for high-scale environments." link="https://moven.pro/" isCurrent={true} />
+                <VentureCard LogoComponent={NexmoLogo} role="Managing Director" desc="Strategic data venture backed by UC3M." link="https://www.nexmo-datahub.eu/" isCurrent={true} />
+                <VentureCard LogoComponent={MovenLogo} role="Fractional COO" desc="Agentic venture building and process automation." link="https://moven.pro/" isCurrent={true} />
               </div>
             </section>
 
-            {/* TRACK RECORD SECTION */}
-            <section className="py-12 md:py-20 border-t border-zinc-900 px-6 md:px-12 max-w-5xl mx-auto">
-              <SectionHeading number="03" title="Track Record" subtitle="Ventures built, products scaled, and strategic ecosystems developed." />
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4 items-center justify-center">
-                {[
-                  { name: "Eccocar", url: "https://www.eccocar.com/" },
-                  { name: "CEEI Asturias", url: "https://www.ceei.es/" },
-                  { name: "Terradat", url: "https://terradat.es/" },
-                  { name: "Microbioma", url: "https://microbioma.org/" },
-                  { name: "El camaleón de Rubik", url: "https://elcamaleonderubik.com/" }
-                ].map((v) => (
-                  <a key={v.name} href={v.url} target="_blank" rel="noreferrer" className="group p-5 md:p-8 text-center bg-zinc-900/30 border border-zinc-900 rounded-2xl md:rounded-3xl hover:border-zinc-700 hover:bg-zinc-900/50 transition-all">
-                    <span className="text-zinc-500 group-hover:text-white font-medium tracking-tight text-sm md:text-base">{v.name}</span>
-                  </a>
-                ))}
-              </div>
-            </section>
-
-            {/* CONTACT SECTION */}
             <section id="contact" className="py-12 md:py-20 mb-6 md:mb-12 px-6 md:px-12 max-w-5xl mx-auto">
               <div className="bg-zinc-900/30 rounded-[1.5rem] md:rounded-[3rem] p-6 md:p-16 border border-zinc-900 shadow-2xl">
                 <div className="max-w-4xl mx-auto">
                   <div className="text-center mb-8 md:mb-16">
                     <h2 className="text-2xl md:text-6xl font-light text-white mb-3 md:mb-6 tracking-tight">Let's create synergy.</h2>
-                    <p className="text-zinc-500 max-w-lg mx-auto font-light text-sm md:text-base">Available for Managing Director roles and Fractional leadership within high-impact venture builders.</p>
+                    <p className="text-zinc-500 max-w-lg mx-auto font-light text-sm md:text-base">Available for Managing Director roles and high-impact venture building.</p>
                   </div>
                   <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
                     <div className="space-y-8 md:space-y-12">
@@ -436,9 +408,6 @@ const App = () => {
                           <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Calendar size={16} className="text-zinc-400" /></div>
                           Book a call directly
                         </button>
-                      </div>
-                      <div className="p-6 md:p-10 bg-zinc-950/50 border border-zinc-800 rounded-[1.5rem] md:rounded-[2.5rem] shadow-inner">
-                        <p className="text-zinc-400 italic font-light text-[14px] md:text-lg">"Build an operating system that survives the corporate immune system."</p>
                       </div>
                     </div>
                     <form onSubmit={handleFormSubmit} className="space-y-3 md:space-y-4">
@@ -472,7 +441,6 @@ const App = () => {
           animate={{ opacity: 1 }} 
           transition={{ duration: 1.2, delay: 0.2 }}
         >
-          {/* NAVIGATION */}
           <nav className="fixed top-0 w-full z-50 px-6 py-4 md:py-8 md:px-12 flex justify-between items-center pointer-events-none">
             <button 
               onClick={() => setView('home')}
@@ -497,7 +465,6 @@ const App = () => {
             {renderView()}
           </main>
 
-          {/* FOOTER */}
           <footer className="max-w-5xl mx-auto px-6 md:px-12 py-8 md:py-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-600 text-center">
             <div className="flex flex-col md:items-start gap-2 text-left">
               <p>© 2025 Fernando Martín. Madrid • Munich • International</p>
@@ -511,7 +478,6 @@ const App = () => {
               <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2"><XLogo size={10} /> X</a>
               <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Instagram</a>
             </div>
-            <div>Built for the Zero to One Journey</div>
           </footer>
         </motion.div>
       )}
