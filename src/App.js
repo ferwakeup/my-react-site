@@ -59,7 +59,7 @@ const NexmoLogo = () => (
 );
 
 const MovenLogo = () => (
-  <img src="/logo-moven.png" alt="MOVEN" className="h-6 md:h-8 w-auto grayscale invert brightness-200 mb-2 md:mb-4 object-contain" />
+  <img src="/logo-moven.png" alt="MOVEN" className="h-6 md:h-8 w-auto brightness-200 mb-2 md:mb-4 object-contain" />
 );
 
 // --- PRELOADER COMPONENT ---
