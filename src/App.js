@@ -9,18 +9,16 @@ import {
   Zap, 
   Shield, 
   Send,
-  ArrowLeft
+  ArrowLeft,
+  Building2,
+  Rocket,
+  Cog
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * FERNANDO MARTÍN - PERSONAL WEBSITE (MASTER BUILD)
- * Includes: 
- * - Multi-stage PreLoader (Non-looping)
- * - Restored Corporate Heritage (Intel, Motorola, Nokia)
- * - State-based Routing (Home, Privacy, Terms)
- * - Mobile Safari Optimized Response
- * - Updated Hero Image Path to /hero.png
+ * FERNANDO MARTÍN - PERSONAL WEBSITE (MASTER BUILDER)
+ * Refined PreLoader: Balanced word timing, integrated icons, and spinning builder gears.
  */
 
 // --- BRAND LOGOS (SVG) ---
@@ -78,26 +76,39 @@ const MovenLogo = () => (
 
 const PreLoader = ({ finishLoading }) => {
   const [counter, setCounter] = useState(0);
-  const words = ["CORPORATE", "FOUNDER", "BUILDER"];
+  const [wordIndex, setWordIndex] = useState(0);
   
-  const getActiveWord = (val) => {
-    if (val <= 33) return words[0];
-    if (val <= 66) return words[1];
-    return words[2];
-  };
+  const words = [
+    { text: "CORPORATE", Icon: Building2 },
+    { text: "FOUNDER", Icon: Rocket },
+    { text: "BUILDER", Icon: Cog }
+  ];
 
   useEffect(() => {
+    // Exact timing: 3 seconds total. 1 second per word.
+    const totalDuration = 3000;
+    
     const countInterval = setInterval(() => {
       setCounter((prev) => {
         if (prev < 100) return prev + 1;
         clearInterval(countInterval);
-        setTimeout(finishLoading, 1000);
         return 100;
       });
-    }, 28); 
+    }, totalDuration / 100);
 
-    return () => clearInterval(countInterval);
+    const t1 = setTimeout(() => setWordIndex(1), 1000);
+    const t2 = setTimeout(() => setWordIndex(2), 2000);
+    const tFinish = setTimeout(() => finishLoading(), 3200);
+
+    return () => {
+      clearInterval(countInterval);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(tFinish);
+    };
   }, [finishLoading]);
+
+  const CurrentIcon = words[wordIndex].Icon;
 
   return (
     <motion.div 
@@ -107,20 +118,31 @@ const PreLoader = ({ finishLoading }) => {
       className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center p-6 sm:p-12"
     >
       <div className="w-full max-w-7xl mx-auto flex flex-col items-start justify-between h-full py-10 md:py-20">
-        <div className="overflow-hidden h-20 md:h-32">
+        <div className="overflow-hidden h-24 md:h-32 flex items-center">
           <AnimatePresence mode="wait">
-            <motion.p 
-              key={getActiveWord(counter)}
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-100%" }}
+            <motion.div 
+              key={wordIndex}
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: "-100%", opacity: 0 }}
               transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
-              className="text-4xl sm:text-5xl md:text-7xl font-light text-zinc-500 tracking-tighter"
+              className="flex items-center gap-4 md:gap-8"
             >
-              {getActiveWord(counter)}
-            </motion.p>
+              <div className="text-zinc-500">
+                <motion.div
+                  animate={wordIndex === 2 ? { rotate: 360 } : { rotate: 0 }}
+                  transition={wordIndex === 2 ? { repeat: Infinity, duration: 4, ease: "linear" } : { duration: 0.5 }}
+                >
+                  <CurrentIcon size={48} strokeWidth={1} className="md:w-16 md:h-16" />
+                </motion.div>
+              </div>
+              <p className="text-4xl sm:text-5xl md:text-7xl font-light text-zinc-500 tracking-tighter">
+                {words[wordIndex].text}
+              </p>
+            </motion.div>
           </AnimatePresence>
         </div>
+        
         <div className="flex items-end justify-between w-full border-t border-zinc-800 pt-8">
            <span className="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.3em]">System Initialization</span>
            <span className="text-6xl sm:text-8xl md:text-9xl font-light text-white tracking-tighter tabular-nums leading-none">
