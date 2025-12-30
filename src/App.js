@@ -20,10 +20,11 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * FERNANDO MARTÍN - PERSONAL WEBSITE (MASTER BUILDER)
- * - 3s PreLoader (1s per word)
- * - Birdsong-inspired Carousel
- * - Fixed Header Overlap & Mobile Safari Optimization
+ * FERNANDO MARTÍN - PERSONAL WEBSITE (PRODUCTION BUILD)
+ * - 3s PreLoader (Exact 1s exposure per word)
+ * - Birds-inspired Carousel for Insights
+ * - Fully Responsive & Mobile Safari Optimized
+ * - All Logos as inline SVGs for stability
  */
 
 // --- CUSTOM CSS FOR HIDING SCROLLBARS ---
@@ -31,10 +32,11 @@ const GlobalStyles = () => (
   <style dangerouslySetInnerHTML={{ __html: `
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    html { scroll-behavior: smooth; }
   `}} />
 );
 
-// --- BRAND LOGOS (SVG) ---
+// --- BRAND LOGOS (ROBUST SVGS) ---
 
 const IntelLogo = () => (
   <svg className="w-full h-auto fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -78,7 +80,7 @@ const MovenLogo = () => (
   </svg>
 );
 
-// --- PRELOADER COMPONENT (3s) ---
+// --- PRELOADER COMPONENT (BALANCED 3s) ---
 
 const PreLoader = ({ finishLoading }) => {
   const [counter, setCounter] = useState(0);
@@ -91,6 +93,7 @@ const PreLoader = ({ finishLoading }) => {
   ];
 
   useEffect(() => {
+    // Total Duration: 3 Seconds
     const totalDuration = 3000;
     const interval = totalDuration / 100;
     
@@ -102,6 +105,7 @@ const PreLoader = ({ finishLoading }) => {
       });
     }, interval);
 
+    // Balanced Word Timing: 1 second per word
     const t1 = setTimeout(() => setWordIndex(1), 1000);
     const t2 = setTimeout(() => setWordIndex(2), 2000);
     const tFinish = setTimeout(() => finishLoading(), 3200);
@@ -159,7 +163,7 @@ const PreLoader = ({ finishLoading }) => {
   );
 };
 
-// --- INSIGHTS CAROUSEL SECTION ---
+// --- INSIGHTS CAROUSEL COMPONENT ---
 
 const InsightsCarousel = () => {
   const scrollRef = useRef(null);
@@ -226,7 +230,7 @@ const InsightsCarousel = () => {
       <div ref={scrollRef} className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory px-6 md:px-12 no-scrollbar">
         {insights.map((item) => (
           <div key={item.id} className="min-w-[85vw] md:min-w-[450px] snap-start group relative">
-            <div className="aspect-[16/10] md:aspect-[4/3] rounded-3xl overflow-hidden bg-zinc-900 mb-6 relative">
+            <div className="aspect-[16/10] md:aspect-[4/3] rounded-3xl overflow-hidden bg-zinc-900 mb-6 relative border border-zinc-800">
               <img src={item.image} alt={item.title} className="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
               <div className="absolute top-6 right-6 p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500"><Play size={24} fill="currentColor" /></div>
@@ -286,7 +290,7 @@ const App = () => {
               </section>
               <section>
                 <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. Data Scope</h3>
-                <p>Collection is limited to voluntary inputs used solely for Discussing strategic ventures.</p>
+                <p>Collection is limited to voluntary inputs used solely for discussing strategic ventures or professional collaborations.</p>
               </section>
             </div>
           </LegalLayout>
@@ -297,11 +301,11 @@ const App = () => {
             <div className="space-y-8">
               <section>
                 <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">1. Site Purpose</h3>
-                <p>This digital space is a professional contact point reflecting global tech experience.</p>
+                <p>This digital space is a professional portfolio reflecting global technology experience.</p>
               </section>
               <section>
                 <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. IP Rights</h3>
-                <p>Corporate logos remain property of respective trademark holders.</p>
+                <p>Corporate logos remain property of respective trademark holders. All site content is protected by international IP laws.</p>
               </section>
             </div>
           </LegalLayout>
@@ -347,11 +351,11 @@ const App = () => {
                       </div>
                     </motion.div>
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.9 }} className="flex flex-col items-start md:items-end mt-12 md:mt-0">
-                       <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-6">Corporate Heritage</div>
+                       <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-4 md:mb-6">Corporate Heritage</div>
                        <div className="flex -space-x-4 grayscale brightness-125 opacity-50 hover:opacity-100 transition-all duration-700">
-                          <div className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl text-white"><IntelLogo /></div>
-                          <div className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-5 shadow-2xl text-white"><MotorolaLogo /></div>
-                          <div className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl text-white"><NokiaLogo /></div>
+                          <div title="Intel" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl text-white"><IntelLogo /></div>
+                          <div title="Motorola" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-5 shadow-2xl text-white"><MotorolaLogo /></div>
+                          <div title="Nokia" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl text-white"><NokiaLogo /></div>
                        </div>
                     </motion.div>
                   </div>
@@ -373,7 +377,7 @@ const App = () => {
               </div>
             </section>
 
-            {/* SECTION: INSIGHTS CAROUSEL */}
+            {/* SECTION: INSIGHTS CAROUSEL (BETWEEN 1 AND 2) */}
             <InsightsCarousel />
 
             {/* SECTION 2: ACTIVE VENTURES */}
