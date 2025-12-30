@@ -257,13 +257,13 @@ const App = () => {
       default:
         return (
           <>
-            {/* HERO SECTION - Refined Pt for overlap fix */}
-            <section className="relative min-h-[85vh] md:min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-24 md:pt-32">
+            {/* HERO SECTION - Optimized for smallest screens */}
+            <section className="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-40 md:pt-32">
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <div 
                   className="absolute right-0 top-0 w-full lg:w-[65%] h-full grayscale opacity-20 lg:opacity-40 transition-opacity duration-1000"
                   style={{
-                    backgroundImage: 'url("/hero.png")',
+                    backgroundImage: 'url("/Screenshot 2025-12-29 at 15.31.57.jpg")',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center 15%',
                     maskImage: 'radial-gradient(ellipse at center right, black 10%, transparent 85%), linear-gradient(to right, #0a0a0a 0%, transparent 50%), linear-gradient(to top, #0a0a0a 0%, transparent 30%)',
@@ -278,7 +278,7 @@ const App = () => {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
-                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 text-zinc-500 text-[9px] md:text-[10px] uppercase tracking-[0.2em] mb-4 md:mb-6"
+                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 text-zinc-500 text-[9px] md:text-[10px] uppercase tracking-[0.2em] mb-6 md:mb-6"
                   >
                     <span className="relative flex h-1.5 w-1.5">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -304,13 +304,13 @@ const App = () => {
                       transition={{ duration: 1, delay: 1.3 }}
                       className="max-w-md"
                     >
-                      <p className="text-sm md:text-xl text-zinc-400 font-light leading-relaxed mb-6 md:mb-10">
+                      <p className="text-[15px] md:text-xl text-zinc-400 font-light leading-relaxed mb-6 md:mb-10">
                         I bridge the gap between corporate infrastructure and founder grit. Scaling technology with the discipline of Big Tech and the hunger of a startup.
                       </p>
                       <div className="flex flex-wrap gap-4 md:gap-6 items-center">
                         <a 
                           href="#contact" 
-                          className="bg-white text-black px-6 md:px-10 py-3 md:py-5 rounded-full text-xs md:text-base font-medium hover:bg-zinc-200 transition-all flex items-center gap-2 group shadow-xl shadow-black/20"
+                          className="bg-white text-black px-6 md:px-10 py-3.5 md:py-5 rounded-full text-[13px] md:text-base font-medium hover:bg-zinc-200 transition-all flex items-center gap-2 group shadow-xl shadow-black/20"
                         >
                           Start a Venture <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                         </a>
@@ -343,22 +343,22 @@ const App = () => {
 
             {/* PHILOSOPHY SECTION */}
             <section id="about" className="py-12 md:py-20 px-6 md:px-12 max-w-7xl mx-auto border-t border-zinc-900">
-              <SectionHeading number="01" title="The Bridge Between Two Worlds" subtitle="Corporations often fail at ventures because they struggle to balance fixed structure with existential survival." />
+              <SectionHeading number="01" title="The Bridge Between Two Worlds" subtitle="Corporations often fail at ventures because they struggle to balance structure with existential survival." />
               <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 mt-8 md:mt-16">
                 <div className="space-y-3 group">
                   <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Cpu className="text-white" size={18} /></div>
                   <h4 className="text-lg md:text-xl font-medium text-white">Big Tech Precision</h4>
-                  <p className="text-sm md:text-base text-zinc-500 font-light leading-relaxed">Having navigated Intel, Motorola, and Nokia, I understand high-weight governance, P&L reporting, and global R&D cadences.</p>
+                  <p className="text-[15px] md:text-base text-zinc-500 font-light leading-relaxed">Having navigated Intel, Motorola, and Nokia, I understand high-weight governance, P&L reporting, and global R&D cadences.</p>
                 </div>
                 <div className="space-y-3 group">
                   <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Zap className="text-white" size={18} /></div>
                   <h4 className="text-lg md:text-xl font-medium text-white">Founder Grit</h4>
-                  <p className="text-sm md:text-base text-zinc-500 font-light leading-relaxed">I've ground from seed to scale, "eating glass" to prove UVPs in markets that didn't yet understand the solution.</p>
+                  <p className="text-[15px] md:text-base text-zinc-500 font-light leading-relaxed">I've ground from seed to scale, "eating glass" to prove UVPs in markets that didn't yet understand the solution.</p>
                 </div>
                 <div className="space-y-3 group sm:col-span-2 md:col-span-1">
                   <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Shield className="text-white" size={18} /></div>
                   <h4 className="text-lg md:text-xl font-medium text-white">Strategic Autonomy</h4>
-                  <p className="text-sm md:text-base text-zinc-500 font-light leading-relaxed">I help companies launch startups with independence in strategy and operations, while leveraging parent-company assets.</p>
+                  <p className="text-[15px] md:text-base text-zinc-500 font-light leading-relaxed">I help companies launch startups with independence in strategy and operations, while leveraging parent-company assets.</p>
                 </div>
               </div>
             </section>
@@ -401,17 +401,17 @@ const App = () => {
                   <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
                     <div className="space-y-8 md:space-y-12">
                       <div className="space-y-4 md:space-y-6">
-                        <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-sm md:text-xl text-white hover:text-zinc-400 transition-colors">
+                        <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-[15px] md:text-xl text-white hover:text-zinc-400 transition-colors">
                           <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Mail size={16} className="text-zinc-400" /></div>
                           info@fernando-martin.eu
                         </a>
-                        <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-sm md:text-xl text-white hover:text-zinc-400 transition-colors text-left">
+                        <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-[15px] md:text-xl text-white hover:text-zinc-400 transition-colors text-left">
                           <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Calendar size={16} className="text-zinc-400" /></div>
                           Book a call directly
                         </button>
                       </div>
                       <div className="p-6 md:p-10 bg-zinc-950/50 border border-zinc-800 rounded-[1.5rem] md:rounded-[2.5rem] shadow-inner">
-                        <p className="text-zinc-400 italic font-light text-sm md:text-lg">"Build an operating system that survives the corporate immune system."</p>
+                        <p className="text-zinc-400 italic font-light text-[15px] md:text-lg">"Build an operating system that survives the corporate immune system."</p>
                       </div>
                     </div>
                     <form onSubmit={handleFormSubmit} className="space-y-3 md:space-y-4">
@@ -459,7 +459,7 @@ const App = () => {
               <a href={view === 'home' ? '#contact' : '#'} onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Contact</a>
             </div>
             <a 
-              href="mailto:info@fernando-martin.eu" 
+              href="mailto:info@fernando-martin.me" 
               className="text-[10px] md:text-xs font-mono uppercase tracking-widest border-b border-zinc-800 pb-1 hover:border-white transition-all text-white pointer-events-auto"
             >
               Let's talk
