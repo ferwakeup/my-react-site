@@ -14,7 +14,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * FERNANDO MARTÍN - PERSONAL WEBSITE
- * Feature: Granize-inspired Loader + Responsive Mobile Safari Optimization
+ * Feature: Optimized Granize Loader + Corrected Socials + Vercel Robustness
  */
 
 // --- Custom Brand Components ---
@@ -83,42 +83,44 @@ const PreLoader = ({ finishLoading }) => {
         setTimeout(finishLoading, 800);
         return 100;
       });
-    }, 25);
+    }, 20); // Faster count
 
     const wordInterval = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
-    }, 800);
+    }, 700);
 
     return () => {
       clearInterval(countInterval);
       clearInterval(wordInterval);
     };
-  }, []);
+  }, [finishLoading, words.length]);
 
   return (
     <motion.div 
       initial={{ y: 0 }}
       exit={{ y: "-100%" }}
       transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-      className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center p-6"
+      className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center p-6 sm:p-12"
     >
-      <div className="w-full max-w-7xl mx-auto flex flex-col items-start justify-between h-full py-20">
+      <div className="w-full max-w-7xl mx-auto flex flex-col items-start justify-between h-full py-10 md:py-20">
         <div className="overflow-hidden">
-          <motion.p 
-            key={words[index]}
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-100%" }}
-            transition={{ duration: 0.5, ease: "circOut" }}
-            className="text-4xl md:text-6xl font-light text-zinc-500 tracking-tighter"
-          >
-            {words[index]}
-          </motion.p>
+          <AnimatePresence mode="wait">
+            <motion.p 
+              key={words[index]}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-100%" }}
+              transition={{ duration: 0.4, ease: "circOut" }}
+              className="text-3xl sm:text-4xl md:text-6xl font-light text-zinc-500 tracking-tighter"
+            >
+              {words[index]}
+            </motion.p>
+          </AnimatePresence>
         </div>
         
         <div className="flex items-end justify-between w-full border-t border-zinc-800 pt-8">
-           <span className="text-zinc-600 font-mono text-xs uppercase tracking-[0.3em]">System Initialization</span>
-           <span className="text-7xl md:text-9xl font-light text-white tracking-tighter tabular-nums leading-none">
+           <span className="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.3em]">System Initialization</span>
+           <span className="text-6xl sm:text-8xl md:text-9xl font-light text-white tracking-tighter tabular-nums leading-none">
              {counter}%
            </span>
         </div>
@@ -171,21 +173,21 @@ const App = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setFormStatus('Sending...');
+    // Add your Formspree endpoint or logic here
     setTimeout(() => setFormStatus('Message sent successfully.'), 1500);
   };
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-zinc-300 font-sans selection:bg-zinc-100 selection:text-black antialiased">
       <AnimatePresence mode="wait">
-        {isLoading && <PreLoader finishLoading={() => setIsLoading(false)} />}
+        {isLoading && <PreLoader finishLoading={() => setIsLoading(false)} key="loader" />}
       </AnimatePresence>
 
-      {/* Main Content Entrance */}
       {!isLoading && (
         <motion.div 
           initial={{ opacity: 0 }} 
           animate={{ opacity: 1 }} 
-          transition={{ duration: 1, delay: 0.5 }}
+          transition={{ duration: 1.2, delay: 0.2 }}
         >
           {/* Navigation */}
           <nav className="fixed top-0 w-full z-50 px-6 py-6 md:py-8 md:px-12 flex justify-between items-center pointer-events-none">
@@ -208,9 +210,10 @@ const App = () => {
             <section className="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-20 md:pt-0">
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <div 
-                  className="absolute right-0 top-0 w-full lg:w-[65%] h-full grayscale opacity-20 lg:opacity-40"
+                  className="absolute right-0 top-0 w-full lg:w-[65%] h-full grayscale opacity-20 lg:opacity-40 transition-opacity duration-1000"
                   style={{
-                    backgroundImage: 'url("Screenshot 2025-12-29 at 15.31.57.jpg")',
+                    // Ensure this file is in your /public folder locally
+                    backgroundImage: 'url("/Screenshot 2025-12-29 at 15.31.57.jpg")',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center 15%',
                     maskImage: 'radial-gradient(ellipse at center right, black 10%, transparent 85%), linear-gradient(to right, #0a0a0a 0%, transparent 50%), linear-gradient(to top, #0a0a0a 0%, transparent 30%)',
@@ -237,7 +240,7 @@ const App = () => {
                   <motion.h1 
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 1 }}
+                    transition={{ duration: 1, delay: 0.9 }}
                     className="text-4xl sm:text-6xl md:text-8xl lg:text-[9.5rem] font-light text-white leading-[1.1] md:leading-[0.9] tracking-tighter mb-8 md:mb-10 drop-shadow-2xl"
                   >
                     Building <br />
@@ -248,7 +251,7 @@ const App = () => {
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ duration: 1, delay: 1.2 }}
+                      transition={{ duration: 1, delay: 1.3 }}
                     >
                       <p className="text-base md:text-xl text-zinc-400 font-light leading-relaxed max-w-md mb-8 md:mb-12">
                         I bridge the gap between corporate infrastructure and founder grit. Scaling technology with the discipline of Big Tech and the hunger of a startup.
@@ -261,9 +264,9 @@ const App = () => {
                           Start a Venture <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                         </a>
                         <div className="flex gap-4">
-                          <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><Linkedin size={22} /></a>
-                          <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><XLogo size={22} /></a>
-                          <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><Instagram size={22} /></a>
+                          <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2" title="LinkedIn"><Linkedin size={22} /></a>
+                          <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2" title="X (Twitter)"><XLogo size={22} /></a>
+                          <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2" title="Instagram"><Instagram size={22} /></a>
                         </div>
                       </div>
                     </motion.div>
@@ -271,7 +274,7 @@ const App = () => {
                     <motion.div 
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 0.3 }}
-                      transition={{ duration: 1, delay: 1.4 }}
+                      transition={{ duration: 1, delay: 1.6 }}
                       className="hidden md:flex flex-col items-end hover:opacity-100 transition-all duration-500"
                     >
                        <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-6">Corporate Heritage</div>
