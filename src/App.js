@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Linkedin, 
   Instagram, 
@@ -12,16 +12,17 @@ import {
   ArrowLeft,
   Building2,
   Rocket,
-  Cog
+  Cog,
+  Play,
+  ChevronRight,
+  ChevronLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * FERNANDO MARTÍN - PERSONAL WEBSITE (MASTER BUILDER)
- * Optimized PreLoader: 3-second total reveal window.
- * - Balanced word timing (800ms per stage)
- * - Accelerated curtain reveal
- * - Robust SVG brand identities
+ * Refined PreLoader: 3-second total reveal window.
+ * Added: Birdsong-inspired Carousel Section for Insights/Keynotes.
  */
 
 // --- BRAND LOGOS (SVG) ---
@@ -88,7 +89,6 @@ const PreLoader = ({ finishLoading }) => {
   ];
 
   useEffect(() => {
-    // Exact timing: 2.4s for the sequence (800ms per word)
     const activeTimePerWord = 800;
     const totalCountDuration = activeTimePerWord * 3;
     
@@ -102,7 +102,6 @@ const PreLoader = ({ finishLoading }) => {
 
     const t1 = setTimeout(() => setWordIndex(1), activeTimePerWord);
     const t2 = setTimeout(() => setWordIndex(2), activeTimePerWord * 2);
-    // Call finish exactly at the end of the 3rd word cycle
     const tFinish = setTimeout(() => finishLoading(), totalCountDuration + 200);
 
     return () => {
@@ -156,6 +155,129 @@ const PreLoader = ({ finishLoading }) => {
         </div>
       </div>
     </motion.div>
+  );
+};
+
+// --- INSIGHTS CAROUSEL SECTION ---
+
+const InsightsCarousel = () => {
+  const scrollRef = useRef(null);
+
+  const insights = [
+    {
+      id: 1,
+      title: "The Zero to One Strategy",
+      category: "Venture Building",
+      desc: "Navigating the critical shift from corporate R&D to market-ready startups.",
+      link: "#",
+      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2000&auto=format&fit=crop"
+    },
+    {
+      id: 2,
+      title: "Big Tech Discipline",
+      category: "Innovation Management",
+      desc: "Integrating global governance structures into high-weight startup operations.",
+      link: "#",
+      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000&auto=format&fit=crop"
+    },
+    {
+      id: 3,
+      title: "Spanish Tech Ecosystem",
+      category: "Keynote Insights",
+      desc: "Deployment strategies for the next generation of data-centric ventures in Iberia.",
+      link: "#",
+      image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2000&auto=format&fit=crop"
+    },
+    {
+      id: 4,
+      title: "Agentic Architectures",
+      category: "Future Tech",
+      desc: "Leveraging AI agents to automate the early lifecycle of venture construction.",
+      link: "#",
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2000&auto=format&fit=crop"
+    }
+  ];
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth;
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section className="py-12 md:py-20 border-t border-zinc-900 bg-[#0a0a0a]">
+      <div className="max-w-5xl mx-auto px-6 md:px-12 mb-8 md:mb-12 flex justify-between items-end">
+        <div>
+          <div className="flex items-center gap-4 mb-2">
+            <span className="text-xs font-mono text-zinc-500">INSIGHTS</span>
+            <div className="h-px w-8 bg-zinc-800"></div>
+          </div>
+          <h2 className="text-2xl md:text-4xl font-light tracking-tight text-white">Knowledge in Motion</h2>
+        </div>
+        <div className="hidden md:flex gap-4">
+          <button 
+            onClick={() => scroll('left')}
+            className="p-3 rounded-full border border-zinc-800 hover:border-white text-zinc-500 hover:text-white transition-all"
+          >
+            <ChevronLeft size={20} />
+          </button>
+          <button 
+            onClick={() => scroll('right')}
+            className="p-3 rounded-full border border-zinc-800 hover:border-white text-zinc-500 hover:text-white transition-all"
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
+      </div>
+
+      <div 
+        ref={scrollRef}
+        className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory px-6 md:px-12 no-scrollbar"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        {insights.map((item) => (
+          <div 
+            key={item.id}
+            className="min-w-[85vw] md:min-w-[450px] snap-start group relative"
+          >
+            <div className="aspect-[16/10] md:aspect-[4/3] rounded-3xl overflow-hidden bg-zinc-900 mb-6 relative">
+              <img 
+                src={item.image} 
+                alt={item.title}
+                className="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
+              <div className="absolute top-6 right-6 p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                <Play size={24} fill="currentColor" />
+              </div>
+              <div className="absolute bottom-6 left-6">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-white/70 bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
+                  {item.category}
+                </span>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-xl md:text-2xl text-white font-light mb-2 group-hover:text-zinc-400 transition-colors">
+                {item.title}
+              </h3>
+              <p className="text-sm text-zinc-500 font-light leading-relaxed max-w-sm mb-4">
+                {item.desc}
+              </p>
+              <a 
+                href={item.link}
+                className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors"
+              >
+                View Session <ArrowUpRight size={14} />
+              </a>
+            </div>
+          </div>
+        ))}
+        {/* Spacer for overflow */}
+        <div className="min-w-[20px] md:min-w-[100px] h-1" />
+      </div>
+    </section>
   );
 };
 
@@ -265,7 +387,7 @@ const App = () => {
                   <motion.h1 
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
+                    transition={{ duration: 1, delay: 0.5 }}
                     className="text-3xl sm:text-6xl md:text-8xl lg:text-[9.5rem] font-light text-white leading-[1.1] md:leading-[0.9] tracking-tighter mb-6 md:mb-10 drop-shadow-2xl"
                   >
                     Building <br />
@@ -321,7 +443,7 @@ const App = () => {
               </div>
             </section>
 
-            {/* PHILOSOPHY SECTION */}
+            {/* SECTION 1: PHILOSOPHY */}
             <section id="about" className="py-12 md:py-20 px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900">
               <div className="mb-6 md:mb-10">
                 <div className="flex items-center gap-4 mb-2">
@@ -350,8 +472,11 @@ const App = () => {
               </div>
             </section>
 
-            {/* ACTIVE VENTURES SECTION */}
-            <section id="ventures" className="py-12 md:py-20 px-6 md:px-12 max-w-5xl mx-auto">
+            {/* NEW: INSIGHTS CAROUSEL (Between Sections 1 and 2) */}
+            <InsightsCarousel />
+
+            {/* SECTION 2: ACTIVE VENTURES */}
+            <section id="ventures" className="py-12 md:py-20 px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900">
               <div className="mb-6 md:mb-10">
                 <div className="flex items-center gap-4 mb-2">
                   <span className="text-xs font-mono text-zinc-500">02</span>
@@ -384,7 +509,30 @@ const App = () => {
               </div>
             </section>
 
-            {/* CONTACT SECTION */}
+            <section className="py-12 md:py-20 border-t border-zinc-900 px-6 md:px-12 max-w-5xl mx-auto">
+              <div className="mb-6 md:mb-10">
+                <div className="flex items-center gap-4 mb-2">
+                  <span className="text-xs font-mono text-zinc-500">03</span>
+                  <div className="h-px w-8 bg-zinc-800"></div>
+                </div>
+                <h2 className="text-2xl md:text-4xl font-light tracking-tight text-white mb-2">Track Record</h2>
+                <p className="text-sm md:text-base text-zinc-500 font-light max-w-lg">Previous ventures built, products scaled, and strategic ecosystems developed.</p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4 items-center justify-center">
+                {[
+                  { name: "Eccocar", url: "https://www.eccocar.com/" },
+                  { name: "CEEI Asturias", url: "https://www.ceei.es/" },
+                  { name: "Terradat", url: "https://terradat.es/" },
+                  { name: "Microbioma", url: "https://microbioma.org/" },
+                  { name: "El camaleón de Rubik", url: "https://elcamaleonderubik.com/" }
+                ].map((v) => (
+                  <a key={v.name} href={v.url} target="_blank" rel="noreferrer" className="group p-5 md:p-8 text-center bg-zinc-900/30 border border-zinc-900 rounded-2xl md:rounded-3xl hover:border-zinc-700 hover:bg-zinc-900/50 transition-all">
+                    <span className="text-zinc-500 group-hover:text-white font-medium tracking-tight text-sm md:text-base">{v.name}</span>
+                  </a>
+                ))}
+              </div>
+            </section>
+
             <section id="contact" className="py-12 md:py-20 mb-6 md:mb-12 px-6 md:px-12 max-w-5xl mx-auto">
               <div className="bg-zinc-900/30 rounded-[1.5rem] md:rounded-[3rem] p-6 md:p-16 border border-zinc-900 shadow-2xl">
                 <div className="max-w-4xl mx-auto text-center mb-8 md:mb-16">
