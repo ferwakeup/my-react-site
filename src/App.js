@@ -21,9 +21,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * FERNANDO MARTÍN - PERSONAL WEBSITE (MASTER BUILDER)
- * Refined PreLoader: 3-second total reveal window.
- * Added: Birdsong-inspired Carousel Section for Insights/Keynotes.
+ * - 3s PreLoader (1s per word)
+ * - Birdsong-inspired Carousel
+ * - Fixed Header Overlap & Mobile Safari Optimization
  */
+
+// --- CUSTOM CSS FOR HIDING SCROLLBARS ---
+const GlobalStyles = () => (
+  <style dangerouslySetInnerHTML={{ __html: `
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  `}} />
+);
 
 // --- BRAND LOGOS (SVG) ---
 
@@ -46,14 +55,7 @@ const NokiaLogo = () => (
 );
 
 const XLogo = ({ size = 20, className = "" }) => (
-  <svg 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="currentColor" 
-    className={className}
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
     <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.292 19.49h2.039L6.486 3.24H4.298l13.311 17.403z"/>
   </svg>
 );
@@ -76,7 +78,7 @@ const MovenLogo = () => (
   </svg>
 );
 
-// --- PRELOADER COMPONENT ---
+// --- PRELOADER COMPONENT (3s) ---
 
 const PreLoader = ({ finishLoading }) => {
   const [counter, setCounter] = useState(0);
@@ -89,8 +91,8 @@ const PreLoader = ({ finishLoading }) => {
   ];
 
   useEffect(() => {
-    const activeTimePerWord = 800;
-    const totalCountDuration = activeTimePerWord * 3;
+    const totalDuration = 3000;
+    const interval = totalDuration / 100;
     
     const countInterval = setInterval(() => {
       setCounter((prev) => {
@@ -98,11 +100,11 @@ const PreLoader = ({ finishLoading }) => {
         clearInterval(countInterval);
         return 100;
       });
-    }, totalCountDuration / 100);
+    }, interval);
 
-    const t1 = setTimeout(() => setWordIndex(1), activeTimePerWord);
-    const t2 = setTimeout(() => setWordIndex(2), activeTimePerWord * 2);
-    const tFinish = setTimeout(() => finishLoading(), totalCountDuration + 200);
+    const t1 = setTimeout(() => setWordIndex(1), 1000);
+    const t2 = setTimeout(() => setWordIndex(2), 2000);
+    const tFinish = setTimeout(() => finishLoading(), 3200);
 
     return () => {
       clearInterval(countInterval);
@@ -118,7 +120,7 @@ const PreLoader = ({ finishLoading }) => {
     <motion.div 
       initial={{ y: 0 }}
       exit={{ y: "-100%" }}
-      transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
       className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center p-6 sm:p-12"
     >
       <div className="w-full max-w-7xl mx-auto flex flex-col items-start justify-between h-full py-10 md:py-20">
@@ -146,7 +148,6 @@ const PreLoader = ({ finishLoading }) => {
             </motion.div>
           </AnimatePresence>
         </div>
-        
         <div className="flex items-end justify-between w-full border-t border-zinc-800 pt-8">
            <span className="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.3em]">System Initialization</span>
            <span className="text-6xl sm:text-8xl md:text-9xl font-light text-white tracking-tighter tabular-nums leading-none">
@@ -176,7 +177,7 @@ const InsightsCarousel = () => {
       id: 2,
       title: "Big Tech Discipline",
       category: "Innovation Management",
-      desc: "Integrating global governance structures into high-weight startup operations.",
+      desc: "Integrating global governance structures into startup operations.",
       link: "#",
       image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000&auto=format&fit=crop"
     },
@@ -184,7 +185,7 @@ const InsightsCarousel = () => {
       id: 3,
       title: "Spanish Tech Ecosystem",
       category: "Keynote Insights",
-      desc: "Deployment strategies for the next generation of data-centric ventures in Iberia.",
+      desc: "Deployment strategies for data-centric ventures in Iberia.",
       link: "#",
       image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2000&auto=format&fit=crop"
     },
@@ -192,7 +193,7 @@ const InsightsCarousel = () => {
       id: 4,
       title: "Agentic Architectures",
       category: "Future Tech",
-      desc: "Leveraging AI agents to automate the early lifecycle of venture construction.",
+      desc: "Leveraging AI agents to automate venture construction.",
       link: "#",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2000&auto=format&fit=crop"
     }
@@ -217,64 +218,29 @@ const InsightsCarousel = () => {
           <h2 className="text-2xl md:text-4xl font-light tracking-tight text-white">Knowledge in Motion</h2>
         </div>
         <div className="hidden md:flex gap-4">
-          <button 
-            onClick={() => scroll('left')}
-            className="p-3 rounded-full border border-zinc-800 hover:border-white text-zinc-500 hover:text-white transition-all"
-          >
-            <ChevronLeft size={20} />
-          </button>
-          <button 
-            onClick={() => scroll('right')}
-            className="p-3 rounded-full border border-zinc-800 hover:border-white text-zinc-500 hover:text-white transition-all"
-          >
-            <ChevronRight size={20} />
-          </button>
+          <button onClick={() => scroll('left')} className="p-3 rounded-full border border-zinc-800 hover:border-white text-zinc-500 hover:text-white transition-all"><ChevronLeft size={20} /></button>
+          <button onClick={() => scroll('right')} className="p-3 rounded-full border border-zinc-800 hover:border-white text-zinc-500 hover:text-white transition-all"><ChevronRight size={20} /></button>
         </div>
       </div>
 
-      <div 
-        ref={scrollRef}
-        className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory px-6 md:px-12 no-scrollbar"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-      >
+      <div ref={scrollRef} className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory px-6 md:px-12 no-scrollbar">
         {insights.map((item) => (
-          <div 
-            key={item.id}
-            className="min-w-[85vw] md:min-w-[450px] snap-start group relative"
-          >
+          <div key={item.id} className="min-w-[85vw] md:min-w-[450px] snap-start group relative">
             <div className="aspect-[16/10] md:aspect-[4/3] rounded-3xl overflow-hidden bg-zinc-900 mb-6 relative">
-              <img 
-                src={item.image} 
-                alt={item.title}
-                className="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
-              />
+              <img src={item.image} alt={item.title} className="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
-              <div className="absolute top-6 right-6 p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                <Play size={24} fill="currentColor" />
-              </div>
+              <div className="absolute top-6 right-6 p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500"><Play size={24} fill="currentColor" /></div>
               <div className="absolute bottom-6 left-6">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-white/70 bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
-                  {item.category}
-                </span>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-white/70 bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">{item.category}</span>
               </div>
             </div>
             <div>
-              <h3 className="text-xl md:text-2xl text-white font-light mb-2 group-hover:text-zinc-400 transition-colors">
-                {item.title}
-              </h3>
-              <p className="text-sm text-zinc-500 font-light leading-relaxed max-w-sm mb-4">
-                {item.desc}
-              </p>
-              <a 
-                href={item.link}
-                className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors"
-              >
-                View Session <ArrowUpRight size={14} />
-              </a>
+              <h3 className="text-xl md:text-2xl text-white font-light mb-2 group-hover:text-zinc-400 transition-colors">{item.title}</h3>
+              <p className="text-sm text-zinc-500 font-light leading-relaxed max-w-sm mb-4">{item.desc}</p>
+              <a href={item.link} className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors">View Session <ArrowUpRight size={14} /></a>
             </div>
           </div>
         ))}
-        {/* Spacer for overflow */}
         <div className="min-w-[20px] md:min-w-[100px] h-1" />
       </div>
     </section>
@@ -284,22 +250,10 @@ const InsightsCarousel = () => {
 // --- LEGAL VIEWS ---
 
 const LegalLayout = ({ title, children, onBack }) => (
-  <motion.div 
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -20 }}
-    className="min-h-screen pt-32 pb-20 px-6 md:px-12 max-w-4xl mx-auto"
-  >
-    <button 
-      onClick={onBack}
-      className="flex items-center gap-2 text-zinc-500 hover:text-white mb-12 transition-colors group"
-    >
-      <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Home
-    </button>
+  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="min-h-screen pt-32 pb-20 px-6 md:px-12 max-w-4xl mx-auto">
+    <button onClick={onBack} className="flex items-center gap-2 text-zinc-500 hover:text-white mb-12 transition-colors group"><ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Home</button>
     <h1 className="text-4xl md:text-6xl font-light text-white mb-12 tracking-tight">{title}</h1>
-    <div className="prose prose-invert max-w-none prose-zinc text-zinc-400 font-light leading-relaxed">
-      {children}
-    </div>
+    <div className="prose prose-invert max-w-none prose-zinc text-zinc-400 font-light leading-relaxed">{children}</div>
   </motion.div>
 );
 
@@ -328,11 +282,11 @@ const App = () => {
             <div className="space-y-8">
               <section>
                 <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">1. Data Responsibility</h3>
-                <p>Fernando Martín is the controller of personal data gathered via this portal. We adhere strictly to GDPR principles ensuring your professional and personal info is handled with extreme discretion.</p>
+                <p>Fernando Martín is the controller of personal data gathered via this portal. We adhere strictly to GDPR principles ensuring your info is handled with discretion.</p>
               </section>
               <section>
                 <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. Data Scope</h3>
-                <p>Collection is limited to voluntary inputs through our contact form (Name, Email, Message) used solely for discussing strategic ventures or professional collaborations.</p>
+                <p>Collection is limited to voluntary inputs used solely for Discussing strategic ventures.</p>
               </section>
             </div>
           </LegalLayout>
@@ -343,11 +297,11 @@ const App = () => {
             <div className="space-y-8">
               <section>
                 <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">1. Site Purpose</h3>
-                <p>This digital space is a portfolio and professional contact point. Content reflects professional experience at global technology entities.</p>
+                <p>This digital space is a professional contact point reflecting global tech experience.</p>
               </section>
               <section>
                 <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. IP Rights</h3>
-                <p>All design assets and layout patterns are proprietary IP. Corporate logos displayed remain the property of their respective trademark holders.</p>
+                <p>Corporate logos remain property of respective trademark holders.</p>
               </section>
             </div>
           </LegalLayout>
@@ -357,7 +311,7 @@ const App = () => {
           <>
             {/* HERO SECTION */}
             <section className="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-44 md:pt-40">
-              <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+              <div className="absolute inset-0 z-0 pointer-events-none">
                 <div 
                   className="absolute right-0 top-0 w-full lg:w-[65%] h-full grayscale opacity-20 lg:opacity-40 transition-opacity duration-1000"
                   style={{
@@ -371,71 +325,33 @@ const App = () => {
 
               <div className="relative z-10 max-w-5xl mx-auto w-full">
                 <div className="max-w-4xl">
-                  <motion.div 
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 text-zinc-500 text-[9px] md:text-[10px] uppercase tracking-[0.2em] mb-4 md:mb-6"
-                  >
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-                    </span>
+                  <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }} className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 text-zinc-500 text-[9px] md:text-[10px] uppercase tracking-[0.2em] mb-4 md:mb-6">
+                    <span className="relative flex h-1.5 w-1.5"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span></span>
                     Entrepreneur in Residence
                   </motion.div>
                   
-                  <motion.h1 
-                    initial={{ y: 40, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.5 }}
-                    className="text-3xl sm:text-6xl md:text-8xl lg:text-[9.5rem] font-light text-white leading-[1.1] md:leading-[0.9] tracking-tighter mb-6 md:mb-10 drop-shadow-2xl"
-                  >
-                    Building <br />
-                    <span className="text-zinc-600 italic block mt-1 md:mt-2">new ventures.</span>
+                  <motion.h1 initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1, delay: 0.5 }} className="text-3xl sm:text-6xl md:text-8xl lg:text-[9.5rem] font-light text-white leading-[1.1] md:leading-[0.9] tracking-tighter mb-6 md:mb-10 drop-shadow-2xl">
+                    Building <br /><span className="text-zinc-600 italic block mt-1 md:mt-2">new ventures.</span>
                   </motion.h1>
                   
                   <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-end">
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 1, delay: 0.7 }}
-                      className="max-w-md"
-                    >
-                      <p className="text-[14px] md:text-xl text-zinc-400 font-light leading-relaxed mb-6 md:mb-10">
-                        I bridge the gap between corporate infrastructure and founder grit. Scaling technology with the discipline of Big Tech and the hunger of a startup.
-                      </p>
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.7 }} className="max-w-md">
+                      <p className="text-[14px] md:text-xl text-zinc-400 font-light leading-relaxed mb-6 md:mb-10">I bridge the gap between corporate infrastructure and founder grit. Scaling technology with Big Tech discipline and startup hunger.</p>
                       <div className="flex flex-wrap gap-4 md:gap-6 items-center">
-                        <a 
-                          href="#contact" 
-                          className="bg-white text-black px-6 md:px-10 py-3.5 md:py-5 rounded-full text-[13px] md:text-base font-medium hover:bg-zinc-200 transition-all flex items-center gap-2 group shadow-xl shadow-black/20"
-                        >
-                          Start a Venture <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                        </a>
+                        <a href="#contact" className="bg-white text-black px-6 md:px-10 py-3.5 md:py-5 rounded-full text-[13px] md:text-base font-medium hover:bg-zinc-200 transition-all flex items-center gap-2 group shadow-xl shadow-black/20">Start a Venture <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" /></a>
                         <div className="flex gap-4">
                           <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-1 md:p-2" title="LinkedIn"><Linkedin size={22} /></a>
-                          <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-1 md:p-2" title="X (Twitter)"><XLogo size={22} /></a>
+                          <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-1 md:p-2" title="X"><XLogo size={22} /></a>
                           <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-1 md:p-2" title="Instagram"><Instagram size={22} /></a>
                         </div>
                       </div>
                     </motion.div>
-                    
-                    <motion.div 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 1, delay: 0.9 }}
-                      className="flex flex-col items-start md:items-end mt-12 md:mt-0"
-                    >
-                       <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-4 md:mb-6">Corporate Heritage</div>
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.9 }} className="flex flex-col items-start md:items-end mt-12 md:mt-0">
+                       <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-6">Corporate Heritage</div>
                        <div className="flex -space-x-4 grayscale brightness-125 opacity-50 hover:opacity-100 transition-all duration-700">
-                          <div title="Intel Corporation" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl text-white">
-                             <IntelLogo />
-                          </div>
-                          <div title="Motorola" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-5 shadow-2xl text-white">
-                             <MotorolaLogo />
-                          </div>
-                          <div title="Nokia" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl text-white">
-                             <NokiaLogo />
-                          </div>
+                          <div className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl text-white"><IntelLogo /></div>
+                          <div className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-5 shadow-2xl text-white"><MotorolaLogo /></div>
+                          <div className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl text-white"><NokiaLogo /></div>
                        </div>
                     </motion.div>
                   </div>
@@ -446,64 +362,34 @@ const App = () => {
             {/* SECTION 1: PHILOSOPHY */}
             <section id="about" className="py-12 md:py-20 px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900">
               <div className="mb-6 md:mb-10">
-                <div className="flex items-center gap-4 mb-2">
-                  <span className="text-xs font-mono text-zinc-500">01</span>
-                  <div className="h-px w-8 bg-zinc-800"></div>
-                </div>
+                <div className="flex items-center gap-4 mb-2"><span className="text-xs font-mono text-zinc-500">01</span><div className="h-px w-8 bg-zinc-800"></div></div>
                 <h2 className="text-2xl md:text-4xl font-light tracking-tight text-white mb-2">The Bridge Between Two Worlds</h2>
                 <p className="text-sm md:text-base text-zinc-500 font-light max-w-lg">Corporations often fail at ventures because they struggle to balance structure with survival.</p>
               </div>
               <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 mt-8 md:mt-16">
-                <div className="space-y-3 group">
-                  <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Cpu className="text-white" size={18} /></div>
-                  <h4 className="text-lg md:text-xl font-medium text-white">Big Tech Precision</h4>
-                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">Having navigated Intel, Motorola, and Nokia, I understand high-weight governance and global R&D cadences.</p>
-                </div>
-                <div className="space-y-3 group">
-                  <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Zap className="text-white" size={18} /></div>
-                  <h4 className="text-lg md:text-xl font-medium text-white">Founder Grit</h4>
-                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I've ground from seed to scale, "eating glass" to prove UVPs in markets that didn't yet understand the solution.</p>
-                </div>
-                <div className="space-y-3 group sm:col-span-2 md:col-span-1">
-                  <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Shield className="text-white" size={18} /></div>
-                  <h4 className="text-lg md:text-xl font-medium text-white">Strategic Autonomy</h4>
-                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I help companies launch startups with independence in strategy while leveraging parent-company assets.</p>
-                </div>
+                <div className="space-y-3 group"><div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Cpu className="text-white" size={18} /></div><h4 className="text-lg md:text-xl font-medium text-white">Big Tech Precision</h4><p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">Having navigated Intel, Motorola, and Nokia, I understand high-weight governance and global R&D cadences.</p></div>
+                <div className="space-y-3 group"><div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Zap className="text-white" size={18} /></div><h4 className="text-lg md:text-xl font-medium text-white">Founder Grit</h4><p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I've ground from seed to scale, "eating glass" to prove UVPs in markets that didn't yet understand the solution.</p></div>
+                <div className="space-y-3 group sm:col-span-2 md:col-span-1"><div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Shield className="text-white" size={18} /></div><h4 className="text-lg md:text-xl font-medium text-white">Strategic Autonomy</h4><p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I help companies launch startups with independence in strategy while leveraging parent-company assets.</p></div>
               </div>
             </section>
 
-            {/* NEW: INSIGHTS CAROUSEL (Between Sections 1 and 2) */}
+            {/* SECTION: INSIGHTS CAROUSEL */}
             <InsightsCarousel />
 
             {/* SECTION 2: ACTIVE VENTURES */}
             <section id="ventures" className="py-12 md:py-20 px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900">
               <div className="mb-6 md:mb-10">
-                <div className="flex items-center gap-4 mb-2">
-                  <span className="text-xs font-mono text-zinc-500">02</span>
-                  <div className="h-px w-8 bg-zinc-800"></div>
-                </div>
+                <div className="flex items-center gap-4 mb-2"><span className="text-xs font-mono text-zinc-500">02</span><div className="h-px w-8 bg-zinc-800"></div></div>
                 <h2 className="text-2xl md:text-4xl font-light tracking-tight text-white mb-2">Active Leadership</h2>
                 <p className="text-sm md:text-base text-zinc-500 font-light max-w-lg">Spearheading data infrastructure and modern venture building process.</p>
               </div>
               <div className="grid md:grid-cols-2 gap-4 md:gap-8">
                 <a href="https://www.nexmo-datahub.eu/" target="_blank" rel="noreferrer" className="group relative block p-5 md:p-8 rounded-2xl border bg-zinc-900/50 border-zinc-800 hover:border-zinc-600 transition-all duration-500">
-                  <div className="flex justify-between items-start mb-3 md:mb-6">
-                    <div className="flex flex-col">
-                      <span className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2 md:mb-3">Managing Director</span>
-                      <NexmoLogo />
-                    </div>
-                    <div className="p-2 rounded-full bg-zinc-800 text-zinc-400 group-hover:text-white group-hover:bg-zinc-700 transition-all"><ArrowUpRight size={16} /></div>
-                  </div>
+                  <div className="flex justify-between items-start mb-3 md:mb-6"><div className="flex flex-col"><span className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2 md:mb-3">Managing Director</span><NexmoLogo /></div><div className="p-2 rounded-full bg-zinc-800 text-zinc-400 group-hover:text-white group-hover:bg-zinc-700 transition-all"><ArrowUpRight size={16} /></div></div>
                   <p className="text-sm md:text-base text-zinc-400 font-light leading-relaxed">Strategic data infrastructure venture backed by UC3M.</p>
                 </a>
                 <a href="https://moven.pro/" target="_blank" rel="noreferrer" className="group relative block p-5 md:p-8 rounded-2xl border bg-zinc-900/50 border-zinc-800 hover:border-zinc-600 transition-all duration-500">
-                  <div className="flex justify-between items-start mb-3 md:mb-6">
-                    <div className="flex flex-col">
-                      <span className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2 md:mb-3">Fractional COO</span>
-                      <MovenLogo />
-                    </div>
-                    <div className="p-2 rounded-full bg-zinc-800 text-zinc-400 group-hover:text-white group-hover:bg-zinc-700 transition-all"><ArrowUpRight size={16} /></div>
-                  </div>
+                  <div className="flex justify-between items-start mb-3 md:mb-6"><div className="flex flex-col"><span className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2 md:mb-3">Fractional COO</span><MovenLogo /></div><div className="p-2 rounded-full bg-zinc-800 text-zinc-400 group-hover:text-white group-hover:bg-zinc-700 transition-all"><ArrowUpRight size={16} /></div></div>
                   <p className="text-sm md:text-base text-zinc-400 font-light leading-relaxed">Agentic venture building and process automation for high-scale environments.</p>
                 </a>
               </div>
@@ -511,59 +397,31 @@ const App = () => {
 
             <section className="py-12 md:py-20 border-t border-zinc-900 px-6 md:px-12 max-w-5xl mx-auto">
               <div className="mb-6 md:mb-10">
-                <div className="flex items-center gap-4 mb-2">
-                  <span className="text-xs font-mono text-zinc-500">03</span>
-                  <div className="h-px w-8 bg-zinc-800"></div>
-                </div>
+                <div className="flex items-center gap-4 mb-2"><span className="text-xs font-mono text-zinc-500">03</span><div className="h-px w-8 bg-zinc-800"></div></div>
                 <h2 className="text-2xl md:text-4xl font-light tracking-tight text-white mb-2">Track Record</h2>
                 <p className="text-sm md:text-base text-zinc-500 font-light max-w-lg">Previous ventures built, products scaled, and strategic ecosystems developed.</p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4 items-center justify-center">
-                {[
-                  { name: "Eccocar", url: "https://www.eccocar.com/" },
-                  { name: "CEEI Asturias", url: "https://www.ceei.es/" },
-                  { name: "Terradat", url: "https://terradat.es/" },
-                  { name: "Microbioma", url: "https://microbioma.org/" },
-                  { name: "El camaleón de Rubik", url: "https://elcamaleonderubik.com/" }
-                ].map((v) => (
-                  <a key={v.name} href={v.url} target="_blank" rel="noreferrer" className="group p-5 md:p-8 text-center bg-zinc-900/30 border border-zinc-900 rounded-2xl md:rounded-3xl hover:border-zinc-700 hover:bg-zinc-900/50 transition-all">
-                    <span className="text-zinc-500 group-hover:text-white font-medium tracking-tight text-sm md:text-base">{v.name}</span>
-                  </a>
+                {[{ name: "Eccocar", url: "https://www.eccocar.com/" }, { name: "CEEI Asturias", url: "https://www.ceei.es/" }, { name: "Terradat", url: "https://terradat.es/" }, { name: "Microbioma", url: "https://microbioma.org/" }, { name: "El camaleón de Rubik", url: "https://elcamaleonderubik.com/" }].map((v) => (
+                  <a key={v.name} href={v.url} target="_blank" rel="noreferrer" className="group p-5 md:p-8 text-center bg-zinc-900/30 border border-zinc-900 rounded-2xl md:rounded-3xl hover:border-zinc-700 hover:bg-zinc-900/50 transition-all"><span className="text-zinc-500 group-hover:text-white font-medium tracking-tight text-sm md:text-base">{v.name}</span></a>
                 ))}
               </div>
             </section>
 
             <section id="contact" className="py-12 md:py-20 mb-6 md:mb-12 px-6 md:px-12 max-w-5xl mx-auto">
               <div className="bg-zinc-900/30 rounded-[1.5rem] md:rounded-[3rem] p-6 md:p-16 border border-zinc-900 shadow-2xl">
-                <div className="max-w-4xl mx-auto text-center mb-8 md:mb-16">
-                  <h2 className="text-2xl md:text-6xl font-light text-white mb-3 md:mb-6 tracking-tight">Let's create synergy.</h2>
-                  <p className="text-zinc-500 max-w-lg mx-auto font-light text-sm md:text-base">Available for Managing Director roles and Fractional leadership within high-impact venture builders.</p>
-                </div>
+                <div className="max-w-4xl mx-auto text-center mb-8 md:mb-16"><h2 className="text-2xl md:text-6xl font-light text-white mb-3 md:mb-6 tracking-tight">Let's create synergy.</h2><p className="text-zinc-500 max-w-lg mx-auto font-light text-sm md:text-base">Available for Managing Director roles and Fractional leadership within high-impact venture builders.</p></div>
                 <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 max-w-4xl mx-auto">
                   <div className="space-y-8 md:space-y-12">
                     <div className="space-y-4 md:space-y-6">
-                      <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-[14px] md:text-xl text-white hover:text-zinc-400 transition-colors">
-                        <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Mail size={16} className="text-zinc-400" /></div>
-                        info@fernando-martin.eu
-                      </a>
-                      <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-[14px] md:text-xl text-white hover:text-zinc-400 transition-colors text-left">
-                        <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Calendar size={16} className="text-zinc-400" /></div>
-                        Book a call directly
-                      </button>
-                    </div>
-                    <div className="p-6 md:p-10 bg-zinc-950/50 border border-zinc-800 rounded-[1.5rem] md:rounded-[2.5rem] shadow-inner">
-                      <p className="text-zinc-400 italic font-light text-[14px] md:text-lg">"Build an operating system that survives the corporate immune system."</p>
+                      <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-[14px] md:text-xl text-white hover:text-zinc-400 transition-colors"><div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Mail size={16} className="text-zinc-400" /></div>info@fernando-martin.eu</a>
+                      <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-[14px] md:text-xl text-white hover:text-zinc-400 transition-colors text-left"><div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Calendar size={16} className="text-zinc-400" /></div>Book a call directly</button>
                     </div>
                   </div>
                   <form onSubmit={handleFormSubmit} className="space-y-3 md:space-y-4">
-                    <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
-                      <input required type="text" placeholder="Name" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm" />
-                      <input required type="email" placeholder="Work Email" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm" />
-                    </div>
+                    <div className="grid sm:grid-cols-2 gap-3 md:gap-4"><input required type="text" placeholder="Name" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm" /><input required type="email" placeholder="Work Email" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm" /></div>
                     <textarea required placeholder="What venture are we building?" rows="3" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm resize-none"></textarea>
-                    <button type="submit" className="w-full bg-white text-black py-3.5 md:py-6 rounded-xl md:rounded-2xl font-bold flex items-center justify-center gap-3 text-sm md:text-lg">
-                      {formStatus || 'Send Inquiry'} <Send size={18} />
-                    </button>
+                    <button type="submit" className="w-full bg-white text-black py-3.5 md:py-6 rounded-xl md:rounded-2xl font-bold flex items-center justify-center gap-3 text-sm md:text-lg">{formStatus || 'Send Inquiry'} <Send size={18} /></button>
                   </form>
                 </div>
               </div>
@@ -575,42 +433,26 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-zinc-300 font-sans selection:bg-zinc-100 selection:text-black antialiased overflow-x-hidden">
+      <GlobalStyles />
       <AnimatePresence mode="wait">
         {isLoading && <PreLoader finishLoading={() => setIsLoading(false)} key="loader" />}
       </AnimatePresence>
 
       {!isLoading && (
-        <motion.div 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }} 
-          transition={{ duration: 1.2, delay: 0.2 }}
-        >
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2, delay: 0.2 }}>
           {/* NAVIGATION */}
           <nav className="fixed top-0 w-full z-50 px-6 py-4 md:py-8 md:px-12 flex justify-between items-center pointer-events-none">
-            <button 
-              onClick={() => setView('home')}
-              className="text-white text-lg font-medium tracking-tighter pointer-events-auto hover:opacity-70 transition-opacity"
-            >
-              FM.
-            </button>
+            <button onClick={() => setView('home')} className="text-white text-lg font-medium tracking-tighter pointer-events-auto hover:opacity-70 transition-opacity">FM.</button>
             <div className="hidden md:flex gap-8 text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-500 pointer-events-auto">
               <a href="#about" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Philosophy</a>
               <a href="#ventures" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Ventures</a>
               <a href="#contact" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Contact</a>
             </div>
-            <a 
-              href="mailto:info@fernando-martin.eu" 
-              className="text-[10px] md:text-xs font-mono uppercase tracking-widest border-b border-zinc-800 pb-1 hover:border-white transition-all text-white pointer-events-auto"
-            >
-              Let's talk
-            </a>
+            <a href="mailto:info@fernando-martin.eu" className="text-[10px] md:text-xs font-mono uppercase tracking-widest border-b border-zinc-800 pb-1 hover:border-white transition-all text-white pointer-events-auto">Let's talk</a>
           </nav>
 
-          <main>
-            {renderView()}
-          </main>
+          <main>{renderView()}</main>
 
-          {/* FOOTER */}
           <footer className="max-w-5xl mx-auto px-6 md:px-12 py-8 md:py-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-600 text-center">
             <div className="flex flex-col md:items-start gap-2 text-left">
               <p>© 2025 Fernando Martín. Madrid • Munich • International</p>
