@@ -8,16 +8,22 @@ import {
   Cpu,
   Zap, 
   Shield, 
-  Send
+  Send,
+  ArrowLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * FERNANDO MARTÍN - PERSONAL WEBSITE
- * Feature: Optimized Granize Loader + Corrected Socials + Vercel Robustness
+ * FERNANDO MARTÍN - PERSONAL WEBSITE (MASTER BUILD)
+ * Includes: 
+ * - Multi-stage PreLoader (Non-looping)
+ * - Restored Corporate Heritage (Intel, Motorola, Nokia)
+ * - State-based Routing (Home, Privacy, Terms)
+ * - Mobile Safari Optimized Response
+ * - Refined Spacing & Transitions
  */
 
-// --- Custom Brand Components ---
+// --- BRAND LOGOS (SVG) ---
 
 const IntelLogo = () => (
   <svg className="w-10 md:w-12 h-auto fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -68,56 +74,53 @@ const MovenLogo = () => (
   </svg>
 );
 
-// --- Loader Component (Granize Style) ---
+// --- PRELOADER COMPONENT ---
 
 const PreLoader = ({ finishLoading }) => {
   const [counter, setCounter] = useState(0);
   const words = ["CORPORATE", "FOUNDER", "BUILDER"];
-  const [index, setIndex] = useState(0);
+  
+  const getActiveWord = (val) => {
+    if (val <= 33) return words[0];
+    if (val <= 66) return words[1];
+    return words[2];
+  };
 
   useEffect(() => {
     const countInterval = setInterval(() => {
       setCounter((prev) => {
         if (prev < 100) return prev + 1;
         clearInterval(countInterval);
-        setTimeout(finishLoading, 800);
+        setTimeout(finishLoading, 1000);
         return 100;
       });
-    }, 20); // Faster count
+    }, 28); 
 
-    const wordInterval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % words.length);
-    }, 700);
-
-    return () => {
-      clearInterval(countInterval);
-      clearInterval(wordInterval);
-    };
-  }, [finishLoading, words.length]);
+    return () => clearInterval(countInterval);
+  }, [finishLoading]);
 
   return (
     <motion.div 
       initial={{ y: 0 }}
       exit={{ y: "-100%" }}
-      transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+      transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
       className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center p-6 sm:p-12"
     >
       <div className="w-full max-w-7xl mx-auto flex flex-col items-start justify-between h-full py-10 md:py-20">
-        <div className="overflow-hidden">
+        <div className="overflow-hidden h-20 md:h-32">
           <AnimatePresence mode="wait">
             <motion.p 
-              key={words[index]}
+              key={getActiveWord(counter)}
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "-100%" }}
-              transition={{ duration: 0.4, ease: "circOut" }}
-              className="text-3xl sm:text-4xl md:text-6xl font-light text-zinc-500 tracking-tighter"
+              transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+              className="text-4xl sm:text-5xl md:text-7xl font-light text-zinc-500 tracking-tighter"
             >
-              {words[index]}
+              {getActiveWord(counter)}
             </motion.p>
           </AnimatePresence>
         </div>
-        
         <div className="flex items-end justify-between w-full border-t border-zinc-800 pt-8">
            <span className="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.3em]">System Initialization</span>
            <span className="text-6xl sm:text-8xl md:text-9xl font-light text-white tracking-tighter tabular-nums leading-none">
@@ -129,10 +132,66 @@ const PreLoader = ({ finishLoading }) => {
   );
 };
 
-// --- Standard UI Components ---
+// --- LEGAL VIEWS ---
+
+const LegalLayout = ({ title, children, onBack }) => (
+  <motion.div 
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    className="min-h-screen pt-32 pb-20 px-6 md:px-12 max-w-4xl mx-auto"
+  >
+    <button 
+      onClick={onBack}
+      className="flex items-center gap-2 text-zinc-500 hover:text-white mb-12 transition-colors group"
+    >
+      <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Home
+    </button>
+    <h1 className="text-4xl md:text-6xl font-light text-white mb-12 tracking-tight">{title}</h1>
+    <div className="prose prose-invert max-w-none prose-zinc">
+      {children}
+    </div>
+  </motion.div>
+);
+
+const PrivacyPolicy = () => (
+  <div className="space-y-8 text-zinc-400 font-light leading-relaxed text-sm md:text-base">
+    <section>
+      <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">1. Data Responsibility</h3>
+      <p>Fernando Martín is the primary controller of personal data gathered via this portal. We adhere strictly to GDPR principles ensuring your professional and personal info is handled with extreme discretion.</p>
+    </section>
+    <section>
+      <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. Data Scope</h3>
+      <p>Collection is limited to voluntary inputs through our contact form (Name, Email, Message) used solely for the purpose of discussing strategic ventures or professional collaborations.</p>
+    </section>
+    <section>
+      <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">3. Analytics</h3>
+      <p>We utilize privacy-respecting analytics to gauge interaction quality. We do not engage in invasive tracking or third-party data brokerage.</p>
+    </section>
+  </div>
+);
+
+const TermsOfService = () => (
+  <div className="space-y-8 text-zinc-400 font-light leading-relaxed text-sm md:text-base">
+    <section>
+      <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">1. Site Purpose</h3>
+      <p>This digital space is a portfolio and professional contact point for strategic venture building. Content is for informational purposes reflecting professional experience at global technology entities.</p>
+    </section>
+    <section>
+      <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. IP Rights</h3>
+      <p>All design assets, layout patterns, and case study descriptions are proprietary IP. Corporate logos displayed remain the property of their respective trademark holders.</p>
+    </section>
+    <section>
+      <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">3. Communication</h3>
+      <p>Engagement via this site does not constitute a formal board-level or employment contract until specific strategic agreements are executed offline.</p>
+    </section>
+  </div>
+);
+
+// --- REUSABLE UI ---
 
 const SectionHeading = ({ number, title, subtitle }) => (
-  <div className="mb-8 md:mb-12">
+  <div className="mb-6 md:mb-10">
     <div className="flex items-center gap-4 mb-2">
       <span className="text-xs font-mono text-zinc-500">{number}</span>
       <div className="h-px w-8 bg-zinc-800"></div>
@@ -147,11 +206,11 @@ const VentureCard = ({ LogoComponent, name, role, desc, link, isCurrent = false 
     href={link} 
     target="_blank" 
     rel="noopener noreferrer"
-    className={`group relative block p-6 md:p-8 rounded-2xl border transition-all duration-500 ${
+    className={`group relative block p-5 md:p-8 rounded-2xl border transition-all duration-500 ${
       isCurrent ? 'bg-zinc-900/50 border-zinc-800 hover:border-zinc-600' : 'border-transparent hover:bg-zinc-900/30'
     }`}
   >
-    <div className="flex justify-between items-start mb-4 md:mb-6">
+    <div className="flex justify-between items-start mb-3 md:mb-6">
       <div className="flex flex-col">
         <span className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2 md:mb-3">{role}</span>
         {LogoComponent ? <LogoComponent /> : <h3 className="text-xl md:text-2xl font-medium text-white group-hover:text-zinc-300 transition-colors">{name}</h3>}
@@ -164,55 +223,46 @@ const VentureCard = ({ LogoComponent, name, role, desc, link, isCurrent = false 
   </a>
 );
 
-// --- Main App ---
+// --- MAIN APP ---
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [view, setView] = useState('home'); 
   const [formStatus, setFormStatus] = useState('');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [view]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setFormStatus('Sending...');
-    // Add your Formspree endpoint or logic here
     setTimeout(() => setFormStatus('Message sent successfully.'), 1500);
   };
 
-  return (
-    <div className="min-h-screen bg-[#0a0a0a] text-zinc-300 font-sans selection:bg-zinc-100 selection:text-black antialiased">
-      <AnimatePresence mode="wait">
-        {isLoading && <PreLoader finishLoading={() => setIsLoading(false)} key="loader" />}
-      </AnimatePresence>
-
-      {!isLoading && (
-        <motion.div 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }} 
-          transition={{ duration: 1.2, delay: 0.2 }}
-        >
-          {/* Navigation */}
-          <nav className="fixed top-0 w-full z-50 px-6 py-6 md:py-8 md:px-12 flex justify-between items-center pointer-events-none">
-            <div className="text-white text-lg font-medium tracking-tighter pointer-events-auto">FM.</div>
-            <div className="hidden md:flex gap-8 text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-500 pointer-events-auto">
-              <a href="#about" className="hover:text-white transition-colors">Philosophy</a>
-              <a href="#ventures" className="hover:text-white transition-colors">Ventures</a>
-              <a href="#contact" className="hover:text-white transition-colors">Contact</a>
-            </div>
-            <a 
-              href="mailto:info@fernando-martin.eu" 
-              className="text-[10px] md:text-xs font-mono uppercase tracking-widest border-b border-zinc-800 pb-1 hover:border-white transition-all text-white pointer-events-auto"
-            >
-              Let's talk
-            </a>
-          </nav>
-
-          <main>
-            {/* Hero Section */}
-            <section className="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-20 md:pt-0">
+  const renderView = () => {
+    switch(view) {
+      case 'privacy':
+        return (
+          <LegalLayout title="Privacy Policy" onBack={() => setView('home')}>
+            <PrivacyPolicy />
+          </LegalLayout>
+        );
+      case 'terms':
+        return (
+          <LegalLayout title="Terms of Service" onBack={() => setView('home')}>
+            <TermsOfService />
+          </LegalLayout>
+        );
+      default:
+        return (
+          <>
+            {/* HERO SECTION - Refined Pt for overlap fix */}
+            <section className="relative min-h-[85vh] md:min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-24 md:pt-32">
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <div 
                   className="absolute right-0 top-0 w-full lg:w-[65%] h-full grayscale opacity-20 lg:opacity-40 transition-opacity duration-1000"
                   style={{
-                    // Ensure this file is in your /public folder locally
                     backgroundImage: 'url("/Screenshot 2025-12-29 at 15.31.57.jpg")',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center 15%',
@@ -228,7 +278,7 @@ const App = () => {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
-                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 text-zinc-500 text-[9px] md:text-[10px] uppercase tracking-[0.2em] mb-6 md:mb-8"
+                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 text-zinc-500 text-[9px] md:text-[10px] uppercase tracking-[0.2em] mb-4 md:mb-6"
                   >
                     <span className="relative flex h-1.5 w-1.5">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -241,7 +291,7 @@ const App = () => {
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 1, delay: 0.9 }}
-                    className="text-4xl sm:text-6xl md:text-8xl lg:text-[9.5rem] font-light text-white leading-[1.1] md:leading-[0.9] tracking-tighter mb-8 md:mb-10 drop-shadow-2xl"
+                    className="text-4xl sm:text-6xl md:text-8xl lg:text-[9.5rem] font-light text-white leading-[1.1] md:leading-[0.9] tracking-tighter mb-6 md:mb-10 drop-shadow-2xl"
                   >
                     Building <br />
                     <span className="text-zinc-600 italic block mt-1 md:mt-2">new ventures.</span>
@@ -252,36 +302,38 @@ const App = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 1, delay: 1.3 }}
+                      className="max-w-md"
                     >
-                      <p className="text-base md:text-xl text-zinc-400 font-light leading-relaxed max-w-md mb-8 md:mb-12">
+                      <p className="text-sm md:text-xl text-zinc-400 font-light leading-relaxed mb-6 md:mb-10">
                         I bridge the gap between corporate infrastructure and founder grit. Scaling technology with the discipline of Big Tech and the hunger of a startup.
                       </p>
                       <div className="flex flex-wrap gap-4 md:gap-6 items-center">
                         <a 
                           href="#contact" 
-                          className="bg-white text-black px-8 md:px-10 py-4 md:py-5 rounded-full text-sm md:text-base font-medium hover:bg-zinc-200 transition-all flex items-center gap-2 group shadow-xl shadow-black/20"
+                          className="bg-white text-black px-6 md:px-10 py-3 md:py-5 rounded-full text-xs md:text-base font-medium hover:bg-zinc-200 transition-all flex items-center gap-2 group shadow-xl shadow-black/20"
                         >
                           Start a Venture <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                         </a>
                         <div className="flex gap-4">
-                          <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2" title="LinkedIn"><Linkedin size={22} /></a>
-                          <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2" title="X (Twitter)"><XLogo size={22} /></a>
-                          <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2" title="Instagram"><Instagram size={22} /></a>
+                          <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-1 md:p-2" title="LinkedIn"><Linkedin size={22} /></a>
+                          <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-1 md:p-2" title="X (Twitter)"><XLogo size={22} /></a>
+                          <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-1 md:p-2" title="Instagram"><Instagram size={22} /></a>
                         </div>
                       </div>
                     </motion.div>
                     
+                    {/* CORPORATE HERITAGE SECTION */}
                     <motion.div 
                       initial={{ opacity: 0 }}
-                      animate={{ opacity: 0.3 }}
+                      animate={{ opacity: 1 }}
                       transition={{ duration: 1, delay: 1.6 }}
-                      className="hidden md:flex flex-col items-end hover:opacity-100 transition-all duration-500"
+                      className="flex flex-col items-start md:items-end mt-8 md:mt-0"
                     >
-                       <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-6">Corporate Heritage</div>
-                       <div className="flex items-center gap-8 text-white grayscale brightness-150">
-                          <IntelLogo />
-                          <MotorolaLogo />
-                          <NokiaLogo />
+                       <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-4 md:mb-6">Corporate Heritage</div>
+                       <div className="flex items-center gap-6 md:gap-8 text-white grayscale brightness-125 opacity-40 hover:opacity-100 transition-all duration-500">
+                          <div title="Intel Corporation"><IntelLogo /></div>
+                          <div title="Motorola"><MotorolaLogo /></div>
+                          <div title="Nokia"><NokiaLogo /></div>
                        </div>
                     </motion.div>
                   </div>
@@ -289,39 +341,41 @@ const App = () => {
               </div>
             </section>
 
-            {/* Content Sections */}
-            <section id="about" className="py-20 md:py-32 px-6 md:px-12 max-w-7xl mx-auto border-t border-zinc-900">
-              <SectionHeading number="01" title="The Bridge Between Two Worlds" subtitle="Most corporations fail at ventures because they can't balance structure with survival." />
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-12 mt-12 md:mt-16">
-                <div className="space-y-4 group">
-                  <div className="p-3 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Cpu className="text-white" size={20} /></div>
-                  <h4 className="text-lg md:text-xl font-medium text-white">Big Tech Discipline</h4>
-                  <p className="text-sm md:text-base text-zinc-500 font-light leading-relaxed">Operated within Intel, Motorola, and Nokia. I understand the complexities of global R&D and high-weight governance.</p>
+            {/* PHILOSOPHY SECTION */}
+            <section id="about" className="py-12 md:py-20 px-6 md:px-12 max-w-7xl mx-auto border-t border-zinc-900">
+              <SectionHeading number="01" title="The Bridge Between Two Worlds" subtitle="Corporations often fail at ventures because they struggle to balance fixed structure with existential survival." />
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 mt-8 md:mt-16">
+                <div className="space-y-3 group">
+                  <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Cpu className="text-white" size={18} /></div>
+                  <h4 className="text-lg md:text-xl font-medium text-white">Big Tech Precision</h4>
+                  <p className="text-sm md:text-base text-zinc-500 font-light leading-relaxed">Having navigated Intel, Motorola, and Nokia, I understand high-weight governance, P&L reporting, and global R&D cadences.</p>
                 </div>
-                <div className="space-y-4 group">
-                  <div className="p-3 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Zap className="text-white" size={20} /></div>
+                <div className="space-y-3 group">
+                  <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Zap className="text-white" size={18} /></div>
                   <h4 className="text-lg md:text-xl font-medium text-white">Founder Grit</h4>
-                  <p className="text-sm md:text-base text-zinc-500 font-light leading-relaxed">Ground from zero to an IBEX35 investment. I've "eaten glass" to find product-market fit when the market didn't even know it needed it.</p>
+                  <p className="text-sm md:text-base text-zinc-500 font-light leading-relaxed">I've ground from seed to scale, "eating glass" to prove UVPs in markets that didn't yet understand the solution.</p>
                 </div>
-                <div className="space-y-4 group sm:col-span-2 md:col-span-1">
-                  <div className="p-3 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Shield className="text-white" size={20} /></div>
-                  <h4 className="text-lg md:text-xl font-medium text-white">Strategic Independence</h4>
-                  <p className="text-sm md:text-base text-zinc-500 font-light leading-relaxed">I believe corporate ventures need independence in budgeting and strategy, using the parent as the first customer to prove PMF.</p>
+                <div className="space-y-3 group sm:col-span-2 md:col-span-1">
+                  <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Shield className="text-white" size={18} /></div>
+                  <h4 className="text-lg md:text-xl font-medium text-white">Strategic Autonomy</h4>
+                  <p className="text-sm md:text-base text-zinc-500 font-light leading-relaxed">I help companies launch startups with independence in strategy and operations, while leveraging parent-company assets.</p>
                 </div>
               </div>
             </section>
 
-            <section id="ventures" className="py-20 md:py-32 px-6 md:px-12 max-w-7xl mx-auto">
-              <SectionHeading number="02" title="Active Leadership" subtitle="Currently leading strategic product ventures and agentifying the venture building process." />
-              <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-                <VentureCard LogoComponent={NexmoLogo} role="Managing Director" desc="Backed by UC3M. Leading data-centric ventures in the Spanish ecosystem." link="https://www.nexmo-datahub.eu/" isCurrent={true} />
-                <VentureCard LogoComponent={MovenLogo} role="Fractional COO" desc="Driving the transition towards agentic venture building, streamlining the Zero to One process." link="https://moven.pro/" isCurrent={true} />
+            {/* ACTIVE VENTURES SECTION */}
+            <section id="ventures" className="py-12 md:py-20 px-6 md:px-12 max-w-7xl mx-auto">
+              <SectionHeading number="02" title="Active Leadership" subtitle="Spearheading strategic data hub deployment and agentifying the modern venture process." />
+              <div className="grid md:grid-cols-2 gap-4 md:gap-8">
+                <VentureCard LogoComponent={NexmoLogo} role="Managing Director" desc="Strategic data infrastructure venture backed by UC3M." link="https://www.nexmo-datahub.eu/" isCurrent={true} />
+                <VentureCard LogoComponent={MovenLogo} role="Fractional COO" desc="Agentic venture building and process automation for high-scale environments." link="https://moven.pro/" isCurrent={true} />
               </div>
             </section>
 
-            <section className="py-20 md:py-32 border-t border-zinc-900 px-6 md:px-12 max-w-7xl mx-auto">
-              <SectionHeading number="03" title="Track Record" subtitle="Previous ventures built, scaled, or strategically advised." />
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-center justify-center">
+            {/* TRACK RECORD SECTION */}
+            <section className="py-12 md:py-20 border-t border-zinc-900 px-6 md:px-12 max-w-7xl mx-auto">
+              <SectionHeading number="03" title="Track Record" subtitle="Ventures built, products scaled, and strategic ecosystems developed." />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4 items-center justify-center">
                 {[
                   { name: "Eccocar", url: "https://www.eccocar.com/" },
                   { name: "CEEI Asturias", url: "https://www.ceei.es/" },
@@ -329,43 +383,44 @@ const App = () => {
                   { name: "Microbioma", url: "https://microbioma.org/" },
                   { name: "El camaleón de Rubik", url: "https://elcamaleonderubik.com/" }
                 ].map((v) => (
-                  <a key={v.name} href={v.url} target="_blank" rel="noreferrer" className="group p-6 md:p-8 text-center bg-zinc-900/30 border border-zinc-900 rounded-3xl hover:border-zinc-700 hover:bg-zinc-900/50 transition-all">
+                  <a key={v.name} href={v.url} target="_blank" rel="noreferrer" className="group p-5 md:p-8 text-center bg-zinc-900/30 border border-zinc-900 rounded-2xl md:rounded-3xl hover:border-zinc-700 hover:bg-zinc-900/50 transition-all">
                     <span className="text-zinc-500 group-hover:text-white font-medium tracking-tight text-sm md:text-base">{v.name}</span>
                   </a>
                 ))}
               </div>
             </section>
 
-            <section id="contact" className="py-20 md:py-32 mb-10 md:mb-20 px-6 md:px-12 max-w-7xl mx-auto">
-              <div className="bg-zinc-900/30 rounded-[2rem] md:rounded-[3rem] p-8 md:p-16 border border-zinc-900 shadow-2xl">
+            {/* CONTACT SECTION */}
+            <section id="contact" className="py-12 md:py-20 mb-6 md:mb-12 px-6 md:px-12 max-w-7xl mx-auto">
+              <div className="bg-zinc-900/30 rounded-[1.5rem] md:rounded-[3rem] p-6 md:p-16 border border-zinc-900 shadow-2xl">
                 <div className="max-w-4xl mx-auto">
-                  <div className="text-center mb-10 md:mb-16">
-                    <h2 className="text-3xl md:text-6xl font-light text-white mb-4 md:mb-6 tracking-tight">Let's create synergy.</h2>
-                    <p className="text-zinc-500 max-w-lg mx-auto font-light text-sm md:text-base">Available for Managing Director roles, Fractional COO positions, and high-impact Entrepreneur in Residence programs.</p>
+                  <div className="text-center mb-8 md:mb-16">
+                    <h2 className="text-2xl md:text-6xl font-light text-white mb-3 md:mb-6 tracking-tight">Let's create synergy.</h2>
+                    <p className="text-zinc-500 max-w-lg mx-auto font-light text-sm md:text-base">Available for Managing Director roles and Fractional leadership within high-impact venture builders.</p>
                   </div>
-                  <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-                    <div className="space-y-10 md:space-y-12">
-                      <div className="space-y-6">
-                        <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-base md:text-xl text-white hover:text-zinc-400 transition-colors">
-                          <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Mail size={18} className="text-zinc-400" /></div>
+                  <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
+                    <div className="space-y-8 md:space-y-12">
+                      <div className="space-y-4 md:space-y-6">
+                        <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-sm md:text-xl text-white hover:text-zinc-400 transition-colors">
+                          <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Mail size={16} className="text-zinc-400" /></div>
                           info@fernando-martin.eu
                         </a>
-                        <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-base md:text-xl text-white hover:text-zinc-400 transition-colors text-left">
-                          <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Calendar size={18} className="text-zinc-400" /></div>
+                        <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-sm md:text-xl text-white hover:text-zinc-400 transition-colors text-left">
+                          <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Calendar size={16} className="text-zinc-400" /></div>
                           Book a call directly
                         </button>
                       </div>
-                      <div className="p-8 md:p-10 bg-zinc-950/50 border border-zinc-800 rounded-[2rem] shadow-inner">
-                        <p className="text-zinc-400 italic font-light text-base md:text-lg">"Build an operating system that survives the corporate immune system."</p>
+                      <div className="p-6 md:p-10 bg-zinc-950/50 border border-zinc-800 rounded-[1.5rem] md:rounded-[2.5rem] shadow-inner">
+                        <p className="text-zinc-400 italic font-light text-sm md:text-lg">"Build an operating system that survives the corporate immune system."</p>
                       </div>
                     </div>
-                    <form onSubmit={handleFormSubmit} className="space-y-4">
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <input required type="text" placeholder="Name" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm" />
-                        <input required type="email" placeholder="Work Email" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm" />
+                    <form onSubmit={handleFormSubmit} className="space-y-3 md:space-y-4">
+                      <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
+                        <input required type="text" placeholder="Name" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm" />
+                        <input required type="email" placeholder="Work Email" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm" />
                       </div>
-                      <textarea required placeholder="What venture are we building?" rows="4" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm resize-none"></textarea>
-                      <button type="submit" className="w-full bg-white text-black py-4 md:py-6 rounded-2xl font-bold flex items-center justify-center gap-3 text-base md:text-lg">
+                      <textarea required placeholder="What venture are we building?" rows="3" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm resize-none"></textarea>
+                      <button type="submit" className="w-full bg-white text-black py-3.5 md:py-6 rounded-xl md:rounded-2xl font-bold flex items-center justify-center gap-3 text-sm md:text-lg">
                         {formStatus || 'Send Inquiry'} <Send size={18} />
                       </button>
                     </form>
@@ -373,10 +428,57 @@ const App = () => {
                 </div>
               </div>
             </section>
+          </>
+        );
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0a0a0a] text-zinc-300 font-sans selection:bg-zinc-100 selection:text-black antialiased overflow-x-hidden">
+      <AnimatePresence mode="wait">
+        {isLoading && <PreLoader finishLoading={() => setIsLoading(false)} key="loader" />}
+      </AnimatePresence>
+
+      {!isLoading && (
+        <motion.div 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          transition={{ duration: 1.2, delay: 0.2 }}
+        >
+          {/* NAVIGATION */}
+          <nav className="fixed top-0 w-full z-50 px-6 py-4 md:py-8 md:px-12 flex justify-between items-center pointer-events-none">
+            <button 
+              onClick={() => setView('home')}
+              className="text-white text-lg font-medium tracking-tighter pointer-events-auto hover:opacity-70 transition-opacity"
+            >
+              FM.
+            </button>
+            <div className="hidden md:flex gap-8 text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-500 pointer-events-auto">
+              <a href={view === 'home' ? '#about' : '#'} onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Philosophy</a>
+              <a href={view === 'home' ? '#ventures' : '#'} onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Ventures</a>
+              <a href={view === 'home' ? '#contact' : '#'} onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Contact</a>
+            </div>
+            <a 
+              href="mailto:info@fernando-martin.eu" 
+              className="text-[10px] md:text-xs font-mono uppercase tracking-widest border-b border-zinc-800 pb-1 hover:border-white transition-all text-white pointer-events-auto"
+            >
+              Let's talk
+            </a>
+          </nav>
+
+          <main>
+            {renderView()}
           </main>
 
-          <footer className="max-w-7xl mx-auto px-6 md:px-12 py-10 md:py-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-600 text-center">
-            <div>© 2025 Fernando Martín. Madrid • Munich • International</div>
+          {/* FOOTER */}
+          <footer className="max-w-7xl mx-auto px-6 md:px-12 py-8 md:py-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-600 text-center">
+            <div className="flex flex-col md:items-start gap-2">
+              <p>© 2025 Fernando Martín. Madrid • Munich • International</p>
+              <div className="flex gap-4 justify-center">
+                <button onClick={() => setView('privacy')} className="hover:text-white transition-colors underline underline-offset-4 decoration-zinc-800">Privacy Policy</button>
+                <button onClick={() => setView('terms')} className="hover:text-white transition-colors underline underline-offset-4 decoration-zinc-800">Terms of Service</button>
+              </div>
+            </div>
             <div className="flex flex-wrap justify-center gap-6 md:gap-8">
               <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
               <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2"><XLogo size={10} /> X</a>
