@@ -18,7 +18,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * FERNANDO MARTÍN - PERSONAL WEBSITE (MASTER BUILDER)
- * Refined PreLoader: Balanced word timing, integrated icons, and spinning builder gears.
+ * Includes: 
+ * - Multi-stage PreLoader (Perfectly Balanced Timing)
+ * - Animated Word Icons (Spinning Gears for Builder)
+ * - Restored Corporate Heritage (Intel, Motorola, Nokia)
+ * - State-based Routing (Home, Privacy, Terms)
+ * - Mobile Safari Optimized Response
+ * - Updated Hero Image Path to /hero.png
  */
 
 // --- BRAND LOGOS (SVG) ---
@@ -85,8 +91,9 @@ const PreLoader = ({ finishLoading }) => {
   ];
 
   useEffect(() => {
-    // Exact timing: 3 seconds total. 1 second per word.
-    const totalDuration = 3000;
+    // Total duration for the count: 4.5 seconds
+    const totalDuration = 4500; 
+    const interval = totalDuration / 100;
     
     const countInterval = setInterval(() => {
       setCounter((prev) => {
@@ -94,11 +101,12 @@ const PreLoader = ({ finishLoading }) => {
         clearInterval(countInterval);
         return 100;
       });
-    }, totalDuration / 100);
+    }, interval);
 
-    const t1 = setTimeout(() => setWordIndex(1), 1000);
-    const t2 = setTimeout(() => setWordIndex(2), 2000);
-    const tFinish = setTimeout(() => finishLoading(), 3200);
+    // Precise Timing: 1.5 seconds per word
+    const t1 = setTimeout(() => setWordIndex(1), 1500);
+    const t2 = setTimeout(() => setWordIndex(2), 3000);
+    const tFinish = setTimeout(() => finishLoading(), 4800);
 
     return () => {
       clearInterval(countInterval);
@@ -125,7 +133,7 @@ const PreLoader = ({ finishLoading }) => {
               initial={{ y: "100%", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: "-100%", opacity: 0 }}
-              transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+              transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
               className="flex items-center gap-4 md:gap-8"
             >
               <div className="text-zinc-500">
@@ -133,7 +141,7 @@ const PreLoader = ({ finishLoading }) => {
                   animate={wordIndex === 2 ? { rotate: 360 } : { rotate: 0 }}
                   transition={wordIndex === 2 ? { repeat: Infinity, duration: 4, ease: "linear" } : { duration: 0.5 }}
                 >
-                  <CurrentIcon size={48} strokeWidth={1} className="md:w-16 md:h-16" />
+                  <CurrentIcon size={40} strokeWidth={1} className="md:w-16 md:h-16" />
                 </motion.div>
               </div>
               <p className="text-4xl sm:text-5xl md:text-7xl font-light text-zinc-500 tracking-tighter">
@@ -279,8 +287,8 @@ const App = () => {
       default:
         return (
           <>
-            {/* HERO SECTION - Optimized for smallest screens */}
-            <section className="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-40 md:pt-32">
+            {/* HERO SECTION - Safely padded for header overlap fix */}
+            <section className="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-44 md:pt-40">
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <div 
                   className="absolute right-0 top-0 w-full lg:w-[65%] h-full grayscale opacity-20 lg:opacity-40 transition-opacity duration-1000"
@@ -344,7 +352,6 @@ const App = () => {
                       </div>
                     </motion.div>
                     
-                    {/* CORPORATE HERITAGE SECTION */}
                     <motion.div 
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -365,7 +372,7 @@ const App = () => {
 
             {/* PHILOSOPHY SECTION */}
             <section id="about" className="py-12 md:py-20 px-6 md:px-12 max-w-7xl mx-auto border-t border-zinc-900">
-              <SectionHeading number="01" title="The Bridge Between Two Worlds" subtitle="Corporations often fail at ventures because they struggle to balance structure with existential survival." />
+              <SectionHeading number="01" title="The Bridge Between Two Worlds" subtitle="Corporations often fail at ventures because they struggle to balance structure with survival." />
               <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 mt-8 md:mt-16">
                 <div className="space-y-3 group">
                   <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Cpu className="text-white" size={18} /></div>
