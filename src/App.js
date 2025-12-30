@@ -20,7 +20,7 @@ import { motion, AnimatePresence } from 'framer-motion';
  * - Restored Corporate Heritage (Intel, Motorola, Nokia)
  * - State-based Routing (Home, Privacy, Terms)
  * - Mobile Safari Optimized Response
- * - Refined Spacing & Transitions
+ * - Updated Hero Image Path to /hero.png
  */
 
 // --- BRAND LOGOS (SVG) ---
@@ -263,7 +263,7 @@ const App = () => {
                 <div 
                   className="absolute right-0 top-0 w-full lg:w-[65%] h-full grayscale opacity-20 lg:opacity-40 transition-opacity duration-1000"
                   style={{
-                    backgroundImage: 'url("/Screenshot 2025-12-29 at 15.31.57.jpg")',
+                    backgroundImage: 'url("/hero.png")',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center 15%',
                     maskImage: 'radial-gradient(ellipse at center right, black 10%, transparent 85%), linear-gradient(to right, #0a0a0a 0%, transparent 50%), linear-gradient(to top, #0a0a0a 0%, transparent 30%)',
@@ -459,7 +459,7 @@ const App = () => {
               <a href={view === 'home' ? '#contact' : '#'} onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Contact</a>
             </div>
             <a 
-              href="mailto:info@fernando-martin.me" 
+              href="mailto:info@fernando-martin.eu" 
               className="text-[10px] md:text-xs font-mono uppercase tracking-widest border-b border-zinc-800 pb-1 hover:border-white transition-all text-white pointer-events-auto"
             >
               Let's talk
