@@ -22,7 +22,7 @@ import { motion, AnimatePresence } from 'framer-motion';
  * - Multi-stage PreLoader (Perfectly Balanced Timing)
  * - Animated Word Icons (Spinning Gears for Builder)
  * - Official Corporate Logos (Intel, Motorola, Nokia)
- * - Overlapping Circle Heritage Design
+ * - Image-based Venture Logos (Nexmo, MOVEN)
  * - Mobile Safari Optimized Typography
  * - Updated Hero Image Path to /hero.png
  */
@@ -30,15 +30,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 // --- BRAND LOGOS (IMAGE BASED) ---
 
 const IntelLogo = () => (
-  <img src="/Intel_logo_(2006-2020).svg" alt="Intel" className="w-full h-auto grayscale invert brightness-200" />
+  <img src="/image_217ac0.png" alt="Intel" className="w-full h-auto grayscale invert brightness-200" />
 );
 
 const MotorolaLogo = () => (
-  <img src="/motorola-6-logo-png-transparent.png" alt="Motorola" className="w-full h-auto grayscale invert brightness-200" />
+  <img src="/image_212888.png" alt="Motorola" className="w-full h-auto grayscale invert brightness-200" />
 );
 
 const NokiaLogo = () => (
-  <img src="/Nokia_2023.png" alt="Nokia" className="w-full h-auto grayscale invert brightness-200" />
+  <img src="/image_217a42.png" alt="Nokia" className="w-full h-auto grayscale invert brightness-200" />
 );
 
 const XLogo = ({ size = 20, className = "" }) => (
@@ -55,21 +55,11 @@ const XLogo = ({ size = 20, className = "" }) => (
 );
 
 const NexmoLogo = () => (
-  <svg className="h-6 md:h-8 w-auto fill-white mb-2 md:mb-4" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="15" cy="30" r="8" fill="currentColor" opacity="0.8" />
-    <circle cx="45" cy="15" r="5" fill="currentColor" />
-    <circle cx="45" cy="45" r="5" fill="currentColor" />
-    <line x1="15" y1="30" x2="45" y2="15" stroke="currentColor" strokeWidth="2" />
-    <line x1="15" y1="30" x2="45" y2="45" stroke="currentColor" strokeWidth="2" />
-    <text x="65" y="42" fontFamily="sans-serif" fontWeight="bold" fontSize="24">NEXMO</text>
-  </svg>
+  <img src="/logo-nexmo.png" alt="Nexmo Datahub" className="h-6 md:h-8 w-auto grayscale invert brightness-200 mb-2 md:mb-4 object-contain" />
 );
 
 const MovenLogo = () => (
-  <svg className="h-6 md:h-8 w-auto fill-white mb-2 md:mb-4" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-    <path d="M10 45L25 10L40 45L55 10" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-    <text x="70" y="42" fontFamily="sans-serif" fontWeight="bold" fontSize="28" letterSpacing="2">MOVEN</text>
-  </svg>
+  <img src="/logo-moven.png" alt="MOVEN" className="h-6 md:h-8 w-auto grayscale invert brightness-200 mb-2 md:mb-4 object-contain" />
 );
 
 // --- PRELOADER COMPONENT ---
@@ -278,7 +268,7 @@ const App = () => {
       default:
         return (
           <>
-            {/* HERO SECTION - Optimized for smallest screens and shrunken width */}
+            {/* HERO SECTION */}
             <section className="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-44 md:pt-40">
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <div 
@@ -343,7 +333,7 @@ const App = () => {
                       </div>
                     </motion.div>
                     
-                    {/* CORPORATE HERITAGE SECTION - RESTORED CIRCLE DESIGN WITH PROVIDED LOGOS */}
+                    {/* CORPORATE HERITAGE SECTION */}
                     <motion.div 
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
