@@ -263,7 +263,7 @@ const App = () => {
                 <div 
                   className="absolute right-0 top-0 w-full lg:w-[65%] h-full grayscale opacity-20 lg:opacity-40 transition-opacity duration-1000"
                   style={{
-                    backgroundImage: 'url("/Hero.png")',
+                    backgroundImage: 'url("/hero.png")',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center 15%',
                     maskImage: 'radial-gradient(ellipse at center right, black 10%, transparent 85%), linear-gradient(to right, #0a0a0a 0%, transparent 50%), linear-gradient(to top, #0a0a0a 0%, transparent 30%)',
