@@ -30,15 +30,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 // --- BRAND LOGOS (IMAGE BASED) ---
 
 const IntelLogo = () => (
-  <img src="/image_217ac0.png" alt="Intel" className="w-full h-auto grayscale invert brightness-200" />
+  <img src="/logo-intel.svg" alt="Intel" className="w-full h-auto grayscale invert brightness-200" />
 );
 
 const MotorolaLogo = () => (
-  <img src="/image_212888.png" alt="Motorola" className="w-full h-auto grayscale invert brightness-200" />
+  <img src="/logo-motorola.png" alt="Motorola" className="w-full h-auto grayscale invert brightness-200" />
 );
 
 const NokiaLogo = () => (
-  <img src="/image_217a42.png" alt="Nokia" className="w-full h-auto grayscale invert brightness-200" />
+  <img src="/logo-nokia.png" alt="Nokia" className="w-full h-auto grayscale invert brightness-200" />
 );
 
 const XLogo = ({ size = 20, className = "" }) => (
