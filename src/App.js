@@ -18,11 +18,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * FERNANDO MARTÍN - PERSONAL WEBSITE (MASTER BUILDER)
- * Refined PreLoader: 3-second total duration (1s per word).
- * Guaranteed SVG logos, balanced exposure, and high-end mobile optimization.
+ * Optimized PreLoader: 3-second total reveal window.
+ * - Balanced word timing (800ms per stage)
+ * - Accelerated curtain reveal
+ * - Robust SVG brand identities
  */
 
-// --- BRAND LOGOS (SVG COMPONENTS FOR GUARANTEED VISIBILITY) ---
+// --- BRAND LOGOS (SVG) ---
 
 const IntelLogo = () => (
   <svg className="w-full h-auto fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -73,7 +75,7 @@ const MovenLogo = () => (
   </svg>
 );
 
-// --- PRELOADER COMPONENT (3s TOTAL DURATION) ---
+// --- PRELOADER COMPONENT ---
 
 const PreLoader = ({ finishLoading }) => {
   const [counter, setCounter] = useState(0);
@@ -86,9 +88,9 @@ const PreLoader = ({ finishLoading }) => {
   ];
 
   useEffect(() => {
-    // Total duration: 3 seconds
-    const totalDuration = 3000;
-    const interval = totalDuration / 100;
+    // Exact timing: 2.4s for the sequence (800ms per word)
+    const activeTimePerWord = 800;
+    const totalCountDuration = activeTimePerWord * 3;
     
     const countInterval = setInterval(() => {
       setCounter((prev) => {
@@ -96,12 +98,12 @@ const PreLoader = ({ finishLoading }) => {
         clearInterval(countInterval);
         return 100;
       });
-    }, interval);
+    }, totalCountDuration / 100);
 
-    // Balanced Timing: 1 second per word
-    const t1 = setTimeout(() => setWordIndex(1), 1000);
-    const t2 = setTimeout(() => setWordIndex(2), 2000);
-    const tFinish = setTimeout(() => finishLoading(), 3200);
+    const t1 = setTimeout(() => setWordIndex(1), activeTimePerWord);
+    const t2 = setTimeout(() => setWordIndex(2), activeTimePerWord * 2);
+    // Call finish exactly at the end of the 3rd word cycle
+    const tFinish = setTimeout(() => finishLoading(), totalCountDuration + 200);
 
     return () => {
       clearInterval(countInterval);
@@ -117,7 +119,7 @@ const PreLoader = ({ finishLoading }) => {
     <motion.div 
       initial={{ y: 0 }}
       exit={{ y: "-100%" }}
-      transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+      transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
       className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center p-6 sm:p-12"
     >
       <div className="w-full max-w-7xl mx-auto flex flex-col items-start justify-between h-full py-10 md:py-20">
@@ -173,71 +175,10 @@ const LegalLayout = ({ title, children, onBack }) => (
       <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Home
     </button>
     <h1 className="text-4xl md:text-6xl font-light text-white mb-12 tracking-tight">{title}</h1>
-    <div className="prose prose-invert max-w-none prose-zinc">
+    <div className="prose prose-invert max-w-none prose-zinc text-zinc-400 font-light leading-relaxed">
       {children}
     </div>
   </motion.div>
-);
-
-const PrivacyPolicy = () => (
-  <div className="space-y-8 text-zinc-400 font-light leading-relaxed text-sm md:text-base">
-    <section>
-      <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">1. Data Responsibility</h3>
-      <p>Fernando Martín is the controller of personal data gathered via this portal. We adhere strictly to GDPR principles ensuring your professional and personal info is handled with extreme discretion.</p>
-    </section>
-    <section>
-      <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. Data Scope</h3>
-      <p>Collection is limited to voluntary inputs through our contact form (Name, Email, Message) used solely for discussing strategic ventures or professional collaborations.</p>
-    </section>
-  </div>
-);
-
-const TermsOfService = () => (
-  <div className="space-y-8 text-zinc-400 font-light leading-relaxed text-sm md:text-base">
-    <section>
-      <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">1. Site Purpose</h3>
-      <p>This digital space is a portfolio and professional contact point. Content reflects professional experience at global technology entities.</p>
-    </section>
-    <section>
-      <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. IP Rights</h3>
-      <p>All design assets and layout patterns are proprietary IP. Corporate logos displayed remain the property of their respective trademark holders.</p>
-    </section>
-  </div>
-);
-
-// --- REUSABLE UI ---
-
-const SectionHeading = ({ number, title, subtitle }) => (
-  <div className="mb-6 md:mb-10">
-    <div className="flex items-center gap-4 mb-2">
-      <span className="text-xs font-mono text-zinc-500">{number}</span>
-      <div className="h-px w-8 bg-zinc-800"></div>
-    </div>
-    <h2 className="text-2xl md:text-4xl font-light tracking-tight text-white mb-2">{title}</h2>
-    {subtitle && <p className="text-sm md:text-base text-zinc-500 font-light max-w-lg">{subtitle}</p>}
-  </div>
-);
-
-const VentureCard = ({ LogoComponent, name, role, desc, link, isCurrent = false }) => (
-  <a 
-    href={link} 
-    target="_blank" 
-    rel="noopener noreferrer"
-    className={`group relative block p-5 md:p-8 rounded-2xl border transition-all duration-500 ${
-      isCurrent ? 'bg-zinc-900/50 border-zinc-800 hover:border-zinc-600' : 'border-transparent hover:bg-zinc-900/30'
-    }`}
-  >
-    <div className="flex justify-between items-start mb-3 md:mb-6">
-      <div className="flex flex-col">
-        <span className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2 md:mb-3">{role}</span>
-        {LogoComponent ? <LogoComponent /> : <h3 className="text-xl md:text-2xl font-medium text-white group-hover:text-zinc-300 transition-colors">{name}</h3>}
-      </div>
-      <div className="p-2 rounded-full bg-zinc-800 text-zinc-400 group-hover:text-white group-hover:bg-zinc-700 transition-all">
-        <ArrowUpRight size={16} />
-      </div>
-    </div>
-    <p className="text-sm md:text-base text-zinc-400 font-light leading-relaxed mb-4">{desc}</p>
-  </a>
 );
 
 // --- MAIN APP ---
@@ -262,18 +203,37 @@ const App = () => {
       case 'privacy':
         return (
           <LegalLayout title="Privacy Policy" onBack={() => setView('home')}>
-            <PrivacyPolicy />
+            <div className="space-y-8">
+              <section>
+                <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">1. Data Responsibility</h3>
+                <p>Fernando Martín is the controller of personal data gathered via this portal. We adhere strictly to GDPR principles ensuring your professional and personal info is handled with extreme discretion.</p>
+              </section>
+              <section>
+                <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. Data Scope</h3>
+                <p>Collection is limited to voluntary inputs through our contact form (Name, Email, Message) used solely for discussing strategic ventures or professional collaborations.</p>
+              </section>
+            </div>
           </LegalLayout>
         );
       case 'terms':
         return (
           <LegalLayout title="Terms of Service" onBack={() => setView('home')}>
-            <TermsOfService />
+            <div className="space-y-8">
+              <section>
+                <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">1. Site Purpose</h3>
+                <p>This digital space is a portfolio and professional contact point. Content reflects professional experience at global technology entities.</p>
+              </section>
+              <section>
+                <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. IP Rights</h3>
+                <p>All design assets and layout patterns are proprietary IP. Corporate logos displayed remain the property of their respective trademark holders.</p>
+              </section>
+            </div>
           </LegalLayout>
         );
       default:
         return (
           <>
+            {/* HERO SECTION */}
             <section className="relative min-h-[90vh] md:min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-44 md:pt-40">
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                 <div 
@@ -292,7 +252,7 @@ const App = () => {
                   <motion.div 
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.8 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
                     className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 text-zinc-500 text-[9px] md:text-[10px] uppercase tracking-[0.2em] mb-4 md:mb-6"
                   >
                     <span className="relative flex h-1.5 w-1.5">
@@ -305,7 +265,7 @@ const App = () => {
                   <motion.h1 
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.9 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
                     className="text-3xl sm:text-6xl md:text-8xl lg:text-[9.5rem] font-light text-white leading-[1.1] md:leading-[0.9] tracking-tighter mb-6 md:mb-10 drop-shadow-2xl"
                   >
                     Building <br />
@@ -316,7 +276,7 @@ const App = () => {
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ duration: 1, delay: 1.3 }}
+                      transition={{ duration: 1, delay: 0.7 }}
                       className="max-w-md"
                     >
                       <p className="text-[14px] md:text-xl text-zinc-400 font-light leading-relaxed mb-6 md:mb-10">
@@ -340,12 +300,12 @@ const App = () => {
                     <motion.div 
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ duration: 1, delay: 1.6 }}
+                      transition={{ duration: 1, delay: 0.9 }}
                       className="flex flex-col items-start md:items-end mt-12 md:mt-0"
                     >
-                       <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-6">Corporate Heritage</div>
+                       <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-4 md:mb-6">Corporate Heritage</div>
                        <div className="flex -space-x-4 grayscale brightness-125 opacity-50 hover:opacity-100 transition-all duration-700">
-                          <div title="Intel" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl text-white">
+                          <div title="Intel Corporation" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 shadow-2xl text-white">
                              <IntelLogo />
                           </div>
                           <div title="Motorola" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-5 shadow-2xl text-white">
@@ -361,66 +321,102 @@ const App = () => {
               </div>
             </section>
 
+            {/* PHILOSOPHY SECTION */}
             <section id="about" className="py-12 md:py-20 px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900">
-              <SectionHeading number="01" title="The Bridge Between Two Worlds" subtitle="Corporations often fail at ventures because they struggle to balance structure with survival." />
+              <div className="mb-6 md:mb-10">
+                <div className="flex items-center gap-4 mb-2">
+                  <span className="text-xs font-mono text-zinc-500">01</span>
+                  <div className="h-px w-8 bg-zinc-800"></div>
+                </div>
+                <h2 className="text-2xl md:text-4xl font-light tracking-tight text-white mb-2">The Bridge Between Two Worlds</h2>
+                <p className="text-sm md:text-base text-zinc-500 font-light max-w-lg">Corporations often fail at ventures because they struggle to balance structure with survival.</p>
+              </div>
               <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 mt-8 md:mt-16">
                 <div className="space-y-3 group">
                   <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Cpu className="text-white" size={18} /></div>
                   <h4 className="text-lg md:text-xl font-medium text-white">Big Tech Precision</h4>
-                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">Navigated Intel, Motorola, and Nokia. I understand high-weight governance and global R&D cadences.</p>
+                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">Having navigated Intel, Motorola, and Nokia, I understand high-weight governance and global R&D cadences.</p>
                 </div>
                 <div className="space-y-3 group">
                   <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Zap className="text-white" size={18} /></div>
                   <h4 className="text-lg md:text-xl font-medium text-white">Founder Grit</h4>
-                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I've ground from seed to scale, "eating glass" to prove UVPs in challenging markets.</p>
+                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I've ground from seed to scale, "eating glass" to prove UVPs in markets that didn't yet understand the solution.</p>
                 </div>
                 <div className="space-y-3 group sm:col-span-2 md:col-span-1">
                   <div className="p-2.5 bg-zinc-900/50 rounded-xl w-fit group-hover:bg-zinc-800 transition-colors"><Shield className="text-white" size={18} /></div>
                   <h4 className="text-lg md:text-xl font-medium text-white">Strategic Autonomy</h4>
-                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I help launch startups with strategic independence while leveraging corporate parents.</p>
+                  <p className="text-[14px] md:text-base text-zinc-500 font-light leading-relaxed">I help companies launch startups with independence in strategy while leveraging parent-company assets.</p>
                 </div>
               </div>
             </section>
 
+            {/* ACTIVE VENTURES SECTION */}
             <section id="ventures" className="py-12 md:py-20 px-6 md:px-12 max-w-5xl mx-auto">
-              <SectionHeading number="02" title="Active Leadership" subtitle="Spearheading data hubs and agentifying the modern venture process." />
+              <div className="mb-6 md:mb-10">
+                <div className="flex items-center gap-4 mb-2">
+                  <span className="text-xs font-mono text-zinc-500">02</span>
+                  <div className="h-px w-8 bg-zinc-800"></div>
+                </div>
+                <h2 className="text-2xl md:text-4xl font-light tracking-tight text-white mb-2">Active Leadership</h2>
+                <p className="text-sm md:text-base text-zinc-500 font-light max-w-lg">Spearheading data infrastructure and modern venture building process.</p>
+              </div>
               <div className="grid md:grid-cols-2 gap-4 md:gap-8">
-                <VentureCard LogoComponent={NexmoLogo} role="Managing Director" desc="Strategic data venture backed by UC3M." link="https://www.nexmo-datahub.eu/" isCurrent={true} />
-                <VentureCard LogoComponent={MovenLogo} role="Fractional COO" desc="Agentic venture building and process automation." link="https://moven.pro/" isCurrent={true} />
+                <a href="https://www.nexmo-datahub.eu/" target="_blank" rel="noreferrer" className="group relative block p-5 md:p-8 rounded-2xl border bg-zinc-900/50 border-zinc-800 hover:border-zinc-600 transition-all duration-500">
+                  <div className="flex justify-between items-start mb-3 md:mb-6">
+                    <div className="flex flex-col">
+                      <span className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2 md:mb-3">Managing Director</span>
+                      <NexmoLogo />
+                    </div>
+                    <div className="p-2 rounded-full bg-zinc-800 text-zinc-400 group-hover:text-white group-hover:bg-zinc-700 transition-all"><ArrowUpRight size={16} /></div>
+                  </div>
+                  <p className="text-sm md:text-base text-zinc-400 font-light leading-relaxed">Strategic data infrastructure venture backed by UC3M.</p>
+                </a>
+                <a href="https://moven.pro/" target="_blank" rel="noreferrer" className="group relative block p-5 md:p-8 rounded-2xl border bg-zinc-900/50 border-zinc-800 hover:border-zinc-600 transition-all duration-500">
+                  <div className="flex justify-between items-start mb-3 md:mb-6">
+                    <div className="flex flex-col">
+                      <span className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest mb-2 md:mb-3">Fractional COO</span>
+                      <MovenLogo />
+                    </div>
+                    <div className="p-2 rounded-full bg-zinc-800 text-zinc-400 group-hover:text-white group-hover:bg-zinc-700 transition-all"><ArrowUpRight size={16} /></div>
+                  </div>
+                  <p className="text-sm md:text-base text-zinc-400 font-light leading-relaxed">Agentic venture building and process automation for high-scale environments.</p>
+                </a>
               </div>
             </section>
 
+            {/* CONTACT SECTION */}
             <section id="contact" className="py-12 md:py-20 mb-6 md:mb-12 px-6 md:px-12 max-w-5xl mx-auto">
               <div className="bg-zinc-900/30 rounded-[1.5rem] md:rounded-[3rem] p-6 md:p-16 border border-zinc-900 shadow-2xl">
-                <div className="max-w-4xl mx-auto">
-                  <div className="text-center mb-8 md:mb-16">
-                    <h2 className="text-2xl md:text-6xl font-light text-white mb-3 md:mb-6 tracking-tight">Let's create synergy.</h2>
-                    <p className="text-zinc-500 max-w-lg mx-auto font-light text-sm md:text-base">Available for Managing Director roles and high-impact venture building.</p>
-                  </div>
-                  <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
-                    <div className="space-y-8 md:space-y-12">
-                      <div className="space-y-4 md:space-y-6">
-                        <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-[14px] md:text-xl text-white hover:text-zinc-400 transition-colors">
-                          <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Mail size={16} className="text-zinc-400" /></div>
-                          info@fernando-martin.eu
-                        </a>
-                        <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-[14px] md:text-xl text-white hover:text-zinc-400 transition-colors text-left">
-                          <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Calendar size={16} className="text-zinc-400" /></div>
-                          Book a call directly
-                        </button>
-                      </div>
-                    </div>
-                    <form onSubmit={handleFormSubmit} className="space-y-3 md:space-y-4">
-                      <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
-                        <input required type="text" placeholder="Name" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm" />
-                        <input required type="email" placeholder="Work Email" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm" />
-                      </div>
-                      <textarea required placeholder="What venture are we building?" rows="3" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm resize-none"></textarea>
-                      <button type="submit" className="w-full bg-white text-black py-3.5 md:py-6 rounded-xl md:rounded-2xl font-bold flex items-center justify-center gap-3 text-sm md:text-lg">
-                        {formStatus || 'Send Inquiry'} <Send size={18} />
+                <div className="max-w-4xl mx-auto text-center mb-8 md:mb-16">
+                  <h2 className="text-2xl md:text-6xl font-light text-white mb-3 md:mb-6 tracking-tight">Let's create synergy.</h2>
+                  <p className="text-zinc-500 max-w-lg mx-auto font-light text-sm md:text-base">Available for Managing Director roles and Fractional leadership within high-impact venture builders.</p>
+                </div>
+                <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 max-w-4xl mx-auto">
+                  <div className="space-y-8 md:space-y-12">
+                    <div className="space-y-4 md:space-y-6">
+                      <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-[14px] md:text-xl text-white hover:text-zinc-400 transition-colors">
+                        <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Mail size={16} className="text-zinc-400" /></div>
+                        info@fernando-martin.eu
+                      </a>
+                      <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-[14px] md:text-xl text-white hover:text-zinc-400 transition-colors text-left">
+                        <div className="p-2 md:p-3 bg-zinc-900 rounded-full"><Calendar size={16} className="text-zinc-400" /></div>
+                        Book a call directly
                       </button>
-                    </form>
+                    </div>
+                    <div className="p-6 md:p-10 bg-zinc-950/50 border border-zinc-800 rounded-[1.5rem] md:rounded-[2.5rem] shadow-inner">
+                      <p className="text-zinc-400 italic font-light text-[14px] md:text-lg">"Build an operating system that survives the corporate immune system."</p>
+                    </div>
                   </div>
+                  <form onSubmit={handleFormSubmit} className="space-y-3 md:space-y-4">
+                    <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
+                      <input required type="text" placeholder="Name" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm" />
+                      <input required type="email" placeholder="Work Email" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm" />
+                    </div>
+                    <textarea required placeholder="What venture are we building?" rows="3" className="w-full bg-zinc-950 border border-zinc-900 p-3.5 md:p-5 rounded-xl md:rounded-2xl outline-none text-white text-sm resize-none"></textarea>
+                    <button type="submit" className="w-full bg-white text-black py-3.5 md:py-6 rounded-xl md:rounded-2xl font-bold flex items-center justify-center gap-3 text-sm md:text-lg">
+                      {formStatus || 'Send Inquiry'} <Send size={18} />
+                    </button>
+                  </form>
                 </div>
               </div>
             </section>
@@ -441,6 +437,7 @@ const App = () => {
           animate={{ opacity: 1 }} 
           transition={{ duration: 1.2, delay: 0.2 }}
         >
+          {/* NAVIGATION */}
           <nav className="fixed top-0 w-full z-50 px-6 py-4 md:py-8 md:px-12 flex justify-between items-center pointer-events-none">
             <button 
               onClick={() => setView('home')}
@@ -449,9 +446,9 @@ const App = () => {
               FM.
             </button>
             <div className="hidden md:flex gap-8 text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-500 pointer-events-auto">
-              <a href={view === 'home' ? '#about' : '#'} onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Philosophy</a>
-              <a href={view === 'home' ? '#ventures' : '#'} onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Ventures</a>
-              <a href={view === 'home' ? '#contact' : '#'} onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Contact</a>
+              <a href="#about" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Philosophy</a>
+              <a href="#ventures" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Ventures</a>
+              <a href="#contact" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Contact</a>
             </div>
             <a 
               href="mailto:info@fernando-martin.eu" 
@@ -465,6 +462,7 @@ const App = () => {
             {renderView()}
           </main>
 
+          {/* FOOTER */}
           <footer className="max-w-5xl mx-auto px-6 md:px-12 py-8 md:py-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-600 text-center">
             <div className="flex flex-col md:items-start gap-2 text-left">
               <p>© 2025 Fernando Martín. Madrid • Munich • International</p>
