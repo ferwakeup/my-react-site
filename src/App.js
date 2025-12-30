@@ -318,7 +318,7 @@ const App = () => {
                         info@fernando-martin.eu
                       </a>
                       <button 
-                        onClick={() => window.open('https://calendar.google.com/calendar/appointments/schedules/f.martin.85@gmail.com', '_blank')}
+                        onClick={() => window.open('https://calendar.app.google/MxNczSZTpZbXtQkMA', '_blank')}
                         className="flex items-center gap-4 text-xl text-white hover:text-zinc-400 transition-colors text-left"
                       >
                         <div className="p-3 bg-zinc-900 rounded-full"><Calendar size={20} className="text-zinc-400" /></div>
