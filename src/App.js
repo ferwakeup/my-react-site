@@ -190,7 +190,7 @@ const App = () => {
                     </a>
                     <div className="flex gap-4">
                       <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2" title="LinkedIn"><Linkedin size={22} /></a>
-                      <a href="#" className="text-zinc-500 hover:text-white transition-colors p-2" title="X (Twitter)"><XLogo size={22} /></a>
+                      <a href="https://x.com/ferwakeup" className="text-zinc-500 hover:text-white transition-colors p-2" title="X (Twitter)"><XLogo size={22} /></a>
                     </div>
                   </div>
                 </div>
@@ -313,7 +313,7 @@ const App = () => {
                   <div>
                     <h4 className="text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-600 mb-8">Direct Channels</h4>
                     <div className="space-y-6">
-                      <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-xl text-white hover:text-zinc-400 transition-colors">
+                      <a href="mailto:info@fernando-martin.me" className="flex items-center gap-4 text-xl text-white hover:text-zinc-400 transition-colors">
                         <div className="p-3 bg-zinc-900 rounded-full"><Mail size={20} className="text-zinc-400" /></div>
                         info@fernando-martin.eu
                       </a>
