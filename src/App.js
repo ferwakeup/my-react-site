@@ -190,7 +190,7 @@ const App = () => {
                     </a>
                     <div className="flex gap-4">
                       <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2" title="LinkedIn"><Linkedin size={22} /></a>
-                      <a href="https://x.com/ferwakeup" className="text-zinc-500 hover:text-white transition-colors p-2" title="X (Twitter)"><XLogo size={22} /></a>
+                      <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2" title="X (Twitter)"><XLogo size={22} /></a>
                     </div>
                   </div>
                 </div>
@@ -374,8 +374,8 @@ const App = () => {
         <div>© 2025 Fernando Martín. Madrid • Munich • International</div>
         <div className="flex gap-8">
           <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
-          <a href="#" className="hover:text-white transition-colors flex items-center gap-2"><XLogo size={10} /> X</a>
-          <a href="#" className="hover:text-white transition-colors">Instagram</a>
+          <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2"><XLogo size={10} /> X</a>
+          <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer"className="hover:text-white transition-colors">Instagram</a>
         </div>
         <div>Built for the Zero to One Journey</div>
       </footer>
