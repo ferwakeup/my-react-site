@@ -85,7 +85,7 @@ const PreLoader = ({ finishLoading }) => {
   ];
 
   useEffect(() => {
-    const totalDuration = 4500; 
+    const totalDuration = 2500; 
     const interval = totalDuration / 100;
     
     const countInterval = setInterval(() => {
