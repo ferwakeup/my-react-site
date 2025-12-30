@@ -85,7 +85,7 @@ const PreLoader = ({ finishLoading }) => {
   ];
 
   useEffect(() => {
-    const totalDuration = 2500; 
+    const totalDuration = 3000; 
     const interval = totalDuration / 100;
     
     const countInterval = setInterval(() => {
@@ -96,9 +96,9 @@ const PreLoader = ({ finishLoading }) => {
       });
     }, interval);
 
-    const t1 = setTimeout(() => setWordIndex(1), 1500);
-    const t2 = setTimeout(() => setWordIndex(2), 3000);
-    const tFinish = setTimeout(() => finishLoading(), 4800);
+    const t1 = setTimeout(() => setWordIndex(1), 750);
+    const t2 = setTimeout(() => setWordIndex(2), 1500);
+    const tFinish = setTimeout(() => finishLoading(), 3000);
 
     return () => {
       clearInterval(countInterval);
