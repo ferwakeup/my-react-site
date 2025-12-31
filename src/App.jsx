@@ -19,11 +19,10 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * FERNANDO MARTÍN - MASTER BUILD V3.0 (CLEAN BUILD)
- * - Strict 3s Preloader (1800ms count + reveal).
- * - Full Carousel Section (Birdsong Inspired).
- * - No ESLint warnings (fixes Vercel logs).
- * - High-visibility emerald marker in footer.
+ * FERNANDO MARTÍN - MASTER BUILD V3.0
+ * UPDATED: Corporate logos replaced with provided image assets.
+ * SYNC CHECK: Strict 3s Total Duration.
+ * CAROUSEL: Hardcoded implementation.
  */
 
 const GlobalStyles = () => (
@@ -36,25 +35,20 @@ const GlobalStyles = () => (
   `}} />
 );
 
-// --- ROBUST LOGOS ---
+// --- CORPORATE LOGOS (USING PROVIDED IMAGE ASSETS) ---
 const IntelLogo = () => (
-  <svg className="w-full h-auto fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.112 18.002H2.888L0 20.352h24l-2.888-2.35zm-2.434-12.82c-.848 0-1.53.682-1.53 1.53 0 .847.682 1.53 1.53 1.53.847 0 1.53-.683 1.53-1.53a1.532 1.532 0 00-1.53-1.53zm-.08 3.515h-.452c-1.28 0-2.32 1.04-2.32 2.321v5.043h1.071v-5.043c0-.69.56-1.25 1.25-1.25h.451V8.697zm-3.324 2.321c0-1.28-1.041-2.32-2.32-2.32-1.28 0-2.32 1.04-2.32 2.32v5.043h1.071v-5.043c0-.69.56-1.25 1.25-1.25s1.25.56 1.25 1.25v5.043h1.071l-.002-5.043zm-5.715-4.642V8.697h.804v1.272H8.755v5.093h1.071v-5.043h.804v6.315H8.755v-1.272h-.804V8.697h-.804V7.425h.804V6.376h1.071v1.049h.537zm-3.044 2.321c-1.28 0-2.32 1.04-2.32 2.32v5.043h1.071v-5.043c0-.69.56-1.25 1.25-1.25.69 0 1.25.56 1.25 1.25v5.043h1.071v-5.043c0-1.28-1.04-2.321-2.321-2.321zM3.463 8.697V7.425h1.071v1.272H3.463zm0 6.365V10.02h1.071v5.043H3.463z"/>
-  </svg>
+  <img src="/logo-intel.svg" alt="Intel" className="w-full h-auto object-contain" />
 );
 
 const MotorolaLogo = () => (
-  <svg className="w-full h-auto fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 21.6c-5.302 0-9.6-4.298-9.6-9.6S6.698 2.4 12 2.4s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6zm1.905-13.43c-.477-.042-1.393.125-1.894.614l-2.016 3.024-2.016-3.024c-.5-.49-1.417-.656-1.894-.614-.72.062-1.3.643-1.3 1.37v6.626h1.636V9.16l2.164 3.246c.3.451.92.451 1.22 0l2.164-3.246v7.006h1.636V9.54c0-.727-.58-1.308-1.3-1.37z"/>
-  </svg>
+  <img src="/logo-motorola.png" alt="Motorola" className="w-full h-auto object-contain" />
 );
 
 const NokiaLogo = () => (
-  <svg className="w-full h-auto fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17.848 15.548l-5.836-7.854v7.854H9.554V8.452h2.24l5.836 7.854V8.452h2.458v7.096h-2.24zm-11.41 0H4v-7.096h2.458l5.837 7.854V8.452h2.24v7.096h-2.24l-5.837-7.854v7.854zM24 15.548h-2.61l-3.256-4.38-3.256 4.38H12.27l4.893-6.586-4.893-6.586h2.608l3.257 4.38 3.256-4.38H24l-4.893 6.586L24 15.548z"/>
-  </svg>
+  <img src="/logo-nokia.png" alt="Nokia" className="w-full h-auto object-contain" />
 );
 
+// --- VENTURE LOGOS ---
 const NexmoLogo = () => (
   <svg className="h-6 md:h-8 w-auto fill-white mb-4" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
     <circle cx="15" cy="30" r="8" fill="currentColor" opacity="0.8" />
@@ -90,7 +84,6 @@ const PreLoader = ({ finishLoading }) => {
   ];
 
   useEffect(() => {
-    // Total: 1.8s count duration to ensure reveal within 3s window
     const duration = 1800; 
     const countInterval = setInterval(() => {
       setCounter((prev) => {
@@ -117,7 +110,7 @@ const PreLoader = ({ finishLoading }) => {
       transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
       className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center p-6"
     >
-      <div className="w-full max-w-5xl mx-auto flex flex-col items-start justify-between h-full py-10 md:py-20">
+      <div className="w-full max-w-7xl mx-auto flex flex-col items-start justify-between h-full py-10 md:py-20">
         <div className="overflow-hidden h-24 flex items-center">
           <AnimatePresence mode="wait">
             <motion.div 
@@ -141,7 +134,7 @@ const PreLoader = ({ finishLoading }) => {
           </AnimatePresence>
         </div>
         <div className="flex items-end justify-between w-full border-t border-zinc-800 pt-8">
-           <span className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest text-emerald-400">System Live v3.0</span>
+           <span className="text-emerald-400 font-mono text-[10px] uppercase tracking-widest">Mastering Zero to One</span>
            <span className="text-6xl md:text-9xl font-light text-white tracking-tighter tabular-nums leading-none">{counter}%</span>
         </div>
       </div>
@@ -149,7 +142,7 @@ const PreLoader = ({ finishLoading }) => {
   );
 };
 
-// --- INSIGHTS CAROUSEL (BIRDSONG STYLE) ---
+// --- INSIGHTS CAROUSEL ---
 const InsightsCarousel = () => {
   const scrollRef = useRef(null);
   const items = [
@@ -255,9 +248,15 @@ const App = () => {
                     <div className="flex flex-col items-start md:items-end">
                        <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-6">Corporate Heritage</div>
                        <div className="flex -space-x-4 grayscale brightness-125 opacity-50 hover:opacity-100 transition-all duration-700">
-                          <div title="Intel" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 text-white"><IntelLogo /></div>
-                          <div title="Motorola" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-5 text-white"><MotorolaLogo /></div>
-                          <div title="Nokia" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 text-white"><NokiaLogo /></div>
+                          <div title="Intel" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 text-white overflow-hidden">
+                            <IntelLogo />
+                          </div>
+                          <div title="Motorola" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-5 text-white overflow-hidden">
+                            <MotorolaLogo />
+                          </div>
+                          <div title="Nokia" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 text-white overflow-hidden">
+                            <NokiaLogo />
+                          </div>
                        </div>
                     </div>
                   </div>
@@ -271,7 +270,7 @@ const App = () => {
                 <div className="space-y-4">
                   <div className="p-3 bg-zinc-900/50 rounded-xl w-fit"><Cpu className="text-white" size={20} /></div>
                   <h4 className="text-xl font-medium text-white">Big Tech Precision</h4>
-                  <p className="text-[15px] text-zinc-500 font-light leading-relaxed">Operated within Intel, Motorola, and Nokia. I understand global R&D and high-weight governance.</p>
+                  <p className="text-[15px] text-zinc-500 font-light leading-relaxed">Navigated Intel, Motorola, and Nokia. I understand global R&D and high-weight governance.</p>
                 </div>
                 <div className="space-y-4">
                   <div className="p-3 bg-zinc-900/50 rounded-xl w-fit"><Zap className="text-white" size={20} /></div>
@@ -316,7 +315,7 @@ const App = () => {
           </main>
 
           <footer className="max-w-5xl mx-auto px-6 md:px-12 py-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-mono uppercase tracking-widest text-zinc-600">
-            <div className="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20">Production V3.0 Final - Carousel Enabled</div>
+            <div className="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20 font-bold tracking-widest">V3.0 DEPLOYED</div>
             <div className="flex gap-8">
               <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="hover:text-white">LinkedIn</a>
               <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="hover:text-white">X</a>
