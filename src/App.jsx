@@ -20,25 +20,23 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * FERNANDO MARTÍN - MASTER BUILDER
- * * CHANGES MADE:
- * 1. Synchronized Preloader: Total duration strictly ~2.5s + 0.5s reveal = 3s total.
- * 2. Explicit Carousel: All 4 insight items are hardcoded and mapped correctly.
- * 3. Global CSS: Included in a style tag to ensure scrollbars are hidden on all platforms.
- * 4. Mobile Safari: Typography scaled for perfect readability on iPhone.
+ * FERNANDO MARTÍN - MASTER BUILD V2.0
+ * SYNC CHECK: Strict 2.5s animation sequence + Reveal = 3s Total.
+ * CAROUSEL: Explicitly defined as a component and rendered in main.
  */
 
-// --- GLOBAL STYLES ---
+// --- STYLES ---
 const GlobalStyles = () => (
   <style dangerouslySetInnerHTML={{ __html: `
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     html { scroll-behavior: smooth; }
-    body { background-color: #0a0a0a; margin: 0; overflow-x: hidden; }
+    body { background-color: #0a0a0a; margin: 0; padding: 0; overflow-x: hidden; }
+    h1, h2, h3, p, a { -webkit-text-size-adjust: 100%; }
   `}} />
 );
 
-// --- SVG LOGOS ---
+// --- SVG LOGOS (INLINE FOR VISIBILITY) ---
 const IntelLogo = () => (
   <svg className="w-full h-auto fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path d="M21.112 18.002H2.888L0 20.352h24l-2.888-2.35zm-2.434-12.82c-.848 0-1.53.682-1.53 1.53 0 .847.682 1.53 1.53 1.53.847 0 1.53-.683 1.53-1.53a1.532 1.532 0 00-1.53-1.53zm-.08 3.515h-.452c-1.28 0-2.32 1.04-2.32 2.321v5.043h1.071v-5.043c0-.69.56-1.25 1.25-1.25h.451V8.697zm-3.324 2.321c0-1.28-1.041-2.32-2.32-2.32-1.28 0-2.32 1.04-2.32 2.32v5.043h1.071v-5.043c0-.69.56-1.25 1.25-1.25s1.25.56 1.25 1.25v5.043h1.071l-.002-5.043zm-5.715-4.642V8.697h.804v1.272H8.755v5.093h1.071v-5.043h.804v6.315H8.755v-1.272h-.804V8.697h-.804V7.425h.804V6.376h1.071v1.049h.537zm-3.044 2.321c-1.28 0-2.32 1.04-2.32 2.32v5.043h1.071v-5.043c0-.69.56-1.25 1.25-1.25.69 0 1.25.56 1.25 1.25v5.043h1.071v-5.043c0-1.28-1.04-2.321-2.321-2.321zM3.463 8.697V7.425h1.071v1.272H3.463zm0 6.365V10.02h1.071v5.043H3.463z"/>
@@ -62,8 +60,8 @@ const NexmoLogo = () => (
     <circle cx="15" cy="30" r="8" fill="currentColor" opacity="0.8" />
     <circle cx="45" cy="15" r="5" fill="currentColor" />
     <circle cx="45" cy="45" r="5" fill="currentColor" />
-    <line x1="15" y1="30" x2="45" y2="15" stroke="currentColor" strokeWidth="2" />
-    <line x1="15" y1="30" x2="45" y2="45" stroke="currentColor" strokeWidth="2" />
+    <line x1="15" cy="30" x2="45" y2="15" stroke="currentColor" strokeWidth="2" />
+    <line x1="15" cy="30" x2="45" y2="45" stroke="currentColor" strokeWidth="2" />
     <text x="65" y="42" fontFamily="sans-serif" fontWeight="bold" fontSize="24">NEXMO</text>
   </svg>
 );
@@ -81,8 +79,7 @@ const XLogo = ({ size = 20, className = "" }) => (
   </svg>
 );
 
-// --- COMPONENTS ---
-
+// --- PRELOADER ---
 const PreLoader = ({ finishLoading }) => {
   const [counter, setCounter] = useState(0);
   const [wordIndex, setWordIndex] = useState(0);
@@ -93,20 +90,20 @@ const PreLoader = ({ finishLoading }) => {
   ];
 
   useEffect(() => {
-    // Shorter Duration: 2.2 seconds total count to allow for reveal animation within 3s window
-    const countDuration = 2200; 
+    // Reveal strictly under 3s. Count takes 1.8s.
+    const duration = 1800; 
     const countInterval = setInterval(() => {
       setCounter((prev) => {
         if (prev < 100) return prev + 1;
         clearInterval(countInterval);
         return 100;
       });
-    }, countDuration / 100);
+    }, duration / 100);
 
-    // Synchronized Word Switches: Every 733ms
-    const t1 = setTimeout(() => setWordIndex(1), 733);
-    const t2 = setTimeout(() => setWordIndex(2), 1466);
-    const tFinish = setTimeout(() => finishLoading(), 2300);
+    // Switches every 600ms
+    const t1 = setTimeout(() => setWordIndex(1), 600);
+    const t2 = setTimeout(() => setWordIndex(2), 1200);
+    const tFinish = setTimeout(() => finishLoading(), 2100);
 
     return () => {
       clearInterval(countInterval);
@@ -114,16 +111,14 @@ const PreLoader = ({ finishLoading }) => {
     };
   }, [finishLoading]);
 
-  const CurrentIcon = words[wordIndex].Icon;
-
   return (
     <motion.div 
       initial={{ y: 0 }}
       exit={{ y: "-100%" }}
-      transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+      transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
       className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center p-6"
     >
-      <div className="w-full max-w-7xl mx-auto flex flex-col items-start justify-between h-full py-10 md:py-20">
+      <div className="w-full max-w-5xl mx-auto flex flex-col items-start justify-between h-full py-10 md:py-20">
         <div className="overflow-hidden h-24 flex items-center">
           <AnimatePresence mode="wait">
             <motion.div 
@@ -131,15 +126,15 @@ const PreLoader = ({ finishLoading }) => {
               initial={{ y: "100%", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: "-100%", opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              transition={{ duration: 0.3 }}
               className="flex items-center gap-4 md:gap-8"
             >
               <div className="text-zinc-500">
                 <motion.div
-                  animate={wordIndex === 2 ? { rotate: 360 } : { rotate: 0 }}
+                  animate={wordIndex === 2 ? { rotate: 360 } : {}}
                   transition={wordIndex === 2 ? { repeat: Infinity, duration: 3, ease: "linear" } : {}}
                 >
-                  <CurrentIcon size={40} strokeWidth={1} />
+                  {React.createElement(words[wordIndex].Icon, { size: 40, strokeWidth: 1 })}
                 </motion.div>
               </div>
               <p className="text-4xl md:text-7xl font-light text-zinc-500 tracking-tighter uppercase">{words[wordIndex].text}</p>
@@ -147,7 +142,7 @@ const PreLoader = ({ finishLoading }) => {
           </AnimatePresence>
         </div>
         <div className="flex items-end justify-between w-full border-t border-zinc-800 pt-8">
-           <span className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest">System Initialization</span>
+           <span className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest text-emerald-500/50">Production V2.0 Ready</span>
            <span className="text-6xl md:text-9xl font-light text-white tracking-tighter tabular-nums leading-none">{counter}%</span>
         </div>
       </div>
@@ -155,18 +150,19 @@ const PreLoader = ({ finishLoading }) => {
   );
 };
 
+// --- INSIGHTS CAROUSEL ---
 const InsightsCarousel = () => {
   const scrollRef = useRef(null);
-  const data = [
-    { id: 1, title: "Zero to One Strategy", cat: "Venture Building", img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800", desc: "Shifting corporate R&D to market-ready growth." },
-    { id: 2, title: "Big Tech Discipline", cat: "Governance", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800", desc: "Implementing global structures into startup speed." },
-    { id: 3, title: "Spanish Tech Ecosystem", cat: "Keynote", img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=800", desc: "Deployment strategies for data-centric ventures." },
+  const items = [
+    { id: 1, title: "The Zero to One Strategy", cat: "Venture Building", img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800", desc: "Navigating corporate R&D to market startups." },
+    { id: 2, title: "Big Tech Discipline", cat: "Governance", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800", desc: "Global structures integrated into startup operations." },
+    { id: 3, title: "Spanish Tech Ecosystem", cat: "Keynote", img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=800", desc: "Growth strategies for data-centric ventures in Iberia." },
     { id: 4, title: "Agentic AI Ventures", cat: "Future Tech", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800", desc: "Automating the early venture construction cycle." }
   ];
 
   const scroll = (dir) => {
     if (scrollRef.current) {
-      const { scrollLeft, clientWidth } = scrollRef.current;
+      const { scrollLeft } = scrollRef.current;
       scrollRef.current.scrollTo({ left: dir === 'left' ? scrollLeft - 400 : scrollLeft + 400, behavior: 'smooth' });
     }
   };
@@ -184,10 +180,10 @@ const InsightsCarousel = () => {
         </div>
       </div>
       <div ref={scrollRef} className="flex gap-6 overflow-x-auto snap-x snap-mandatory px-6 md:px-12 no-scrollbar">
-        {data.map((item) => (
+        {items.map((item) => (
           <div key={item.id} className="min-w-[85vw] md:min-w-[450px] snap-start group">
             <div className="aspect-[16/10] rounded-3xl overflow-hidden bg-zinc-900 mb-6 relative border border-zinc-800">
-              <img src={item.img} alt={item.title} className="w-full h-full object-cover grayscale opacity-40 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700" />
+              <img src={item.img} alt={item.title} className="w-full h-full object-cover grayscale opacity-40 group-hover:opacity-70 transition-all duration-700" />
               <div className="absolute top-6 right-6 p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-all"><Play size={20} fill="currentColor" /></div>
               <div className="absolute bottom-6 left-6"><span className="text-[10px] font-mono uppercase tracking-widest text-white/70 bg-black/40 backdrop-blur px-3 py-1 rounded-full border border-white/10">{item.cat}</span></div>
             </div>
@@ -196,22 +192,13 @@ const InsightsCarousel = () => {
             <a href="#" className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors">View Session <ArrowUpRight size={14} /></a>
           </div>
         ))}
-        <div className="min-w-[20px] md:min-w-[100px] h-1" />
+        <div className="min-w-[50px] h-1" />
       </div>
     </section>
   );
 };
 
-const LegalView = ({ title, children, onBack }) => (
-  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="min-h-screen pt-32 pb-20 px-6 max-w-4xl mx-auto">
-    <button onClick={onBack} className="flex items-center gap-2 text-zinc-500 hover:text-white mb-12 transition-colors"><ArrowLeft size={16} /> Back</button>
-    <h1 className="text-4xl md:text-6xl font-light text-white mb-12 tracking-tight">{title}</h1>
-    <div className="text-zinc-400 font-light leading-relaxed space-y-6">{children}</div>
-  </motion.div>
-);
-
 // --- MAIN APP ---
-
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [view, setView] = useState('home');
@@ -233,13 +220,13 @@ const App = () => {
       {!isLoading && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.1 }}>
           <nav className="fixed top-0 w-full z-50 px-6 py-6 md:px-12 flex justify-between items-center pointer-events-none">
-            <button onClick={() => setView('home')} className="text-white text-lg font-medium tracking-tighter pointer-events-auto hover:opacity-70">FM.</button>
+            <button onClick={() => setView('home')} className="text-white text-lg font-medium tracking-tighter pointer-events-auto hover:opacity-70 transition-opacity">FM.</button>
             <div className="hidden md:flex gap-8 text-[10px] font-mono uppercase tracking-widest text-zinc-500 pointer-events-auto">
-              <a href="#about" onClick={() => setView('home')} className="hover:text-white">Philosophy</a>
-              <a href="#ventures" onClick={() => setView('home')} className="hover:text-white">Ventures</a>
-              <a href="#contact" onClick={() => setView('home')} className="hover:text-white">Contact</a>
+              <a href="#about" className="hover:text-white transition-colors">Philosophy</a>
+              <a href="#ventures" className="hover:text-white transition-colors">Ventures</a>
+              <a href="#contact" className="hover:text-white transition-colors">Contact</a>
             </div>
-            <a href="mailto:info@fernando-martin.eu" className="text-[10px] md:text-xs font-mono uppercase tracking-widest border-b border-zinc-800 pb-1 hover:border-white text-white pointer-events-auto">Let's talk</a>
+            <a href="mailto:info@fernando-martin.eu" className="text-[10px] md:text-xs font-mono uppercase tracking-widest border-b border-zinc-800 pb-1 hover:border-white transition-all text-white pointer-events-auto">Let's talk</a>
           </nav>
 
           <main>
@@ -259,22 +246,22 @@ const App = () => {
                       <h1 className="text-4xl md:text-8xl lg:text-[9rem] font-light text-white leading-tight md:leading-[0.9] tracking-tighter mb-10 drop-shadow-2xl">Building <br /><span className="text-zinc-600 italic">new ventures.</span></h1>
                       <div className="grid md:grid-cols-2 gap-12 items-end">
                         <div className="max-w-md">
-                          <p className="text-base md:text-xl text-zinc-400 font-light leading-relaxed mb-10">Scaling technology with the discipline of Big Tech and the hunger of a founder. Bridging corporate infrastructure with startup survival.</p>
+                          <p className="text-[15px] md:text-xl text-zinc-400 font-light leading-relaxed mb-10">Scaling technology with the discipline of Big Tech and the hunger of a founder. Bridging corporate infrastructure with startup survival.</p>
                           <div className="flex flex-wrap gap-6 items-center">
                             <a href="#contact" className="bg-white text-black px-8 py-4 rounded-full text-sm font-medium hover:bg-zinc-200 transition-all flex items-center gap-2 group shadow-xl shadow-black/20">Start a Venture <ArrowUpRight size={18} /></a>
                             <div className="flex gap-4">
-                              <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" className="text-zinc-500 hover:text-white"><Linkedin size={22} /></a>
-                              <a href="https://x.com/ferwakeup" target="_blank" className="text-zinc-500 hover:text-white"><XLogo size={22} /></a>
-                              <a href="https://www.instagram.com/ferwakeup/" target="_blank" className="text-zinc-500 hover:text-white"><Instagram size={22} /></a>
+                              <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" className="text-zinc-500 hover:text-white transition-colors p-1 md:p-2"><Linkedin size={22} /></a>
+                              <a href="https://x.com/ferwakeup" target="_blank" className="text-zinc-500 hover:text-white transition-colors p-1 md:p-2"><XLogo size={22} /></a>
+                              <a href="https://www.instagram.com/ferwakeup/" target="_blank" className="text-zinc-500 hover:text-white transition-colors p-1 md:p-2"><Instagram size={22} /></a>
                             </div>
                           </div>
                         </div>
                         <div className="flex flex-col items-start md:items-end">
                            <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-6">Corporate Heritage</div>
                            <div className="flex -space-x-4 grayscale brightness-125 opacity-50 hover:opacity-100 transition-all duration-700">
-                              <div className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 text-white"><IntelLogo /></div>
-                              <div className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-5 text-white"><MotorolaLogo /></div>
-                              <div className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 text-white"><NokiaLogo /></div>
+                              <div title="Intel" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 text-white"><IntelLogo /></div>
+                              <div title="Motorola" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-5 text-white"><MotorolaLogo /></div>
+                              <div title="Nokia" className="h-16 w-16 md:h-20 md:w-20 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-3 text-white"><NokiaLogo /></div>
                            </div>
                         </div>
                       </div>
@@ -288,75 +275,60 @@ const App = () => {
                   <div className="grid md:grid-cols-3 gap-12">
                     <div className="space-y-4">
                       <div className="p-3 bg-zinc-900/50 rounded-xl w-fit"><Cpu className="text-white" size={20} /></div>
-                      <h4 className="text-xl font-medium text-white">Big Tech Discipline</h4>
-                      <p className="text-zinc-500 font-light leading-relaxed">Operated within Intel, Motorola, and Nokia. I understand global R&D and high-weight governance.</p>
+                      <h4 className="text-xl font-medium text-white">Big Tech Precision</h4>
+                      <p className="text-[15px] text-zinc-500 font-light leading-relaxed">Navigated Intel, Motorola, and Nokia. I understand global R&D and high-weight governance.</p>
                     </div>
                     <div className="space-y-4">
                       <div className="p-3 bg-zinc-900/50 rounded-xl w-fit"><Zap className="text-white" size={20} /></div>
                       <h4 className="text-xl font-medium text-white">Founder Grit</h4>
-                      <p className="text-zinc-500 font-light leading-relaxed">Ground from seed to an IBEX35 investment. I've "eaten glass" to prove market fit where it didn't exist.</p>
+                      <p className="text-[15px] text-zinc-500 font-light leading-relaxed">Ground from seed to an IBEX35 investment. I've "eaten glass" to prove market fit where it didn't exist.</p>
                     </div>
                     <div className="space-y-4">
                       <div className="p-3 bg-zinc-900/50 rounded-xl w-fit"><Shield className="text-white" size={20} /></div>
                       <h4 className="text-xl font-medium text-white">Strategic Autonomy</h4>
-                      <p className="text-zinc-500 font-light leading-relaxed">Establishing corporate ventures with independence in strategy while leveraging parent-company assets.</p>
+                      <p className="text-[15px] text-zinc-500 font-light leading-relaxed">Establishing corporate ventures with independence in strategy while leveraging parent-company assets.</p>
                     </div>
                   </div>
                 </section>
 
-                {/* INSIGHTS CAROUSEL */}
+                {/* --- CAROUSEL SECTION --- */}
                 <InsightsCarousel />
 
                 {/* SECTION 2: VENTURES */}
                 <section id="ventures" className="py-20 md:py-24 px-6 md:px-12 max-w-5xl mx-auto border-t border-zinc-900">
                   <div className="mb-12"><div className="flex items-center gap-4 mb-2"><span className="text-xs font-mono text-zinc-500">02</span><div className="h-px w-8 bg-zinc-800"></div></div><h2 className="text-3xl md:text-4xl font-light text-white tracking-tight">Active Leadership</h2></div>
                   <div className="grid md:grid-cols-2 gap-8">
-                    <a href="https://www.nexmo-datahub.eu/" target="_blank" className="p-8 rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start"><NexmoLogo /><p className="text-zinc-400 font-light mb-8">Strategic data hub venture backed by UC3M. Leading Spanish tech growth.</p><div className="mt-auto text-white flex items-center gap-2 uppercase font-mono text-xs tracking-widest">Managing Director <ArrowUpRight size={14} /></div></a>
-                    <a href="https://moven.pro/" target="_blank" className="p-8 rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start"><MovenLogo /><p className="text-zinc-400 font-light mb-8">Agentic venture building and process automation for next-gen scaling.</p><div className="mt-auto text-white flex items-center gap-2 uppercase font-mono text-xs tracking-widest">Fractional COO <ArrowUpRight size={14} /></div></a>
+                    <a href="https://www.nexmo-datahub.eu/" target="_blank" className="p-8 rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start"><NexmoLogo /><p className="text-[15px] text-zinc-400 font-light mb-8">Strategic data hub venture backed by UC3M. Leading Spanish tech growth.</p><div className="mt-auto text-white flex items-center gap-2 uppercase font-mono text-xs tracking-widest">Managing Director <ArrowUpRight size={14} /></div></a>
+                    <a href="https://moven.pro/" target="_blank" className="p-8 rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start"><MovenLogo /><p className="text-[15px] text-zinc-400 font-light mb-8">Agentic venture building and process automation for next-gen scaling.</p><div className="mt-auto text-white flex items-center gap-2 uppercase font-mono text-xs tracking-widest">Fractional COO <ArrowUpRight size={14} /></div></a>
                   </div>
                 </section>
 
                 {/* CONTACT */}
-                <section id="contact" className="py-20 px-6 md:px-12 max-w-5xl mx-auto mb-20">
+                <section id="contact" className="py-20 px-6 md:px-12 max-w-5xl mx-auto mb-20 border-t border-zinc-900 pt-20">
                   <div className="bg-zinc-900/30 rounded-[3rem] p-8 md:p-20 border border-zinc-900 shadow-2xl">
-                    <div className="text-center mb-16"><h2 className="text-3xl md:text-6xl font-light text-white mb-4 tracking-tight">Let's create synergy.</h2><p className="text-zinc-500 font-light">Available for Managing Director roles and Fractional leadership in high-impact ventures.</p></div>
+                    <div className="text-center mb-16"><h2 className="text-3xl md:text-6xl font-light text-white mb-4 tracking-tight">Let's create synergy.</h2><p className="text-zinc-500 font-light">Available for Managing Director roles and Fractional leadership.</p></div>
                     <div className="grid md:grid-cols-2 gap-16">
-                      <div className="space-y-12">
-                        <div className="space-y-6">
-                          <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-xl text-white hover:text-zinc-400 transition-colors"><Mail className="text-zinc-500" /> info@fernando-martin.eu</a>
-                          <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-xl text-white hover:text-zinc-400 transition-colors"><Calendar className="text-zinc-500" /> Book a call directly</button>
-                        </div>
-                        <div className="p-8 bg-zinc-950/50 border border-zinc-800 rounded-3xl shadow-inner"><p className="text-zinc-400 italic font-light">"Build an operating system that survives the corporate immune system."</p></div>
+                      <div className="space-y-6">
+                        <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-xl text-white hover:text-zinc-400 transition-colors"><Mail className="text-zinc-500" /> info@fernando-martin.eu</a>
+                        <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-xl text-white hover:text-zinc-400 transition-colors"><Calendar className="text-zinc-500" /> Book a call directly</button>
                       </div>
                       <form onSubmit={handleFormSubmit} className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4"><input required placeholder="Name" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm focus:border-zinc-500" /><input required placeholder="Email" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm focus:border-zinc-500" /></div>
-                        <textarea required placeholder="What venture are we building?" rows="4" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm resize-none focus:border-zinc-500"></textarea>
+                        <div className="grid grid-cols-2 gap-4"><input required placeholder="Name" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm" /><input required placeholder="Email" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm" /></div>
+                        <textarea required placeholder="What venture are we building?" rows="4" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm resize-none"></textarea>
                         <button type="submit" className="w-full bg-white text-black py-4 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-xl">{formStatus || 'Send Inquiry'} <Send size={18} /></button>
                       </form>
                     </div>
                   </div>
                 </section>
               </>
-            ) : view === 'privacy' ? (
-              <LegalView title="Privacy Policy" onBack={() => setView('home')}>
-                <p>Fernando Martín is the controller of personal data gathered via this portal. We adhere strictly to GDPR principles ensuring your professional info is handled with discretion.</p>
-                <p>Collection is limited to voluntary inputs through our contact form used solely for the purpose of discussing strategic ventures.</p>
-              </LegalView>
-            ) : (
-              <LegalView title="Terms of Service" onBack={() => setView('home')}>
-                <p>This digital space is a portfolio and professional contact point. Content reflects professional experience at global technology entities.</p>
-                <p>Corporate logos remain the property of their respective trademark holders. All design assets are proprietary IP of Fernando Martín.</p>
-              </LegalView>
-            )}
+            ) : null}
           </main>
 
           <footer className="max-w-5xl mx-auto px-6 md:px-12 py-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-mono uppercase tracking-widest text-zinc-600">
-            <div className="flex flex-col gap-2">
-              <p>© 2025 Fernando Martín. Madrid • Munich • International</p>
-              <div className="flex gap-4"><button onClick={() => setView('privacy')} className="hover:text-white underline underline-offset-4 decoration-zinc-800">Privacy</button><button onClick={() => setView('terms')} className="hover:text-white underline underline-offset-4 decoration-zinc-800">Terms</button></div>
+            <div className="flex flex-col gap-1">
+              <p>© 2025 Fernando Martín. V2.0 - DEC 31</p>
             </div>
             <div className="flex gap-8"><a href="https://linkedin.com/in/fernandomartinm/" target="_blank" className="hover:text-white">LinkedIn</a><a href="https://x.com/ferwakeup" target="_blank" className="hover:text-white">X</a><a href="https://www.instagram.com/ferwakeup/" target="_blank" className="hover:text-white">Instagram</a></div>
-            <div>Built for Zero to One</div>
           </footer>
         </motion.div>
       )}
