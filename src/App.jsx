@@ -22,9 +22,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 /**
  * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION)
  * - Navigation: Direct synergy-scroll for "Let's talk".
- * - Content: Added Apple iPhone modem delivery milestone.
+ * - Content: Added shared mobility and OTA industry achievements to Founder Grit.
  * - Footer: Restored original multi-column heritage layout.
- * - Performance: Strict 3s preloader logic.
+ * - Performance: Updated 3.5s preloader logic (Balanced word timing).
  */
 
 const GlobalStyles = () => (
@@ -101,7 +101,8 @@ const PreLoader = ({ finishLoading }) => {
   ];
 
   useEffect(() => {
-    const duration = 1800; 
+    // Extended Duration: Total 2.6s count + reveal = ~3.2s total experience.
+    const duration = 2300; 
     const countInterval = setInterval(() => {
       setCounter((prev) => {
         if (prev < 100) return prev + 1;
@@ -110,9 +111,10 @@ const PreLoader = ({ finishLoading }) => {
       });
     }, duration / 100);
 
-    const t1 = setTimeout(() => setWordIndex(1), 600);
-    const t2 = setTimeout(() => setWordIndex(2), 1200);
-    const tFinish = setTimeout(() => finishLoading(), 2100);
+    // Balanced Word Timing: ~850ms per stage for equal "breath".
+    const t1 = setTimeout(() => setWordIndex(1), 850);
+    const t2 = setTimeout(() => setWordIndex(2), 1700);
+    const tFinish = setTimeout(() => finishLoading(), 2600);
 
     return () => {
       clearInterval(countInterval);
@@ -137,7 +139,7 @@ const PreLoader = ({ finishLoading }) => {
               initial={{ y: "100%", opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: "-100%", opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
               className="flex items-center gap-4 md:gap-8"
             >
               <div className="text-zinc-500">
@@ -334,7 +336,7 @@ const App = () => {
                 <div className="space-y-4">
                   <div className="p-3 bg-zinc-900/50 rounded-xl w-fit"><Zap className="text-white" size={20} /></div>
                   <h4 className="text-xl font-medium text-white">Founder Grit</h4>
-                  <p className="text-[15px] text-zinc-500 font-light leading-relaxed">Ground from seed to an IBEX35 investment. I've "eaten glass" to prove market fit where it didn't exist.</p>
+                  <p className="text-[15px] text-zinc-500 font-light leading-relaxed">Ground from seed to an IBEX35 investment. Facilitated hundreds of thousands of shared mobility trips in 10+ countries and developed the virtual counter for the OTA rent a car industry.</p>
                 </div>
                 <div className="space-y-4">
                   <div className="p-3 bg-zinc-900/50 rounded-xl w-fit"><Shield className="text-white" size={20} /></div>
@@ -430,7 +432,7 @@ const App = () => {
             {renderView()}
           </main>
 
-          {/* RESTORED HERITAGE FOOTER */}
+          {/* HERITAGE FOOTER */}
           <footer className="max-w-5xl mx-auto px-6 md:px-12 py-12 md:py-20 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-start gap-12 text-[10px] font-mono uppercase tracking-widest text-zinc-600">
             <div className="flex flex-col gap-6 items-start">
               <div className="text-white text-lg font-medium tracking-tighter">FM.</div>
