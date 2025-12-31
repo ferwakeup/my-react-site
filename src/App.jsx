@@ -20,7 +20,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * FERNANDO MARTÍN - MASTER BUILD V3.0
- * UPDATED: Corporate logos replaced with provided image assets.
+ * UPDATED: Logo visibility fix using CSS filters (forcing white output).
  * SYNC CHECK: Strict 3s Total Duration.
  * CAROUSEL: Hardcoded implementation.
  */
@@ -35,17 +35,32 @@ const GlobalStyles = () => (
   `}} />
 );
 
-// --- CORPORATE LOGOS (USING PROVIDED IMAGE ASSETS) ---
+// --- CORPORATE LOGOS (FORCING WHITE VIA FILTERS) ---
 const IntelLogo = () => (
-  <img src="/logo-intel.svg" alt="Intel" className="w-full h-auto object-contain" />
+  <img 
+    src="/logo-intel.svg" 
+    alt="Intel" 
+    className="w-full h-auto object-contain" 
+    style={{ filter: 'brightness(0) invert(1)' }}
+  />
 );
 
 const MotorolaLogo = () => (
-  <img src="/logo-motorola.png" alt="Motorola" className="w-full h-auto object-contain" />
+  <img 
+    src="/logo-motorola.png" 
+    alt="Motorola" 
+    className="w-full h-auto object-contain" 
+    style={{ filter: 'brightness(0) invert(1)' }}
+  />
 );
 
 const NokiaLogo = () => (
-  <img src="/logo-nokia.png" alt="Nokia" className="w-full h-auto object-contain" />
+  <img 
+    src="/logo-nokia.png" 
+    alt="Nokia" 
+    className="w-full h-auto object-contain" 
+    style={{ filter: 'brightness(0) invert(1)' }}
+  />
 );
 
 // --- VENTURE LOGOS ---
@@ -175,7 +190,7 @@ const InsightsCarousel = () => {
         {items.map((item) => (
           <div key={item.id} className="min-w-[85vw] md:min-w-[450px] snap-start group">
             <div className="aspect-[16/10] rounded-3xl overflow-hidden bg-zinc-900 mb-6 relative border border-zinc-800">
-              <img src={item.img} alt={item.title} className="w-full h-full object-cover grayscale opacity-40 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700" />
+              <img src={item.img} alt={item.title} className="w-full h-full object-cover grayscale opacity-40 group-hover:opacity-70 transition-all duration-700" />
               <div className="absolute top-6 right-6 p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-all"><Play size={20} fill="currentColor" /></div>
               <div className="absolute bottom-6 left-6"><span className="text-[10px] font-mono uppercase tracking-widest text-white/70 bg-black/40 backdrop-blur px-3 py-1 rounded-full border border-white/10">{item.cat}</span></div>
             </div>
