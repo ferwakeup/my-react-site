@@ -9,6 +9,7 @@ import {
   Zap, 
   Shield, 
   Send,
+  ArrowLeft,
   Building2,
   Rocket,
   Cog,
@@ -19,10 +20,11 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * FERNANDO MARTÍN - MASTER BUILD V3.0
- * UPDATED: Logo visibility fix using CSS filters (forcing white output).
- * SYNC CHECK: Strict 3s Total Duration.
- * CAROUSEL: Hardcoded implementation.
+ * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION)
+ * - Navigation: Direct synergy-scroll for "Let's talk".
+ * - Content: Added Apple iPhone modem delivery milestone.
+ * - Footer: Restored original multi-column heritage layout.
+ * - Performance: Strict 3s preloader logic.
  */
 
 const GlobalStyles = () => (
@@ -118,6 +120,8 @@ const PreLoader = ({ finishLoading }) => {
     };
   }, [finishLoading]);
 
+  const CurrentIcon = words[wordIndex].Icon;
+
   return (
     <motion.div 
       initial={{ y: 0 }}
@@ -141,7 +145,7 @@ const PreLoader = ({ finishLoading }) => {
                   animate={wordIndex === 2 ? { rotate: 360 } : {}}
                   transition={wordIndex === 2 ? { repeat: Infinity, duration: 3, ease: "linear" } : {}}
                 >
-                  {React.createElement(words[wordIndex].Icon, { size: 40, strokeWidth: 1 })}
+                  {React.createElement(CurrentIcon, { size: 40, strokeWidth: 1 })}
                 </motion.div>
               </div>
               <p className="text-4xl md:text-7xl font-light text-zinc-500 tracking-tighter uppercase">{words[wordIndex].text}</p>
@@ -149,7 +153,7 @@ const PreLoader = ({ finishLoading }) => {
           </AnimatePresence>
         </div>
         <div className="flex items-end justify-between w-full border-t border-zinc-800 pt-8">
-           <span className="text-emerald-400 font-mono text-[10px] uppercase tracking-widest">Mastering Zero to One</span>
+           <span className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest">Mastering Zero to One</span>
            <span className="text-6xl md:text-9xl font-light text-white tracking-tighter tabular-nums leading-none">{counter}%</span>
         </div>
       </div>
@@ -163,7 +167,7 @@ const InsightsCarousel = () => {
   const items = [
     { id: 1, title: "The Zero to One Strategy", cat: "Venture Building", img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800", desc: "Navigating corporate R&D to market-ready startups." },
     { id: 2, title: "Big Tech Discipline", cat: "Governance", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800", desc: "Global structures integrated into high-speed operations." },
-    { id: 3, title: "Spanish Tech Ecosystem", cat: "Keynote", img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=800", desc: "Deployment strategies for data-centric ventures in Iberia." },
+    { id: 3, title: "Spanish Tech Ecosystem", cat: "Keynote", img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=800", desc: "Growth strategies for data-centric ventures in Iberia." },
     { id: 4, title: "Agentic AI Ventures", cat: "Future Tech", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800", desc: "Automating the early venture construction cycle." }
   ];
 
@@ -175,7 +179,7 @@ const InsightsCarousel = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 border-t border-zinc-900 bg-[#0a0a0a]">
+    <section id="insights" className="py-16 md:py-24 border-t border-zinc-900 bg-[#0a0a0a]">
       <div className="max-w-5xl mx-auto px-6 md:px-12 mb-10 flex justify-between items-end">
         <div>
           <div className="flex items-center gap-4 mb-2"><span className="text-xs font-mono text-zinc-500">INSIGHTS</span><div className="h-px w-8 bg-zinc-800"></div></div>
@@ -205,10 +209,35 @@ const InsightsCarousel = () => {
   );
 };
 
+const LegalLayout = ({ title, children, onBack }) => (
+  <motion.div 
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    className="min-h-screen pt-32 pb-20 px-6 md:px-12 max-w-4xl mx-auto"
+  >
+    <button 
+      onClick={onBack}
+      className="flex items-center gap-2 text-zinc-500 hover:text-white mb-12 transition-colors group"
+    >
+      <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Home
+    </button>
+    <h1 className="text-4xl md:text-6xl font-light text-white mb-12 tracking-tight">{title}</h1>
+    <div className="prose prose-invert max-w-none prose-zinc text-zinc-400 font-light leading-relaxed">
+      {children}
+    </div>
+  </motion.div>
+);
+
 // --- MAIN APP ---
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [view, setView] = useState('home');
   const [formStatus, setFormStatus] = useState('');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [view]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -216,26 +245,41 @@ const App = () => {
     setTimeout(() => setFormStatus('Message sent.'), 1500);
   };
 
-  return (
-    <div className="min-h-screen bg-[#0a0a0a] text-zinc-300 selection:bg-zinc-100 selection:text-black antialiased overflow-x-hidden font-sans">
-      <GlobalStyles />
-      <AnimatePresence mode="wait">
-        {isLoading && <PreLoader finishLoading={() => setIsLoading(false)} key="loader" />}
-      </AnimatePresence>
-
-      {!isLoading && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
-          <nav className="fixed top-0 w-full z-50 px-6 py-6 md:px-12 flex justify-between items-center pointer-events-none">
-            <div className="text-white text-lg font-medium tracking-tighter pointer-events-auto">FM.</div>
-            <div className="hidden md:flex gap-8 text-[10px] font-mono uppercase tracking-widest text-zinc-500 pointer-events-auto">
-              <a href="#about" className="hover:text-white transition-colors">Philosophy</a>
-              <a href="#ventures" className="hover:text-white transition-colors">Ventures</a>
-              <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+  const renderView = () => {
+    switch(view) {
+      case 'privacy':
+        return (
+          <LegalLayout title="Privacy Policy" onBack={() => setView('home')}>
+            <div className="space-y-8">
+              <section>
+                <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">1. Data Responsibility</h3>
+                <p>Fernando Martín is the controller of personal data gathered via this portal. We adhere strictly to GDPR principles ensuring your professional and personal info is handled with extreme discretion.</p>
+              </section>
+              <section>
+                <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. Data Scope</h3>
+                <p>Collection is limited to voluntary inputs through our contact form (Name, Email, Message) used solely for discussing strategic ventures or professional collaborations.</p>
+              </section>
             </div>
-            <a href="mailto:info@fernando-martin.eu" className="text-[10px] md:text-xs font-mono uppercase tracking-widest border-b border-zinc-800 pb-1 hover:border-white transition-all text-white pointer-events-auto">Let's talk</a>
-          </nav>
-
-          <main>
+          </LegalLayout>
+        );
+      case 'terms':
+        return (
+          <LegalLayout title="Terms of Service" onBack={() => setView('home')}>
+            <div className="space-y-8">
+              <section>
+                <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">1. Site Purpose</h3>
+                <p>This digital space is a portfolio and professional contact point. Content reflects professional experience at global technology entities.</p>
+              </section>
+              <section>
+                <h3 className="text-white text-xl font-medium mb-4 underline decoration-zinc-800 underline-offset-8">2. IP Rights</h3>
+                <p>All design assets and layout patterns are proprietary IP. Corporate logos displayed remain the property of their respective trademark holders.</p>
+              </section>
+            </div>
+          </LegalLayout>
+        );
+      default:
+        return (
+          <>
             {/* HERO */}
             <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-32">
               <div className="absolute inset-0 z-0 pointer-events-none">
@@ -284,8 +328,8 @@ const App = () => {
               <div className="grid md:grid-cols-3 gap-12">
                 <div className="space-y-4">
                   <div className="p-3 bg-zinc-900/50 rounded-xl w-fit"><Cpu className="text-white" size={20} /></div>
-                  <h4 className="text-xl font-medium text-white">Big Tech Precision</h4>
-                  <p className="text-[15px] text-zinc-500 font-light leading-relaxed">Navigated Intel, Motorola, and Nokia. I understand global R&D and high-weight governance.</p>
+                  <h4 className="text-xl font-medium text-white">Big Tech Discipline</h4>
+                  <p className="text-[15px] text-zinc-500 font-light leading-relaxed">Having navigated Intel, Motorola, and Nokia, I understand high-weight governance and global R&D cadences. Delivered modem technology to Apple iPhones.</p>
                 </div>
                 <div className="space-y-4">
                   <div className="p-3 bg-zinc-900/50 rounded-xl w-fit"><Zap className="text-white" size={20} /></div>
@@ -313,28 +357,112 @@ const App = () => {
 
             <section id="contact" className="py-20 px-6 md:px-12 max-w-5xl mx-auto mb-20 border-t border-zinc-900">
               <div className="bg-zinc-900/30 rounded-[3rem] p-8 md:p-20 border border-zinc-900 shadow-2xl">
-                <div className="text-center mb-16"><h2 className="text-3xl md:text-6xl font-light text-white mb-4 tracking-tight">Let's create synergy.</h2><p className="text-zinc-500 font-light">Available for Managing Director roles and Fractional leadership.</p></div>
+                <div className="max-w-4xl mx-auto text-center mb-8 md:mb-16">
+                  <h2 className="text-3xl md:text-6xl font-light text-white mb-4 tracking-tight">Let's create synergy.</h2>
+                  <p className="text-zinc-500 font-light">Available for Managing Director roles and Fractional leadership in high-impact ventures.</p>
+                </div>
                 <div className="grid md:grid-cols-2 gap-16">
-                  <div className="space-y-6">
-                    <a href="mailto:info@fernando-martin.eu" className="flex items-center gap-4 text-xl text-white hover:text-zinc-400 transition-colors"><Mail className="text-zinc-500" /> info@fernando-martin.eu</a>
-                    <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-xl text-white hover:text-zinc-400 transition-colors"><Calendar className="text-zinc-500" /> Book a call directly</button>
+                  <div className="space-y-12">
+                    <div className="space-y-6">
+                      <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="flex items-center gap-4 text-xl text-white hover:text-zinc-400 transition-colors">
+                        <div className="p-3 bg-zinc-900 rounded-full"><Calendar className="text-zinc-500" /></div>
+                        Book a call directly
+                      </button>
+                    </div>
+                    <div className="p-8 bg-zinc-950/50 border border-zinc-800 rounded-3xl shadow-inner">
+                      <p className="text-zinc-400 italic font-light">"Build an operating system that survives the corporate immune system."</p>
+                    </div>
                   </div>
                   <form onSubmit={handleFormSubmit} className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4"><input required placeholder="Name" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm" /><input required placeholder="Email" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm" /></div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <input required placeholder="Name" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm" />
+                      <input required placeholder="Email" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm" />
+                    </div>
                     <textarea required placeholder="What venture are we building?" rows="4" className="w-full bg-zinc-950 border border-zinc-900 p-4 rounded-2xl outline-none text-white text-sm resize-none"></textarea>
-                    <button type="submit" className="w-full bg-white text-black py-4 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-xl">{formStatus || 'Send Inquiry'} <Send size={18} /></button>
+                    <button type="submit" className="w-full bg-white text-black py-4 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-xl">
+                      {formStatus || 'Send Inquiry'} <Send size={18} />
+                    </button>
                   </form>
                 </div>
               </div>
             </section>
+          </>
+        );
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0a0a0a] text-zinc-300 selection:bg-zinc-100 selection:text-black antialiased overflow-x-hidden font-sans">
+      <GlobalStyles />
+      <AnimatePresence mode="wait">
+        {isLoading && <PreLoader finishLoading={() => setIsLoading(false)} key="loader" />}
+      </AnimatePresence>
+
+      {!isLoading && (
+        <motion.div 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          transition={{ duration: 1.2, delay: 0.2 }}
+        >
+          {/* NAVIGATION */}
+          <nav className="fixed top-0 w-full z-50 px-6 py-6 md:px-12 flex justify-between items-center pointer-events-none">
+            <button 
+              onClick={() => setView('home')}
+              className="text-white text-lg font-medium tracking-tighter pointer-events-auto hover:opacity-70 transition-opacity"
+            >
+              FM.
+            </button>
+            <div className="hidden md:flex gap-8 text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-500 pointer-events-auto">
+              <a href="#about" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Philosophy</a>
+              <a href="#insights" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Insights</a>
+              <a href="#ventures" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Ventures</a>
+              <a href="#contact" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors">Contact</a>
+            </div>
+            <a 
+              href="#contact" 
+              className="text-[10px] md:text-xs font-mono uppercase tracking-widest border-b border-zinc-800 pb-1 hover:border-white transition-all text-white pointer-events-auto"
+            >
+              Let's talk
+            </a>
+          </nav>
+
+          <main>
+            {renderView()}
           </main>
 
-          <footer className="max-w-5xl mx-auto px-6 md:px-12 py-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-mono uppercase tracking-widest text-zinc-600">
-            <div className="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20 font-bold tracking-widest">V3.0 DEPLOYED</div>
-            <div className="flex gap-8">
-              <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="hover:text-white">LinkedIn</a>
-              <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="hover:text-white">X</a>
-              <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="hover:text-white">Instagram</a>
+          {/* RESTORED HERITAGE FOOTER */}
+          <footer className="max-w-5xl mx-auto px-6 md:px-12 py-12 md:py-20 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-start gap-12 text-[10px] font-mono uppercase tracking-widest text-zinc-600">
+            <div className="flex flex-col gap-6 items-start">
+              <div className="text-white text-lg font-medium tracking-tighter">FM.</div>
+              <div className="flex flex-col gap-2">
+                <p>© 2025 Fernando Martín.</p>
+                <p>Madrid • Munich • International</p>
+              </div>
+              <div className="flex gap-6">
+                <button onClick={() => setView('privacy')} className="hover:text-white transition-colors underline underline-offset-4 decoration-zinc-800">Privacy Policy</button>
+                <button onClick={() => setView('terms')} className="hover:text-white transition-colors underline underline-offset-4 decoration-zinc-800">Terms of Service</button>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-12 md:gap-24">
+              <div className="flex flex-col gap-4">
+                <span className="text-zinc-500 mb-2">Connect</span>
+                <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
+                <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2"><XLogo size={10} /> X (Twitter)</a>
+                <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Instagram</a>
+              </div>
+              
+              <div className="flex flex-col gap-4">
+                <span className="text-zinc-500 mb-2">Navigation</span>
+                <a href="#about" onClick={() => setView('home')} className="hover:text-white transition-colors">Philosophy</a>
+                <a href="#insights" onClick={() => setView('home')} className="hover:text-white transition-colors">Insights</a>
+                <a href="#ventures" onClick={() => setView('home')} className="hover:text-white transition-colors">Ventures</a>
+              </div>
+
+              <div className="col-span-2 md:col-span-1 flex flex-col gap-6 md:items-end md:text-right">
+                <span className="text-zinc-500 mb-2">Heritage</span>
+                <p className="max-w-[200px] leading-relaxed">Built for the Zero to One Journey. Orchestrating scale with corporate precision.</p>
+              </div>
             </div>
           </footer>
         </motion.div>
