@@ -22,11 +22,11 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION ROLLBACK + TRACK RECORD UPDATE)
+ * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION V4.6)
  * - Navigation: Direct synergy-scroll for "Let's talk".
- * - Carousel: Updated with official Track Record & Press milestones.
- * - UX: Responsive breakpoints added (md: prefix) to fix mobile readability.
- * - Content: Preserved Apple Modem & Mobility milestones.
+ * - Carousel: Intel/Apple Modem tech priority + spacing refinement for "breath".
+ * - UX: Responsive breakpoints and optimized white space.
+ * - Content: Preserved all professional milestones (Apple, Shared Mobility).
  * - Performance: Balanced 3.5s preloader breathing time.
  */
 
@@ -86,7 +86,7 @@ const NexmoLogo = () => (
 );
 
 const MovenLogo = () => (
-  <svg className="h-6 md:h-8 w-auto fill-white mb-4" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <svg className="h-8 w-auto fill-white mb-4" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
     <path d="M10 45L25 10L40 45L55 10" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
     <text x="70" y="42" fontFamily="sans-serif" fontWeight="bold" fontSize="28" letterSpacing="2">MOVEN</text>
   </svg>
@@ -174,6 +174,13 @@ const InsightsCarousel = () => {
   const scrollRef = useRef(null);
   const items = [
     { 
+      id: 0, 
+      title: "Intel Modem Tech for Apple", 
+      cat: "Big Tech Impact", 
+      img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800", 
+      desc: "Delivered modem technologies at Intel for Apple iPhones, impacting millions. Contributed to the business unit later acquired by Apple for $1B." 
+    },
+    { 
       id: 1, 
       title: "Strategic Growth & Funding", 
       cat: "Venture Finance", 
@@ -225,31 +232,37 @@ const InsightsCarousel = () => {
   };
 
   return (
-    <section id="insights" className="py-20 md:py-24 border-t border-zinc-900 bg-[#0a0a0a]">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-10 flex justify-between items-end">
+    <section id="insights" className="py-24 md:py-32 border-t border-zinc-900 bg-[#0a0a0a]">
+      <div className="max-w-7xl mx-auto px-8 md:px-20 mb-12 flex justify-between items-end">
         <div>
-          <div className="flex items-center gap-4 mb-2"><span className="text-sm md:text-xs font-mono text-zinc-500 uppercase tracking-widest">Track Record & Press</span><div className="h-px w-8 bg-zinc-800"></div></div>
-          <h2 className="text-3xl md:text-4xl font-light text-white tracking-tight">Milestones in Motion</h2>
+          <div className="flex items-center gap-4 mb-4"><span className="text-sm md:text-xs font-mono text-zinc-500 uppercase tracking-widest">Track Record & Press</span><div className="h-px w-10 bg-zinc-800"></div></div>
+          <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">Milestones in Motion</h2>
         </div>
-        <div className="flex gap-4">
+        <div className="hidden md:flex gap-4">
           <button onClick={() => scroll('left')} className="p-4 rounded-full border border-zinc-800 hover:border-white text-zinc-500 hover:text-white transition-all" aria-label="Scroll Left"><ChevronLeft size={24} /></button>
           <button onClick={() => scroll('right')} className="p-4 rounded-full border border-zinc-800 hover:border-white text-zinc-500 hover:text-white transition-all" aria-label="Scroll Right"><ChevronRight size={24} /></button>
         </div>
       </div>
-      <div ref={scrollRef} className="flex gap-6 overflow-x-auto snap-x snap-mandatory px-6 md:px-12 no-scrollbar">
+      
+      {/* Refined Carousel Container with balanced padding/breath */}
+      <div 
+        ref={scrollRef} 
+        className="flex gap-10 overflow-x-auto snap-x snap-mandatory px-8 md:px-20 no-scrollbar pb-10"
+      >
         {items.map((item) => (
-          <div key={item.id} className="min-w-[85vw] md:min-w-[450px] snap-start group">
-            <div className="aspect-[16/10] rounded-3xl overflow-hidden bg-zinc-900 mb-6 relative border border-zinc-800">
+          <div key={item.id} className="min-w-[80vw] md:min-w-[500px] snap-start group">
+            <div className="aspect-[16/10] rounded-3xl overflow-hidden bg-zinc-900 mb-8 relative border border-zinc-800">
               <img src={item.img} alt={item.title} className="w-full h-full object-cover grayscale opacity-40 group-hover:opacity-70 transition-all duration-700" />
-              <div className="absolute top-6 right-6 p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-all"><Play size={20} fill="currentColor" /></div>
-              <div className="absolute bottom-6 left-6"><span className="text-xs font-mono uppercase tracking-widest text-white/70 bg-black/40 backdrop-blur px-3 py-1 rounded-full border border-white/10">{item.cat}</span></div>
+              <div className="absolute top-6 right-6 p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-all"><Play size={24} fill="currentColor" /></div>
+              <div className="absolute bottom-6 left-6"><span className="text-xs font-mono uppercase tracking-widest text-white/70 bg-black/40 backdrop-blur px-4 py-2 rounded-full border border-white/10">{item.cat}</span></div>
             </div>
-            <h3 className="text-xl md:text-2xl text-white font-light mb-2">{item.title}</h3>
-            <p className="text-base md:text-sm text-zinc-400 font-light mb-4 leading-relaxed">{item.desc}</p>
-            <a href="#contact" className="inline-flex items-center gap-2 text-sm md:text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors py-2">View Detail <ArrowUpRight size={14} /></a>
+            <h3 className="text-2xl md:text-3xl text-white font-light mb-4">{item.title}</h3>
+            <p className="text-lg md:text-base text-zinc-400 font-light mb-6 leading-relaxed">{item.desc}</p>
+            <a href="#contact" className="inline-flex items-center gap-2 text-sm md:text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors py-2 border-b border-transparent hover:border-zinc-500 w-fit">View Detail <ArrowUpRight size={14} /></a>
           </div>
         ))}
-        <div className="min-w-[50px] h-1" />
+        {/* End Spacer for breathability when scrolling to the end */}
+        <div className="min-w-[10vw] h-1" />
       </div>
     </section>
   );
@@ -264,7 +277,7 @@ const LegalLayout = ({ title, children, onBack }) => (
   >
     <button 
       onClick={onBack}
-      className="flex items-center gap-2 text-zinc-500 hover:text-white mb-12 transition-colors group"
+      className="flex items-center gap-2 text-zinc-500 hover:text-white mb-12 py-3 transition-colors group"
     >
       <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Home
     </button>
@@ -334,11 +347,11 @@ const App = () => {
                     <div className="max-w-xl">
                       <p className="text-lg md:text-xl text-zinc-400 font-light leading-relaxed mb-12">Scaling technology with the discipline of Big Tech and the hunger of a founder. Bridging corporate infrastructure with startup survival.</p>
                       <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
-                        <a href="#contact" className="bg-white text-black px-10 py-5 rounded-full text-base font-bold hover:bg-zinc-200 transition-all flex items-center gap-2 group shadow-xl shadow-black/20">Start a Venture <ArrowUpRight size={20} /></a>
+                        <a href="#contact" className="bg-white text-black px-10 py-5 rounded-full text-base font-bold hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-xl shadow-black/20">Start a Venture <ArrowUpRight size={20} /></a>
                         <div className="flex gap-8 px-4 py-2">
-                          <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors"><Linkedin size={28} /></a>
-                          <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors"><XLogo size={28} /></a>
-                          <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors"><Instagram size={28} /></a>
+                          <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><Linkedin size={28} /></a>
+                          <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><XLogo size={28} /></a>
+                          <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><Instagram size={28} /></a>
                         </div>
                       </div>
                     </div>
@@ -348,7 +361,7 @@ const App = () => {
                           <div title="Intel" className="h-20 w-20 md:h-24 md:w-24 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-4 text-white overflow-hidden shadow-2xl">
                             <IntelLogo />
                           </div>
-                          <div title="Motorola" className="h-20 w-20 md:h-24 md:w-24 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-4 text-white overflow-hidden shadow-2xl">
+                          <div title="Motorola" className="h-20 w-20 md:h-24 md:w-24 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-6 text-white overflow-hidden shadow-2xl">
                             <MotorolaLogo />
                           </div>
                           <div title="Nokia" className="h-20 w-20 md:h-24 md:w-24 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-4 text-white overflow-hidden shadow-2xl">
@@ -388,8 +401,8 @@ const App = () => {
             <section id="ventures" className="py-24 md:py-24 px-6 md:px-12 max-w-7xl mx-auto border-t border-zinc-900">
               <div className="mb-12"><div className="flex items-center gap-4 mb-2"><span className="text-sm md:text-xs font-mono text-zinc-500">02</span><div className="h-px w-12 bg-zinc-800"></div></div><h2 className="text-4xl md:text-4xl font-light text-white tracking-tight">Active Leadership</h2></div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8">
-                <a href="https://www.nexmo-datahub.eu/" target="_blank" rel="noreferrer" className="p-10 md:p-8 rounded-[2.5rem] md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start"><NexmoLogo /><p className="text-xl md:text-[15px] text-zinc-400 font-light mb-12 md:mb-8 leading-relaxed">Strategic data hub venture backed by UC3M. Leading Spanish tech growth.</p><div className="mt-auto text-white flex items-center gap-2 uppercase font-mono text-sm md:text-xs tracking-widest py-2">Managing Director <ArrowUpRight size={18} /></div></a>
-                <a href="https://moven.pro/" target="_blank" rel="noreferrer" className="p-10 md:p-8 rounded-[2.5rem] md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start"><MovenLogo /><p className="text-xl md:text-[15px] text-zinc-400 font-light mb-12 md:mb-8 leading-relaxed">Agentic venture building and process automation for next-gen scaling.</p><div className="mt-auto text-white flex items-center gap-2 uppercase font-mono text-sm md:text-xs tracking-widest py-2">Fractional COO <ArrowUpRight size={18} /></div></a>
+                <a href="https://www.nexmo-datahub.eu/" target="_blank" rel="noreferrer" className="p-10 md:p-8 rounded-[2.5rem] md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group"><NexmoLogo /><p className="text-xl md:text-[15px] text-zinc-400 font-light mb-12 md:mb-8 leading-relaxed">Strategic data hub venture backed by UC3M. Leading Spanish tech growth.</p><div className="mt-auto text-white flex items-center gap-3 uppercase font-mono text-sm md:text-xs tracking-widest py-2">Managing Director <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></div></a>
+                <a href="https://moven.pro/" target="_blank" rel="noreferrer" className="p-10 md:p-8 rounded-[2.5rem] md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group"><MovenLogo /><p className="text-xl md:text-[15px] text-zinc-400 font-light mb-12 md:mb-8 leading-relaxed">Agentic venture building and process automation for next-gen scaling.</p><div className="mt-auto text-white flex items-center gap-3 uppercase font-mono text-sm md:text-xs tracking-widest py-2">Fractional COO <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></div></a>
               </div>
             </section>
 
@@ -402,8 +415,8 @@ const App = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                   <div className="space-y-12 md:space-y-12">
                     <div className="space-y-8 md:space-y-6">
-                      <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="w-full flex items-center gap-6 text-2xl md:text-xl text-white hover:text-zinc-400 transition-colors py-4">
-                        <div className="p-5 md:p-3 bg-zinc-900 rounded-full"><Calendar className="text-zinc-500" size={32} /></div>
+                      <button onClick={() => window.open('https://calendar.app.google/WNN7737oFBWm8ViN9', '_blank')} className="w-full flex items-center gap-6 text-2xl md:text-xl text-white hover:text-zinc-400 transition-colors py-4 px-6 rounded-2xl bg-zinc-900/50 md:bg-transparent md:p-0">
+                        <div className="p-5 md:p-3 bg-zinc-900 rounded-full flex-shrink-0"><Calendar className="text-zinc-500" size={32} /></div>
                         Book a call directly
                       </button>
                     </div>
@@ -458,7 +471,7 @@ const App = () => {
             </div>
             <a 
               href="#contact" 
-              className="text-sm md:text-[10px] font-mono uppercase tracking-widest border-b border-zinc-800 pb-1 hover:border-white transition-all text-white pointer-events-auto px-2 py-3 md:p-0"
+              className="text-sm md:text-[10px] font-mono uppercase tracking-widest border-b border-zinc-800 pb-1 hover:border-white transition-all text-white pointer-events-auto px-4 py-3 md:p-0"
             >
               Let's talk
             </a>
@@ -484,21 +497,21 @@ const App = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 md:gap-24 w-full md:w-auto">
               <div className="flex flex-col gap-6 md:gap-4">
-                <span className="text-zinc-500 mb-2 font-bold md:font-normal">Connect</span>
+                <span className="text-zinc-500 mb-2 font-bold md:font-normal uppercase tracking-wider">Connect</span>
                 <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors py-2 md:py-0">LinkedIn</a>
                 <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2 py-2 md:py-0"><XLogo size={14} className="md:w-[10px] md:h-[10px]" /> X (Twitter)</a>
                 <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors py-2 md:py-0">Instagram</a>
               </div>
               
               <div className="flex flex-col gap-6 md:gap-4">
-                <span className="text-zinc-500 mb-2 font-bold md:font-normal">Navigation</span>
+                <span className="text-zinc-500 mb-2 font-bold md:font-normal uppercase tracking-wider">Navigation</span>
                 <a href="#about" onClick={() => setView('home')} className="hover:text-white transition-colors py-2 md:py-0">Philosophy</a>
                 <a href="#insights" onClick={() => setView('home')} className="hover:text-white transition-colors py-2 md:py-0">Insights</a>
                 <a href="#ventures" onClick={() => setView('home')} className="hover:text-white transition-colors py-2 md:py-0">Ventures</a>
               </div>
 
               <div className="sm:col-span-2 md:col-span-1 flex flex-col gap-10 md:gap-6 md:items-end md:text-right">
-                <span className="text-zinc-500 mb-2 font-bold md:font-normal">Heritage</span>
+                <span className="text-zinc-500 mb-2 font-bold md:font-normal uppercase tracking-wider">Heritage</span>
                 <p className="max-w-[300px] md:max-w-[200px] leading-relaxed text-zinc-400 normal-case font-sans italic text-base md:text-[14px]">Built for the Zero to One Journey. Orchestrating scale with corporate precision.</p>
               </div>
             </div>
