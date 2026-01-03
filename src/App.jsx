@@ -198,14 +198,14 @@ const InsightsCarousel = () => {
       id: 3, 
       title: "Global Recognition", 
       cat: "Awards", 
-      img: "/Global_recognition.png", 
+      img: "/Eccocar-Spain-wins-Intelligent-Mobility-prize.webp", 
       desc: "Winner of the UNWTO Tourism Startup Competition 2020 for Smart Mobility on a global stage in Madrid." 
     },
     { 
       id: 4, 
       title: "Corporate Ecosystems", 
       cat: "Partnerships", 
-      img: "/Cosporate_ecosystems.png", 
+      img: "/Corporate_ecosystems.png", 
       desc: "Graduate of prestigious programs including Wayra (Telefónica), VW Data:Lab, SAP.io, and IMPACT Accelerator." 
     },
     { 
