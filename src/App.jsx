@@ -22,9 +22,10 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION ROLLBACK + MOBILE OPTIMIZATION)
+ * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION ROLLBACK + TRACK RECORD UPDATE)
  * - Navigation: Direct synergy-scroll for "Let's talk".
- * - UX: Responsive breakpoints added (md: prefix) to fix mobile readability without changing desktop look.
+ * - Carousel: Updated with official Track Record & Press milestones.
+ * - UX: Responsive breakpoints added (md: prefix) to fix mobile readability.
  * - Content: Preserved Apple Modem & Mobility milestones.
  * - Performance: Balanced 3.5s preloader breathing time.
  */
@@ -85,7 +86,7 @@ const NexmoLogo = () => (
 );
 
 const MovenLogo = () => (
-  <svg className="h-8 w-auto fill-white mb-4" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <svg className="h-6 md:h-8 w-auto fill-white mb-4" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
     <path d="M10 45L25 10L40 45L55 10" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
     <text x="70" y="42" fontFamily="sans-serif" fontWeight="bold" fontSize="28" letterSpacing="2">MOVEN</text>
   </svg>
@@ -168,14 +169,52 @@ const PreLoader = ({ finishLoading }) => {
   );
 };
 
-// --- INSIGHTS CAROUSEL ---
+// --- TRACK RECORD & PRESS CAROUSEL ---
 const InsightsCarousel = () => {
   const scrollRef = useRef(null);
   const items = [
-    { id: 1, title: "The Zero to One Strategy", cat: "Venture Building", img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800", desc: "Navigating corporate R&D to market-ready startups." },
-    { id: 2, title: "Big Tech Discipline", cat: "Governance", img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800", desc: "Global structures integrated into high-speed operations." },
-    { id: 3, title: "Spanish Tech Ecosystem", cat: "Keynote", img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=800", desc: "Growth strategies for data-centric ventures in Iberia." },
-    { id: 4, title: "Agentic AI Ventures", cat: "Future Tech", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800", desc: "Automating the early venture construction cycle." }
+    { 
+      id: 1, 
+      title: "Strategic Growth & Funding", 
+      cat: "Venture Finance", 
+      img: "https://images.unsplash.com/photo-1554224155-16974a4ea2c5?q=80&w=800", 
+      desc: "Successfully negotiated vision alignment and secured €2M in funding from Amadeus IT Group and industrial investors." 
+    },
+    { 
+      id: 2, 
+      title: "Product Innovation", 
+      cat: "Scale", 
+      img: "https://images.unsplash.com/photo-1551288049-bbda48658a7d?q=80&w=800", 
+      desc: "Led the launch of three major products in 12 months, including the Virtual Counter processing millions of bookings." 
+    },
+    { 
+      id: 3, 
+      title: "Global Recognition", 
+      cat: "Awards", 
+      img: "https://images.unsplash.com/photo-1531050171669-01446ad0f249?q=80&w=800", 
+      desc: "Winner of the UNWTO Tourism Startup Competition 2020 for Smart Mobility on a global stage in Madrid." 
+    },
+    { 
+      id: 4, 
+      title: "Corporate Ecosystems", 
+      cat: "Partnerships", 
+      img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800", 
+      desc: "Graduate of prestigious programs including Wayra (Telefónica), VW Data:Lab, SAP.io, and IMPACT Accelerator." 
+    },
+    { 
+      id: 5, 
+      title: "Industry Leadership", 
+      cat: "Keynote", 
+      img: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800", 
+      desc: "Featured speaker at ITB Berlin and FITUR Madrid, presenting digital-first mobility solutions with K10 Mobility." 
+    },
+    { 
+      id: 6, 
+      title: "Team Leadership", 
+      cat: "Management", 
+      img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800", 
+      desc: "Built and mentored a distributed team of 35 professionals across Spain, India, and Colombia with Agile innovation." 
+    }
   ];
 
   const scroll = (dir) => {
@@ -189,8 +228,8 @@ const InsightsCarousel = () => {
     <section id="insights" className="py-20 md:py-24 border-t border-zinc-900 bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-10 flex justify-between items-end">
         <div>
-          <div className="flex items-center gap-4 mb-2"><span className="text-sm md:text-xs font-mono text-zinc-500">INSIGHTS</span><div className="h-px w-8 bg-zinc-800"></div></div>
-          <h2 className="text-3xl md:text-4xl font-light text-white tracking-tight">Knowledge in Motion</h2>
+          <div className="flex items-center gap-4 mb-2"><span className="text-sm md:text-xs font-mono text-zinc-500 uppercase tracking-widest">Track Record & Press</span><div className="h-px w-8 bg-zinc-800"></div></div>
+          <h2 className="text-3xl md:text-4xl font-light text-white tracking-tight">Milestones in Motion</h2>
         </div>
         <div className="flex gap-4">
           <button onClick={() => scroll('left')} className="p-4 rounded-full border border-zinc-800 hover:border-white text-zinc-500 hover:text-white transition-all" aria-label="Scroll Left"><ChevronLeft size={24} /></button>
@@ -206,8 +245,8 @@ const InsightsCarousel = () => {
               <div className="absolute bottom-6 left-6"><span className="text-xs font-mono uppercase tracking-widest text-white/70 bg-black/40 backdrop-blur px-3 py-1 rounded-full border border-white/10">{item.cat}</span></div>
             </div>
             <h3 className="text-xl md:text-2xl text-white font-light mb-2">{item.title}</h3>
-            <p className="text-base md:text-sm text-zinc-400 font-light mb-4">{item.desc}</p>
-            <a href="#contact" className="inline-flex items-center gap-2 text-sm md:text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors py-2">View Session <ArrowUpRight size={14} /></a>
+            <p className="text-base md:text-sm text-zinc-400 font-light mb-4 leading-relaxed">{item.desc}</p>
+            <a href="#contact" className="inline-flex items-center gap-2 text-sm md:text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors py-2">View Detail <ArrowUpRight size={14} /></a>
           </div>
         ))}
         <div className="min-w-[50px] h-1" />
@@ -225,9 +264,9 @@ const LegalLayout = ({ title, children, onBack }) => (
   >
     <button 
       onClick={onBack}
-      className="flex items-center gap-3 text-zinc-500 hover:text-white mb-12 py-3 transition-colors group"
+      className="flex items-center gap-2 text-zinc-500 hover:text-white mb-12 transition-colors group"
     >
-      <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> Back to Home
+      <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Home
     </button>
     <h1 className="text-4xl md:text-6xl font-light text-white mb-12 tracking-tight">{title}</h1>
     <div className="prose prose-invert max-w-none prose-zinc text-zinc-400 text-lg font-light leading-relaxed">
@@ -305,7 +344,7 @@ const App = () => {
                     </div>
                     <div className="flex flex-col items-start md:items-end mt-12 md:mt-0">
                        <div className="text-xs md:text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-8">Corporate Heritage</div>
-                       <div className="flex -space-x-4 grayscale brightness-125 opacity-50 hover:opacity-100 transition-all duration-700">
+                       <div className="flex -space-x-3 sm:-space-x-4 grayscale brightness-125 opacity-50 hover:opacity-100 transition-all duration-700">
                           <div title="Intel" className="h-20 w-20 md:h-24 md:w-24 rounded-full border-4 border-black bg-zinc-950 flex items-center justify-center p-4 text-white overflow-hidden shadow-2xl">
                             <IntelLogo />
                           </div>
@@ -343,7 +382,7 @@ const App = () => {
               </div>
             </section>
 
-            {/* --- CAROUSEL --- */}
+            {/* --- TRACK RECORD --- */}
             <InsightsCarousel />
 
             <section id="ventures" className="py-24 md:py-24 px-6 md:px-12 max-w-7xl mx-auto border-t border-zinc-900">
