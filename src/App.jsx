@@ -22,9 +22,9 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION V4.8)
+ * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION V4.9)
  * - Navigation: Direct synergy-scroll for "Let's talk".
- * - Carousel: Intel/Apple Modem tech priority + Custom assets + Video link for Corporate Ecosystems.
+ * - Carousel: Comprehensive Track Record with verified external links.
  * - UX: Responsive breakpoints and optimized white space for breathability.
  * - Content: Preserved all professional milestones (Apple, Shared Mobility).
  * - Performance: Balanced 3.5s preloader breathing time.
@@ -178,28 +178,32 @@ const InsightsCarousel = () => {
       title: "Intel Modem Tech for Apple", 
       cat: "Big Tech Impact", 
       img: "/Big_tech.png", 
-      desc: "Delivered modem technologies at Intel for Apple iPhones, impacting millions. Contributed to the business unit later acquired by Apple." 
+      desc: "Delivered modem technologies at Intel for Apple iPhones, impacting millions. Contributed to the business unit later acquired by Apple.",
+      link: "https://www.engadget.com/2016-09-16-iphone-7-teardown-intel-inside.html"
     },
     { 
       id: 1, 
       title: "Strategic Growth & Funding", 
       cat: "Venture Finance", 
       img: "/Amadeus.png", 
-      desc: "Successfully negotiated vision alignment and secured €2M in funding from Amadeus IT Group and industrial investors." 
+      desc: "Successfully negotiated vision alignment and secured funding from Amadeus IT Group and Ninepointfive.",
+      link: "https://amadeus.com/en/newsroom/press-releases/amadeus-invests-urban-mobility-innovator-eccocar"
     },
     { 
       id: 2, 
       title: "Product Innovation", 
       cat: "Scale", 
       img: "/Product_innovation.png", 
-      desc: "Led the launch of three major products in 12 months, including the Virtual Counter processing millions of bookings." 
+      desc: "Led the launch of three major products in 12 months, including the Virtual Counter processing millions of bookings.",
+      link: "https://www.eccocar.com/"
     },
     { 
       id: 3, 
       title: "Global Recognition", 
       cat: "Awards", 
       img: "/Global_recognition.png", 
-      desc: "Winner of the UNWTO Tourism Startup Competition 2020 for Smart Mobility on a global stage in Madrid." 
+      desc: "Winner of the UNWTO Tourism Startup Competition 2020 for Smart Mobility on a global stage in Madrid.",
+      link: "https://www.untourism.int/winners-of-the-2nd-unwto-tourism-startup-competition-announced-in-madrid"
     },
     { 
       id: 4, 
@@ -207,21 +211,23 @@ const InsightsCarousel = () => {
       cat: "Partnerships", 
       img: "/Cosporate_ecosystems.png", 
       desc: "Graduate of prestigious programs including Wayra (Telefónica), VW Data:Lab, SAP.io, and IMPACT Accelerator.",
-      video: "https://www.youtube.com/watch?v=BpekA1mxFw8"
+      link: "https://www.youtube.com/watch?v=BpekA1mxFw8"
     },
     { 
       id: 5, 
       title: "Industry Leadership", 
       cat: "Keynote", 
       img: "/Industry_leadership.png", 
-      desc: "Featured speaker at ITB Berlin and FITUR Madrid, presenting digital-first mobility solutions with K10 Mobility." 
+      desc: "Featured speaker at ITB Berlin and FITUR Madrid, presenting digital-first mobility solutions with K10 Mobility.",
+      link: "https://www.linkedin.com/posts/amadeus_innovation-mobility-k10mobility-activity-7288124846381641728-Q_-L/"
     },
     { 
       id: 6, 
       title: "Team Leadership", 
       cat: "Management", 
       img: "/Team_Leadership.png", 
-      desc: "Built and mentored a distributed team of 35 professionals across Spain, India, and Colombia with Agile innovation." 
+      desc: "Built and mentored a distributed team of 35 professionals across Spain, India, and Colombia with Agile innovation.",
+      link: "#contact"
     }
   ];
 
@@ -259,8 +265,8 @@ const InsightsCarousel = () => {
                 onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800'; }}
               />
               <div className="absolute top-6 right-6 p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-all">
-                {item.video ? (
-                  <a href={item.video} target="_blank" rel="noreferrer" className="flex items-center justify-center">
+                {item.link?.startsWith('http') ? (
+                  <a href={item.link} target="_blank" rel="noreferrer" className="flex items-center justify-center">
                     <Play size={24} fill="currentColor" />
                   </a>
                 ) : (
@@ -272,9 +278,9 @@ const InsightsCarousel = () => {
             <h3 className="text-2xl md:text-3xl text-white font-light mb-4">{item.title}</h3>
             <p className="text-lg md:text-base text-zinc-400 font-light mb-6 leading-relaxed">{item.desc}</p>
             <a 
-              href={item.video || "#contact"} 
-              target={item.video ? "_blank" : undefined}
-              rel={item.video ? "noreferrer" : undefined}
+              href={item.link} 
+              target={item.link?.startsWith('http') ? "_blank" : undefined}
+              rel={item.link?.startsWith('http') ? "noreferrer" : undefined}
               className="inline-flex items-center gap-2 text-sm md:text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors py-2 border-b border-transparent hover:border-zinc-500 w-fit"
             >
               View Detail <ArrowUpRight size={14} />
