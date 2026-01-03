@@ -177,7 +177,7 @@ const InsightsCarousel = () => {
       id: 0, 
       title: "Intel Modem Tech for Apple", 
       cat: "Big Tech Impact", 
-      img: "/Big_tech.png", 
+      img: "/apple-iphone7_big.jpg.large.jpg", 
       desc: "Delivered modem technologies at Intel for Apple iPhones, impacting millions. Contributed to the business unit later acquired by Apple." 
     },
     { 
