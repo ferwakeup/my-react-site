@@ -22,10 +22,10 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION V4.6)
+ * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION V4.7)
  * - Navigation: Direct synergy-scroll for "Let's talk".
- * - Carousel: Intel/Apple Modem tech priority + spacing refinement for "breath".
- * - UX: Responsive breakpoints and optimized white space.
+ * - Carousel: Intel/Apple Modem tech priority + Custom image assets (png).
+ * - UX: Responsive breakpoints and optimized white space for breathability.
  * - Content: Preserved all professional milestones (Apple, Shared Mobility).
  * - Performance: Balanced 3.5s preloader breathing time.
  */
@@ -86,7 +86,7 @@ const NexmoLogo = () => (
 );
 
 const MovenLogo = () => (
-  <svg className="h-8 w-auto fill-white mb-4" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <svg className="h-6 md:h-8 w-auto fill-white mb-4" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
     <path d="M10 45L25 10L40 45L55 10" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
     <text x="70" y="42" fontFamily="sans-serif" fontWeight="bold" fontSize="28" letterSpacing="2">MOVEN</text>
   </svg>
@@ -177,49 +177,49 @@ const InsightsCarousel = () => {
       id: 0, 
       title: "Intel Modem Tech for Apple", 
       cat: "Big Tech Impact", 
-      img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800", 
-      desc: "Delivered modem technologies at Intel for Apple iPhones, impacting millions. Contributed to the business unit later acquired by Apple for $1B." 
+      img: "/Big_tech.png", 
+      desc: "Delivered modem technologies at Intel for Apple iPhones, impacting millions. Contributed to the business unit later acquired by Apple." 
     },
     { 
       id: 1, 
       title: "Strategic Growth & Funding", 
       cat: "Venture Finance", 
-      img: "https://images.unsplash.com/photo-1554224155-16974a4ea2c5?q=80&w=800", 
+      img: "/Amadeus.png", 
       desc: "Successfully negotiated vision alignment and secured €2M in funding from Amadeus IT Group and industrial investors." 
     },
     { 
       id: 2, 
       title: "Product Innovation", 
       cat: "Scale", 
-      img: "https://images.unsplash.com/photo-1551288049-bbda48658a7d?q=80&w=800", 
+      img: "/Product_innovation.png", 
       desc: "Led the launch of three major products in 12 months, including the Virtual Counter processing millions of bookings." 
     },
     { 
       id: 3, 
       title: "Global Recognition", 
       cat: "Awards", 
-      img: "https://images.unsplash.com/photo-1531050171669-01446ad0f249?q=80&w=800", 
+      img: "/Global_recognition.png", 
       desc: "Winner of the UNWTO Tourism Startup Competition 2020 for Smart Mobility on a global stage in Madrid." 
     },
     { 
       id: 4, 
       title: "Corporate Ecosystems", 
       cat: "Partnerships", 
-      img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800", 
+      img: "/Cosporate_ecosystems.png", 
       desc: "Graduate of prestigious programs including Wayra (Telefónica), VW Data:Lab, SAP.io, and IMPACT Accelerator." 
     },
     { 
       id: 5, 
       title: "Industry Leadership", 
       cat: "Keynote", 
-      img: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800", 
+      img: "/Industry_leadership.png", 
       desc: "Featured speaker at ITB Berlin and FITUR Madrid, presenting digital-first mobility solutions with K10 Mobility." 
     },
     { 
       id: 6, 
       title: "Team Leadership", 
       cat: "Management", 
-      img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800", 
+      img: "/Team_Leadership.png", 
       desc: "Built and mentored a distributed team of 35 professionals across Spain, India, and Colombia with Agile innovation." 
     }
   ];
@@ -252,7 +252,12 @@ const InsightsCarousel = () => {
         {items.map((item) => (
           <div key={item.id} className="min-w-[80vw] md:min-w-[500px] snap-start group">
             <div className="aspect-[16/10] rounded-3xl overflow-hidden bg-zinc-900 mb-8 relative border border-zinc-800">
-              <img src={item.img} alt={item.title} className="w-full h-full object-cover grayscale opacity-40 group-hover:opacity-70 transition-all duration-700" />
+              <img 
+                src={item.img} 
+                alt={item.title} 
+                className="w-full h-full object-cover grayscale opacity-40 group-hover:opacity-70 transition-all duration-700" 
+                onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800'; }}
+              />
               <div className="absolute top-6 right-6 p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-all"><Play size={24} fill="currentColor" /></div>
               <div className="absolute bottom-6 left-6"><span className="text-xs font-mono uppercase tracking-widest text-white/70 bg-black/40 backdrop-blur px-4 py-2 rounded-full border border-white/10">{item.cat}</span></div>
             </div>
@@ -347,7 +352,7 @@ const App = () => {
                     <div className="max-w-xl">
                       <p className="text-lg md:text-xl text-zinc-400 font-light leading-relaxed mb-12">Scaling technology with the discipline of Big Tech and the hunger of a founder. Bridging corporate infrastructure with startup survival.</p>
                       <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
-                        <a href="#contact" className="bg-white text-black px-10 py-5 rounded-full text-base font-bold hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-xl shadow-black/20">Start a Venture <ArrowUpRight size={20} /></a>
+                        <a href="#contact" className="bg-white text-black px-10 py-5 rounded-full text-base font-bold hover:bg-zinc-200 transition-all flex items-center gap-2 group shadow-xl shadow-black/20">Start a Venture <ArrowUpRight size={20} /></a>
                         <div className="flex gap-8 px-4 py-2">
                           <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><Linkedin size={28} /></a>
                           <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><XLogo size={28} /></a>
@@ -402,7 +407,7 @@ const App = () => {
               <div className="mb-12"><div className="flex items-center gap-4 mb-2"><span className="text-sm md:text-xs font-mono text-zinc-500">02</span><div className="h-px w-12 bg-zinc-800"></div></div><h2 className="text-4xl md:text-4xl font-light text-white tracking-tight">Active Leadership</h2></div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8">
                 <a href="https://www.nexmo-datahub.eu/" target="_blank" rel="noreferrer" className="p-10 md:p-8 rounded-[2.5rem] md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group"><NexmoLogo /><p className="text-xl md:text-[15px] text-zinc-400 font-light mb-12 md:mb-8 leading-relaxed">Strategic data hub venture backed by UC3M. Leading Spanish tech growth.</p><div className="mt-auto text-white flex items-center gap-3 uppercase font-mono text-sm md:text-xs tracking-widest py-2">Managing Director <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></div></a>
-                <a href="https://moven.pro/" target="_blank" rel="noreferrer" className="p-10 md:p-8 rounded-[2.5rem] md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group"><MovenLogo /><p className="text-xl md:text-[15px] text-zinc-400 font-light mb-12 md:mb-8 leading-relaxed">Agentic venture building and process automation for next-gen scaling.</p><div className="mt-auto text-white flex items-center gap-3 uppercase font-mono text-sm md:text-xs tracking-widest py-2">Fractional COO <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></div></a>
+                <a href="https://moven.pro/" target="_blank" rel="noreferrer" className="p-10 md:p-8 rounded-[2.5rem] md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group"><MovenLogo /><p className="text-xl md:text-[15px] text-zinc-400 font-light mb-12 md:mb-8 leading-relaxed">Agentic venture building and process automation for next-gen scaling.</p><div className="mt-auto text-white flex items-center gap-2 uppercase font-mono text-sm md:text-xs tracking-widest py-2">Fractional COO <ArrowUpRight size={18} /></div></a>
               </div>
             </section>
 
