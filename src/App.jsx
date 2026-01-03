@@ -22,9 +22,9 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION V4.7)
+ * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION V4.8)
  * - Navigation: Direct synergy-scroll for "Let's talk".
- * - Carousel: Intel/Apple Modem tech priority + Custom image assets (png).
+ * - Carousel: Intel/Apple Modem tech priority + Custom assets + Video link for Corporate Ecosystems.
  * - UX: Responsive breakpoints and optimized white space for breathability.
  * - Content: Preserved all professional milestones (Apple, Shared Mobility).
  * - Performance: Balanced 3.5s preloader breathing time.
@@ -177,7 +177,7 @@ const InsightsCarousel = () => {
       id: 0, 
       title: "Intel Modem Tech for Apple", 
       cat: "Big Tech Impact", 
-      img: "/apple-iphone7_big.jpg.large.jpg", 
+      img: "/Big_tech.png", 
       desc: "Delivered modem technologies at Intel for Apple iPhones, impacting millions. Contributed to the business unit later acquired by Apple." 
     },
     { 
@@ -198,15 +198,16 @@ const InsightsCarousel = () => {
       id: 3, 
       title: "Global Recognition", 
       cat: "Awards", 
-      img: "/Eccocar-Spain-wins-Intelligent-Mobility-prize.webp", 
+      img: "/Global_recognition.png", 
       desc: "Winner of the UNWTO Tourism Startup Competition 2020 for Smart Mobility on a global stage in Madrid." 
     },
     { 
       id: 4, 
       title: "Corporate Ecosystems", 
       cat: "Partnerships", 
-      img: "/Corporate_ecosystems.png", 
-      desc: "Graduate of prestigious programs including Wayra (Telefónica), VW Data:Lab, SAP.io, and IMPACT Accelerator." 
+      img: "/Cosporate_ecosystems.png", 
+      desc: "Graduate of prestigious programs including Wayra (Telefónica), VW Data:Lab, SAP.io, and IMPACT Accelerator.",
+      video: "https://www.youtube.com/watch?v=BpekA1mxFw8"
     },
     { 
       id: 5, 
@@ -244,7 +245,6 @@ const InsightsCarousel = () => {
         </div>
       </div>
       
-      {/* Refined Carousel Container with balanced padding/breath */}
       <div 
         ref={scrollRef} 
         className="flex gap-10 overflow-x-auto snap-x snap-mandatory px-8 md:px-20 no-scrollbar pb-10"
@@ -258,15 +258,29 @@ const InsightsCarousel = () => {
                 className="w-full h-full object-cover grayscale opacity-40 group-hover:opacity-70 transition-all duration-700" 
                 onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800'; }}
               />
-              <div className="absolute top-6 right-6 p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-all"><Play size={24} fill="currentColor" /></div>
+              <div className="absolute top-6 right-6 p-4 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white opacity-0 group-hover:opacity-100 transition-all">
+                {item.video ? (
+                  <a href={item.video} target="_blank" rel="noreferrer" className="flex items-center justify-center">
+                    <Play size={24} fill="currentColor" />
+                  </a>
+                ) : (
+                  <Play size={24} fill="currentColor" />
+                )}
+              </div>
               <div className="absolute bottom-6 left-6"><span className="text-xs font-mono uppercase tracking-widest text-white/70 bg-black/40 backdrop-blur px-4 py-2 rounded-full border border-white/10">{item.cat}</span></div>
             </div>
             <h3 className="text-2xl md:text-3xl text-white font-light mb-4">{item.title}</h3>
             <p className="text-lg md:text-base text-zinc-400 font-light mb-6 leading-relaxed">{item.desc}</p>
-            <a href="#contact" className="inline-flex items-center gap-2 text-sm md:text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors py-2 border-b border-transparent hover:border-zinc-500 w-fit">View Detail <ArrowUpRight size={14} /></a>
+            <a 
+              href={item.video || "#contact"} 
+              target={item.video ? "_blank" : undefined}
+              rel={item.video ? "noreferrer" : undefined}
+              className="inline-flex items-center gap-2 text-sm md:text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors py-2 border-b border-transparent hover:border-zinc-500 w-fit"
+            >
+              View Detail <ArrowUpRight size={14} />
+            </a>
           </div>
         ))}
-        {/* End Spacer for breathability when scrolling to the end */}
         <div className="min-w-[10vw] h-1" />
       </div>
     </section>
@@ -352,7 +366,7 @@ const App = () => {
                     <div className="max-w-xl">
                       <p className="text-lg md:text-xl text-zinc-400 font-light leading-relaxed mb-12">Scaling technology with the discipline of Big Tech and the hunger of a founder. Bridging corporate infrastructure with startup survival.</p>
                       <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
-                        <a href="#contact" className="bg-white text-black px-10 py-5 rounded-full text-base font-bold hover:bg-zinc-200 transition-all flex items-center gap-2 group shadow-xl shadow-black/20">Start a Venture <ArrowUpRight size={20} /></a>
+                        <a href="#contact" className="bg-white text-black px-10 py-5 rounded-full text-base font-bold hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-xl shadow-black/20">Start a Venture <ArrowUpRight size={20} /></a>
                         <div className="flex gap-8 px-4 py-2">
                           <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><Linkedin size={28} /></a>
                           <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><XLogo size={28} /></a>
@@ -406,8 +420,14 @@ const App = () => {
             <section id="ventures" className="py-24 md:py-24 px-6 md:px-12 max-w-7xl mx-auto border-t border-zinc-900">
               <div className="mb-12"><div className="flex items-center gap-4 mb-2"><span className="text-sm md:text-xs font-mono text-zinc-500">02</span><div className="h-px w-12 bg-zinc-800"></div></div><h2 className="text-4xl md:text-4xl font-light text-white tracking-tight">Active Leadership</h2></div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8">
-                <a href="https://www.nexmo-datahub.eu/" target="_blank" rel="noreferrer" className="p-10 md:p-8 rounded-[2.5rem] md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group"><NexmoLogo /><p className="text-xl md:text-[15px] text-zinc-400 font-light mb-12 md:mb-8 leading-relaxed">Strategic data hub venture backed by UC3M. Leading Spanish tech growth.</p><div className="mt-auto text-white flex items-center gap-3 uppercase font-mono text-sm md:text-xs tracking-widest py-2">Managing Director <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></div></a>
-                <a href="https://moven.pro/" target="_blank" rel="noreferrer" className="p-10 md:p-8 rounded-[2.5rem] md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group"><MovenLogo /><p className="text-xl md:text-[15px] text-zinc-400 font-light mb-12 md:mb-8 leading-relaxed">Agentic venture building and process automation for next-gen scaling.</p><div className="mt-auto text-white flex items-center gap-2 uppercase font-mono text-sm md:text-xs tracking-widest py-2">Fractional COO <ArrowUpRight size={18} /></div></a>
+                <a href="https://www.nexmo-datahub.eu/" target="_blank" rel="noreferrer" className="p-10 md:p-8 rounded-[2.5rem] md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group"><NexmoLogo />
+                  <p className="text-xl md:text-[15px] text-zinc-400 font-light mb-12 md:mb-8 leading-relaxed">Strategic data hub venture backed by UC3M. Leading Spanish tech growth.</p>
+                  <div className="mt-auto text-white flex items-center gap-3 uppercase font-mono text-sm md:text-xs tracking-widest py-2">Managing Director <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></div>
+                </a>
+                <a href="https://moven.pro/" target="_blank" rel="noreferrer" className="p-10 md:p-8 rounded-[2.5rem] md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group"><MovenLogo />
+                  <p className="text-xl md:text-[15px] text-zinc-400 font-light mb-12 md:mb-8 leading-relaxed">Agentic venture building and process automation for next-gen scaling.</p>
+                  <div className="mt-auto text-white flex items-center gap-3 uppercase font-mono text-sm md:text-xs tracking-widest py-2">Fractional COO <ArrowUpRight size={18} /></div>
+                </a>
               </div>
             </section>
 
