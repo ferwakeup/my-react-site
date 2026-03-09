@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  Linkedin, 
-  Instagram, 
-  Mail, 
-  ArrowUpRight, 
-  Calendar, 
+import {
+  Linkedin,
+  Instagram,
+  ArrowUpRight,
+  Calendar,
   Cpu,
-  Zap, 
-  Shield, 
+  Zap,
+  Shield,
   Send,
   ArrowLeft,
   Building2,
