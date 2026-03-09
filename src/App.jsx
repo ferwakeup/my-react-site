@@ -455,13 +455,15 @@ const App = () => {
             <section id="ventures" className="py-16 sm:py-20 md:py-24 px-5 sm:px-6 md:px-12 max-w-7xl mx-auto border-t border-zinc-900">
               <div className="mb-8 sm:mb-12"><div className="flex items-center gap-4 mb-2"><span className="text-xs font-mono text-zinc-500">02</span><div className="h-px w-8 sm:w-12 bg-zinc-800"></div></div><h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-white tracking-tight">Active Leadership</h2></div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                <a href="https://www.nexmo-datahub.eu/" target="_blank" rel="noreferrer" className="p-6 md:p-8 rounded-2xl md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group"><NexmoLogo />
+                <a href="https://www.nexmo-datahub.eu/" target="_blank" rel="noreferrer" className="p-6 md:p-8 rounded-2xl md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group">
+                  <img src="/logo-nexmo.png" alt="Nexmo DataHub" className="h-10 md:h-12 w-auto object-contain mb-4" />
                   <p className="text-base md:text-[15px] text-zinc-400 font-light mb-6 md:mb-8 leading-relaxed">Strategic data hub venture backed by UC3M. Leading Spanish tech growth.</p>
                   <div className="mt-auto text-white flex items-center gap-3 uppercase font-mono text-xs tracking-widest py-2">Managing Director <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></div>
                 </a>
-                <a href="https://moven.pro/" target="_blank" rel="noreferrer" className="p-6 md:p-8 rounded-2xl md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group"><MovenLogo />
+                <a href="https://moven.pro/" target="_blank" rel="noreferrer" className="p-6 md:p-8 rounded-2xl md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group">
+                  <img src="/logo-moven.png" alt="Moven Pro" className="h-10 md:h-12 w-auto object-contain mb-4" />
                   <p className="text-base md:text-[15px] text-zinc-400 font-light mb-6 md:mb-8 leading-relaxed">Agentic venture building and process automation for next-gen scaling.</p>
-                  <div className="mt-auto text-white flex items-center gap-3 uppercase font-mono text-xs tracking-widest py-2">Fractional COO <ArrowUpRight size={18} /></div>
+                  <div className="mt-auto text-white flex items-center gap-3 uppercase font-mono text-xs tracking-widest py-2">Fractional COO <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></div>
                 </a>
               </div>
             </section>
