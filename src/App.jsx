@@ -538,10 +538,10 @@ const App = () => {
               </a>
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="p-3 bg-red-500 text-white rounded-lg"
+                className="md:hidden p-3 text-white hover:text-zinc-400 transition-colors"
                 aria-label="Open menu"
               >
-                <Menu size={28} />
+                <Menu size={24} />
               </button>
             </div>
           </nav>
