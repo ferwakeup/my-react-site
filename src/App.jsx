@@ -21,10 +21,10 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION V4.9)
- * - Navigation: Direct synergy-scroll for "Let's talk".
- * - Carousel: Comprehensive Track Record with verified external links.
- * - UX: Responsive breakpoints and optimized white space for breathability.
+ * FERNANDO MARTÍN - MASTER BUILDER (PRODUCTION V5.0 - MOBILE RESPONSIVE)
+ * - Navigation: Mobile hamburger menu with full-screen overlay.
+ * - Carousel: Pagination dots for mobile, snap scrolling.
+ * - UX: Improved touch targets, proper mobile padding, sm: breakpoints.
  * - Content: Preserved all professional milestones (Apple, Shared Mobility).
  * - Performance: Balanced 3.5s preloader breathing time.
  */
