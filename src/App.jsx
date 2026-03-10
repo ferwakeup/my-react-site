@@ -72,25 +72,6 @@ const NokiaLogo = () => (
   />
 );
 
-// --- VENTURE LOGOS ---
-const NexmoLogo = () => (
-  <svg className="h-8 w-auto fill-white mb-4" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="15" cy="30" r="8" fill="currentColor" opacity="0.8" />
-    <circle cx="45" cy="15" r="5" fill="currentColor" />
-    <circle cx="45" cy="45" r="5" fill="currentColor" />
-    <line x1="15" cy="30" x2="45" y2="15" stroke="currentColor" strokeWidth="2" />
-    <line x1="15" cy="30" x2="45" y2="45" stroke="currentColor" strokeWidth="2" />
-    <text x="65" y="42" fontFamily="sans-serif" fontWeight="bold" fontSize="24">NEXMO</text>
-  </svg>
-);
-
-const MovenLogo = () => (
-  <svg className="h-6 md:h-8 w-auto fill-white mb-4" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-    <path d="M10 45L25 10L40 45L55 10" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
-    <text x="70" y="42" fontFamily="sans-serif" fontWeight="bold" fontSize="28" letterSpacing="2">MOVEN</text>
-  </svg>
-);
-
 const XLogo = ({ size = 20, className = "" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
     <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.292 19.49h2.039L6.486 3.24H4.298l13.311 17.403z"/>
