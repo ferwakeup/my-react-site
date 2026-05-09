@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   Linkedin,
-  Instagram,
   ArrowUpRight,
   Calendar,
   Cpu,
@@ -387,7 +386,6 @@ const App = () => {
                         <div className="flex gap-4 sm:gap-8 px-2 sm:px-4 py-2">
                           <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><Linkedin size={24} /></a>
                           <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><XLogo size={24} /></a>
-                          <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><Instagram size={24} /></a>
                         </div>
                       </div>
                     </div>
@@ -637,7 +635,6 @@ const App = () => {
                   <div className="flex gap-6 pb-8">
                     <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><Linkedin size={24} /></a>
                     <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><XLogo size={24} /></a>
-                    <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="text-zinc-500 hover:text-white transition-colors p-2"><Instagram size={24} /></a>
                   </div>
                 </div>
               </motion.div>
@@ -667,7 +664,6 @@ const App = () => {
                 <span className="text-zinc-500 mb-2 text-xs font-medium uppercase tracking-wider">Connect</span>
                 <a href="https://linkedin.com/in/fernandomartinm/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors py-2 min-h-[44px] flex items-center text-xs">LinkedIn</a>
                 <a href="https://x.com/ferwakeup" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-2 py-2 min-h-[44px] text-xs"><XLogo size={12} /> X (Twitter)</a>
-                <a href="https://www.instagram.com/ferwakeup/" target="_blank" rel="noreferrer" className="hover:text-white transition-colors py-2 min-h-[44px] flex items-center text-xs">Instagram</a>
               </div>
 
               <div className="flex flex-col gap-2">
