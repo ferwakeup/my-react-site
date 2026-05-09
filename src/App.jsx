@@ -380,7 +380,8 @@ const App = () => {
                   <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-[9rem] font-light text-white leading-[1.15] sm:leading-[1.1] md:leading-[0.9] tracking-tighter mb-8 sm:mb-12 drop-shadow-2xl">Building <br /><span className="text-zinc-600 italic">new ventures.</span></h1>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-end">
                     <div className="max-w-xl">
-                      <p className="text-base sm:text-lg md:text-xl text-zinc-400 font-light leading-relaxed mb-8 sm:mb-12">Scaling technology with the discipline of Big Tech and the hunger of a founder. Bridging corporate infrastructure with startup survival.</p>
+                      <p className="text-base sm:text-lg md:text-xl text-zinc-400 font-light leading-relaxed mb-4 sm:mb-6">Scaling technology with the discipline of Big Tech and the hunger of a founder. Bridging corporate infrastructure with startup survival.</p>
+                      <p className="text-sm sm:text-base md:text-lg text-zinc-500 font-light leading-relaxed mb-8 sm:mb-12">I have built ventures from the ground up, owned their commercial outcomes, and operated the AI systems that make them run.</p>
                       <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start sm:items-center">
                         <a href="#contact" className="bg-white text-black px-8 sm:px-10 py-4 sm:py-5 rounded-full text-sm sm:text-base font-bold hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-xl shadow-black/20">Start a Venture <ArrowUpRight size={18} /></a>
                         <div className="flex gap-4 sm:gap-8 px-2 sm:px-4 py-2">
@@ -420,7 +421,7 @@ const App = () => {
                 <div className="space-y-3 sm:space-y-4">
                   <div className="p-3 sm:p-4 bg-zinc-900/50 rounded-xl w-fit"><Zap className="text-white" size={24} /></div>
                   <h4 className="text-lg sm:text-xl font-medium text-white">Founder Grit</h4>
-                  <p className="text-sm sm:text-[15px] text-zinc-500 font-light leading-relaxed">Ground from seed to an IBEX35 investment. Facilitated hundreds of thousands of shared mobility trips in 10+ countries and developed the virtual counter for the OTA rent a car industry.</p>
+                  <p className="text-sm sm:text-[15px] text-zinc-500 font-light leading-relaxed">0-to-1 venture building from seed to an IBEX35 investment. Full P&L ownership, business model design, and operational execution. Facilitated hundreds of thousands of shared mobility trips in 10+ countries.</p>
                 </div>
                 <div className="space-y-3 sm:space-y-4">
                   <div className="p-3 sm:p-4 bg-zinc-900/50 rounded-xl w-fit"><Shield className="text-white" size={24} /></div>
@@ -435,17 +436,68 @@ const App = () => {
 
             <section id="ventures" className="py-16 sm:py-20 md:py-24 px-5 sm:px-6 md:px-12 max-w-7xl mx-auto border-t border-zinc-900">
               <div className="mb-8 sm:mb-12"><div className="flex items-center gap-4 mb-2"><span className="text-xs font-mono text-zinc-500">02</span><div className="h-px w-8 sm:w-12 bg-zinc-800"></div></div><h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-white tracking-tight">Active Leadership</h2></div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                <a href="https://www.nexmo-datahub.eu/" target="_blank" rel="noreferrer" className="p-6 md:p-8 rounded-2xl md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group">
-                  <img src="/logo-nexmo.png" alt="Nexmo DataHub" className="h-10 md:h-12 w-auto object-contain mb-4" />
-                  <p className="text-base md:text-[15px] text-zinc-400 font-light mb-6 md:mb-8 leading-relaxed">Strategic data hub venture backed by UC3M. Leading Spanish tech growth.</p>
+              <div className="grid grid-cols-1 gap-6 md:gap-8">
+                <a href="https://www.nexmo-datahub.eu/" target="_blank" rel="noreferrer" className="p-6 md:p-10 rounded-2xl md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full gap-4 mb-6">
+                    <img src="/logo-nexmo.png" alt="Nexmo DataHub" className="h-10 md:h-12 w-auto object-contain" />
+                    <div className="flex flex-col sm:items-end gap-1">
+                      <span className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest">Universidad Carlos III de Madrid · NextGenerationEU</span>
+                      <span className="text-[10px] md:text-xs font-mono text-zinc-600 uppercase tracking-widest">2024 – Present</span>
+                    </div>
+                  </div>
+                  <div className="space-y-4 mb-6 md:mb-8">
+                    <p className="text-base md:text-[15px] text-zinc-400 font-light leading-relaxed">NEXMO is a sovereign mobility data space funded under the NextGenerationEU programme at UC3M. As Managing Director, I lead governance design, partner activation, and use case development across public and private organisations.</p>
+                    <p className="text-base md:text-[15px] text-zinc-400 font-light leading-relaxed">Current work includes the design and development of the <span className="text-zinc-300">Data Space Evaluation Toolkit</span> — a pioneering set of tools for any organisation considering participation in a data space, anywhere in the world. The Toolkit guides potential data providers and consumers from problem identification through to value quantification, grounding every decision in two principles: <span className="text-zinc-300">trust</span> and <span className="text-zinc-300">value</span>.</p>
+                    <p className="text-base md:text-[15px] text-zinc-400 font-light leading-relaxed">The Toolkit covers the full arc: from surfacing a problem or opportunity, to designing the data exchange use case, to evaluating the value generated through collaboration between public and private entities. It is the first structured evaluation framework of its kind in the European data space ecosystem.</p>
+                  </div>
                   <div className="mt-auto text-white flex items-center gap-3 uppercase font-mono text-xs tracking-widest py-2">Managing Director <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></div>
                 </a>
-                <a href="https://moven.pro/" target="_blank" rel="noreferrer" className="p-6 md:p-8 rounded-2xl md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group">
-                  <img src="/logo-moven.png" alt="Moven Pro" className="h-10 md:h-12 w-auto object-contain mb-4" />
-                  <p className="text-base md:text-[15px] text-zinc-400 font-light mb-6 md:mb-8 leading-relaxed">Agentic venture building and process automation for next-gen scaling.</p>
-                  <div className="mt-auto text-white flex items-center gap-3 uppercase font-mono text-xs tracking-widest py-2">Fractional COO <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></div>
+                <a href="https://moven.pro/" target="_blank" rel="noreferrer" className="p-6 md:p-10 rounded-2xl md:rounded-3xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-500 transition-all flex flex-col items-start group">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full gap-4 mb-6">
+                    <img src="/logo-moven.png" alt="Moven Pro" className="h-10 md:h-12 w-auto object-contain" />
+                    <div className="flex flex-col sm:items-end gap-1">
+                      <span className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest">MOVEN</span>
+                      <span className="text-[10px] md:text-xs font-mono text-zinc-600 uppercase tracking-widest">2024 – Present</span>
+                    </div>
+                  </div>
+                  <div className="space-y-4 mb-6 md:mb-8">
+                    <p className="text-base md:text-[15px] text-zinc-400 font-light leading-relaxed">At MOVEN I operate as a 0-to-1 Venture Builder, turning mobility data opportunities into investable ventures.</p>
+                    <p className="text-base md:text-[15px] text-zinc-400 font-light leading-relaxed">Current projects include:</p>
+                    <ul className="text-base md:text-[15px] text-zinc-400 font-light leading-relaxed list-none space-y-3 pl-0">
+                      <li className="flex items-start gap-3"><span className="text-zinc-600 mt-1.5">—</span><span><span className="text-zinc-300">Venture Scorer</span> — a structured evaluation tool to assess and score business ideas across multiple dimensions, enabling faster and more rigorous opportunity selection.</span></li>
+                      <li className="flex items-start gap-3"><span className="text-zinc-600 mt-1.5">—</span><span><span className="text-zinc-300">EU Mobility Opportunity Scanner</span> — a RAG-powered system that ingests European mobility research papers and surfaces venture signals grounded in sources, not guesswork. Designed to identify white spaces in the EU mobility data landscape before they become obvious.</span></li>
+                    </ul>
+                    <p className="text-base md:text-[15px] text-zinc-400 font-light leading-relaxed">This work sits at the intersection of AI agent operations, venture building, and the European mobility data ecosystem.</p>
+                  </div>
+                  <div className="mt-auto text-white flex items-center gap-3 uppercase font-mono text-xs tracking-widest py-2">Venture Builder / EiR <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></div>
                 </a>
+              </div>
+            </section>
+
+            {/* WRITING SECTION */}
+            <section id="writing" className="py-16 sm:py-20 md:py-24 px-5 sm:px-6 md:px-12 max-w-7xl mx-auto border-t border-zinc-900">
+              <div className="mb-8 sm:mb-12"><div className="flex items-center gap-4 mb-2"><span className="text-xs font-mono text-zinc-500">03</span><div className="h-px w-8 sm:w-12 bg-zinc-800"></div></div><h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-white tracking-tight">Writing</h2></div>
+              <div className="p-6 md:p-10 rounded-2xl md:rounded-3xl border border-zinc-800 bg-zinc-900/40">
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+                  <div className="flex-1 space-y-6">
+                    <div>
+                      <h3 className="text-xl md:text-2xl font-light text-white mb-3">The Invariance</h3>
+                      <p className="text-base md:text-[15px] text-zinc-400 font-light leading-relaxed">Weekly publication on venture building, AI agent operations, and the pursuit of permanent value in a world that won't stop changing.</p>
+                    </div>
+                    <p className="text-base md:text-lg text-zinc-500 italic font-light leading-relaxed border-l-2 border-zinc-800 pl-4">In a constantly evolving world, only value is the invariance that holds everything together.</p>
+                    <div className="space-y-3">
+                      <p className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest">Recent Issues</p>
+                      <ul className="text-base md:text-[15px] text-zinc-400 font-light leading-relaxed list-none space-y-2 pl-0">
+                        <li className="flex items-start gap-3"><span className="text-zinc-600">—</span><span className="italic">Intelligence is becoming a commodity. That is the best news I've heard in years.</span></li>
+                        <li className="flex items-start gap-3"><span className="text-zinc-600">—</span><span className="italic">From P&L to pipelines — why the venture builder and the agent operator are the same person.</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-start md:items-end gap-4">
+                    <p className="text-[10px] md:text-xs font-mono text-zinc-600 uppercase tracking-widest">Published weekly</p>
+                    <a href="https://theinvariance.com" target="_blank" rel="noreferrer" className="bg-white text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm sm:text-base font-bold hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 group shadow-xl shadow-black/20">Read The Invariance <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></a>
+                  </div>
+                </div>
               </div>
             </section>
 
@@ -510,6 +562,7 @@ const App = () => {
               <a href="#about" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors py-2">Philosophy</a>
               <a href="#insights" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors py-2">Insights</a>
               <a href="#ventures" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors py-2">Ventures</a>
+              <a href="#writing" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors py-2">Writing</a>
               <a href="#contact" onClick={(e) => { if(view !== 'home') { e.preventDefault(); setView('home'); } }} className="hover:text-white transition-colors py-2">Contact</a>
             </div>
             <div className="flex items-center gap-4 pointer-events-auto">
@@ -561,6 +614,7 @@ const App = () => {
                       { href: '#about', label: 'Philosophy' },
                       { href: '#insights', label: 'Insights' },
                       { href: '#ventures', label: 'Ventures' },
+                      { href: '#writing', label: 'Writing' },
                       { href: '#contact', label: 'Contact' }
                     ].map((link, i) => (
                       <motion.a
@@ -618,6 +672,7 @@ const App = () => {
                 <a href="#about" onClick={() => setView('home')} className="hover:text-white transition-colors py-2 min-h-[44px] flex items-center text-xs">Philosophy</a>
                 <a href="#insights" onClick={() => setView('home')} className="hover:text-white transition-colors py-2 min-h-[44px] flex items-center text-xs">Insights</a>
                 <a href="#ventures" onClick={() => setView('home')} className="hover:text-white transition-colors py-2 min-h-[44px] flex items-center text-xs">Ventures</a>
+                <a href="#writing" onClick={() => setView('home')} className="hover:text-white transition-colors py-2 min-h-[44px] flex items-center text-xs">Writing</a>
               </div>
 
               <div className="col-span-2 md:col-span-1 flex flex-col gap-4 md:items-end md:text-right mt-4 md:mt-0">
