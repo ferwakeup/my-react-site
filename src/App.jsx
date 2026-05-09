@@ -491,8 +491,8 @@ const App = () => {
                     <div className="space-y-3">
                       <p className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest">Recent Issues</p>
                       <ul className="text-base md:text-[15px] text-zinc-400 font-light leading-relaxed list-none space-y-2 pl-0">
+                        <li className="flex items-start gap-3"><span className="text-zinc-600">—</span><span className="italic">The grey matter shift</span></li>
                         <li className="flex items-start gap-3"><span className="text-zinc-600">—</span><span className="italic">Intelligence is becoming a commodity. That is the best news I've heard in years.</span></li>
-                        <li className="flex items-start gap-3"><span className="text-zinc-600">—</span><span className="italic">From P&L to pipelines — why the venture builder and the agent operator are the same person.</span></li>
                       </ul>
                     </div>
                   </div>
