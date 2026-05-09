@@ -481,7 +481,10 @@ const App = () => {
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
                   <div className="flex-1 space-y-6">
                     <div>
-                      <h3 className="text-xl md:text-2xl font-light text-white mb-3">The Invariance</h3>
+                      <div className="flex items-center gap-4 mb-3">
+                        <img src="/logo-invariance.png" alt="The Invariance" className="h-10 md:h-12 w-10 md:w-12 rounded-lg object-cover" />
+                        <h3 className="text-xl md:text-2xl font-light text-white">The Invariance</h3>
+                      </div>
                       <p className="text-base md:text-[15px] text-zinc-400 font-light leading-relaxed">Weekly publication on venture building, AI agent operations, and the pursuit of permanent value in a world that won't stop changing.</p>
                     </div>
                     <p className="text-base md:text-lg text-zinc-500 italic font-light leading-relaxed border-l-2 border-zinc-800 pl-4">In a constantly evolving world, only value is the invariance that holds everything together.</p>
